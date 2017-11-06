@@ -1,0 +1,250 @@
+div.main {
+    background-color: #0da2e2;
+    color: #EEE;
+    font-size: 0.9em;
+    width: 70%;
+    box-shadow: 5px 5px 10px #CCC;
+    margin: auto;
+}
+
+button.admin{
+	width:50%;
+}
+
+div.admin {
+    background-color: #333;
+    color: #EEE;
+    font-size: 0.9em;
+    width: 100%;
+    box-shadow: 5px 5px 10px #CCC;
+    margin: auto;
+}
+
+span.menu_icon {
+    font-size:18px;
+    cursor:pointer;
+    float:left
+}
+
+div.sidenav {
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    background-color: #0da2e2;
+}
+
+ul.menuList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+h1 {
+    text-align:center;
+}
+
+table {
+    background-color:white;
+    width:100%
+}
+
+table.loginPageOptions {
+    width:70%;
+}
+
+table.admin{
+	width:70%
+}
+
+table.registration {
+    width:50%;
+}
+
+td.registrationForm {
+    padding:5px;
+}
+
+td.registrationInput {
+    padding:5px;
+    text-align:right;
+    width: 70%;
+}
+
+td.registrationInput input {
+    border: solid 1px #CCC;
+}
+
+td.search {
+    width:75%;
+}
+
+input {
+    width: 70%;
+    border: none;
+    height:18px;
+    border: solid 1px #CCC;
+}
+
+input.submitRegistration {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 15%;
+}
+
+select {
+    border: solid 1px #CCC;
+    width: 15%;
+    height:18px;
+}
+
+img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.mySlides {
+    display: none;
+}
+
+.dot {
+  cursor:pointer;
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+li {
+    color: #dcdcdc;
+}
+
+li a {
+    display: block;
+    color: #dcdcdc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+a.adminMenu {
+	text-decoration: none;
+	color: #333;
+    text-align: center;
+}
+
+a.adminSelected {
+	background-color: #333;
+	color: #EEE;
+}
+
+a.adminMenu:hover {
+    background-color: #EEE;
+}
+
+.HomeReview-text{
+	margin:1rem auto;
+	max-width:750px;
+	font-weight:300;
+	font-size:1.5rem;
+	line-height:1.4
+}
+.HomeReview-stats{
+	text-align: center;
+	font-size:.875rem;
+	margin:1rem auto;
+	max-width:750px;
+	font-weight:300;
+	line-height:1.4
+}
+.HomeReview-author{
+	text-align: center;
+	margin:1rem auto;
+	max-width:750px;
+	font-weight:300;
+	font-size:1.5rem;
+	line-height:1.4;
+}
+.stars{
+   position: relative;
+   display: block;
+   margin: 0 auto;
+   width: 200px; 
+   height: 100x;
+	
+}
+.FooterStats-stat{
+	position:relative;
+	display:inline-block;
+	margin:2rem 0;
+	padding-left:6.5rem;
+	width:17%;
+}
+
+@media screen and (max-width:900px)
+{
+.FooterStats-stat{
+	width:50%;
+	text-align:center
+	}
+}
+
+@media screen and (max-width:600px)
+{
+.FooterStats-stat{
+	display:none
+}
+}
+.FooterStats-content h3{
+margin:0;
+color:#705b43;
+font-weight:700;
+font-size:2.5rem;
+line-height:1;
+}
+.FooterStats-content p{
+	margin:0
+}
+.icons {
+	position: absolute;
+	width:70px;
+	height:70px;
+	margin-left: -80px;
+	
+}
+.FooterStatsContent{
+	margin-left:300px;
+	position: relative;
+}
