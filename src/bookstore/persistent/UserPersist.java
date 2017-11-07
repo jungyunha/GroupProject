@@ -45,7 +45,31 @@ public class UserPersist {
 	}
 
 	public static int verifyUser(String email, String pass) {
+		int userType = -1;
+		String sql = "SELECT usertype FROM bookstore.users WHERE email = ? AND password = ?";
+		PreparedStatement stmt = null;
+		try {
+			conn = DbUtils.connect();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return 0;
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			stmt.setString(2,  pass);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			int temp = 0;
+			while (rs.next() && temp == 0) {
+				userType = rs.getInt(1);
+				temp++;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userType;
 	}
 }

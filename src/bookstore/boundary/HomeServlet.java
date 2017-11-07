@@ -43,6 +43,7 @@ public class HomeServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("login") != null) {
+			System.out.println("we're here");
 			if (login(request, response))
 			{
 				out.println("<h1>Login successful.</h1>");
@@ -57,7 +58,7 @@ public class HomeServlet extends HttpServlet {
 		String email = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		
-		if(UserLogic.verifyUser(email, pass) == 0) {
+		if(UserLogic.verifyUser(email, pass) == -1) {
 			return false;
 		}else {
 			return true;
