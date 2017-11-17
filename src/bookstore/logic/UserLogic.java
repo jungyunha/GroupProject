@@ -9,7 +9,7 @@ public class UserLogic {
 		UserPersist.registerUser(user);
 	}
 
-	public static int verifyUser(String email, String pass) {
+	public static User verifyUser(String email, String pass) {
 		return UserPersist.verifyUser(email, pass);
 	}
 

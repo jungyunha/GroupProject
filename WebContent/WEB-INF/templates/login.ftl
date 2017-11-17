@@ -55,6 +55,7 @@
                                 </table>
                                 <input type="submit" value="Login" class="submitRegistration" name="login">
                             </form>
+                            <h5 style="color:red">${error}</h5>
                         </td>
                         <td>
                             <p align="center">Or Register</p>
