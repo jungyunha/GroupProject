@@ -13,7 +13,7 @@ public class UserPersist {
 	private static Connection conn = null;
 	
 	public static void registerUser(User user) {
-		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?, null, 'waiting', ?, ?)";
 		PreparedStatement stmt1;
 		
 		try {
@@ -33,6 +33,8 @@ public class UserPersist {
 			stmt1.setString(5,  user.getEmail());
 			stmt1.setString(6,  user.getPassword());
 			stmt1.setInt(7,  user.getUserType());
+			stmt1.setString(8,  user.getShippingAddress());
+			stmt1.setString(9,  user.getBillingAddress());
 			
 			stmt1.executeUpdate();
 			
@@ -77,7 +79,7 @@ public class UserPersist {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		/*
+		
 		if (notEmail) {
 			String sql2 = "SELECT email, firstname, lastname, usertype FROM bookstore.users WHERE userid = ? AND password = ?";
 			try {
@@ -97,8 +99,56 @@ public class UserPersist {
 				e.printStackTrace();
 			}
 		}
-		*/
+		
 		
 		return user;
+	}
+
+	public static void setVerificationCode(User newUser, String verificationCode) {
+		String insertSql = "UPDATE bookstore.users SET verificationCode = ? WHERE email = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			try {
+				conn = DbUtils.connect();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
+			
+			stmt1.setString(1, verificationCode);
+			stmt1.setString(2, newUser.getEmail());
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void setStatus(User currentUser, String status) {
+		String insertSql = "UPDATE bookstore.users SET status = ? WHERE email = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			try {
+				conn = DbUtils.connect();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
+			
+			stmt1.setString(1, status);
+			stmt1.setString(2, currentUser.getEmail());
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

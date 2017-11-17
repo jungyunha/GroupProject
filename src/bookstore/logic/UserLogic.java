@@ -13,4 +13,12 @@ public class UserLogic {
 		return UserPersist.verifyUser(email, pass);
 	}
 
+	public static void setVerificationCode(User newUser, String verificationCode) {
+		UserPersist.setVerificationCode(newUser, verificationCode);		
+	}
+
+	public static void setStatus(User currentUser, String string) {
+		UserPersist.setStatus(currentUser, string);
+	}
+
 }

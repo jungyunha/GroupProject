@@ -2,6 +2,7 @@ package bookstore.boundary;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -24,6 +25,7 @@ import freemarker.template.SimpleHash;
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private User currentUser;
 	private TemplateProcessor processor;
 	private String host;
 	private String port;
@@ -54,17 +56,22 @@ public class HomeServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		if (request.getParameter("register") != null) {
-			if (registerUser(request, response))
-			{
-				out.println("<h1>User registered successfully.</h1>");
-			}
-			else {
-				out.println("<h1>Passwords don't match.</h1>");
-			}
+			registerUser(request, response);
 		}
 		
 		if (request.getParameter("login") != null) {
 			login(request, response);
+		}
+		
+		if (request.getParameter("verify") != null) {
+			verifyUser(request, response);
+		}
+	}
+
+	private void verifyUser(HttpServletRequest request, HttpServletResponse response) {
+		String verificationCode = request.getParameter("code");
+		if (verificationCode.equals(currentUser.getVerificationCode())) {
+			UserLogic.setStatus(currentUser, "Active");
 		}
 	}
 
@@ -92,32 +99,48 @@ public class HomeServlet extends HttpServlet {
 		
 	}
 
-	private boolean registerUser(HttpServletRequest request, HttpServletResponse response) {
+	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
 		int id = 15;
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
 		String emailAddress = request.getParameter("email");
 		String password = request.getParameter("password");
-		String passwordConfirm = request.getParameter("password2");
-		if (!password.equals(passwordConfirm)) {
-			return false;
-		}
+		String mailingAddress = request.getParameter("address");
 		int userType = 1;
 		
-		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType);
+		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress);
 		UserLogic.registerUser(newUser);
+		String verificationCode = getRandomString();
 		String subject = "Verify your New Account";
-		String content = "Please verify your new account.";
+		String content = "Your verification code is " + verificationCode;
+		UserLogic.setVerificationCode(newUser, verificationCode);
+		currentUser = newUser;
 		
 		try {
             EmailUtility.sendEmail(host, port, user, pass, emailAddress, subject, content);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-		
-		return true;
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "verify.ftl";
+		root.put("name", newUser.getFirstName());
+		processor.runTemp(templateName, root, request, response);
 	}
+	
+	protected String getRandomString() {
+        String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder str = new StringBuilder();
+        Random rnd = new Random();
+        while (str.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * allChars.length());
+            str.append(allChars.charAt(index));
+        }
+        String randomString = str.toString();
+        return randomString;
+
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

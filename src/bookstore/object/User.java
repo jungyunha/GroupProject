@@ -8,10 +8,23 @@ public class User {
 	private String email;
 	private String password;
 	private int userType;
+	private String shippingAddress;
+	private String billingAddress;
+	private String verificationCode;
 	
 	
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+
+
 	public User(int id, String firstName, String lastName, String phoneNumber, String email, String password,
-			int userType) {
+			int userType, String shippingAddress, String billingAddress) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -20,6 +33,8 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.userType = userType;
+		this.shippingAddress = shippingAddress;
+		this.billingAddress = billingAddress;
 	}
 	
 	
@@ -32,6 +47,9 @@ public class User {
 		email = "";
 		password = "";
 		userType = 0;
+		shippingAddress = "";
+		billingAddress = "";
+		verificationCode = "";
 	}
 
 
@@ -77,7 +95,21 @@ public class User {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
+
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
 	
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
 	
+	public String getBillingAddress() {
+		return billingAddress;
+	}
+	
+	public void setBillingAddress(String billingAddress) {
+		this.billingAddress = billingAddress;
+	}
 
 }
