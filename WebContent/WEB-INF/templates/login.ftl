@@ -6,8 +6,6 @@
         </title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="scripts/script.js"></script>
-        <script>
-        </script>
     <head>
     <body>
         <div class="main">
@@ -28,7 +26,7 @@
                             </select>
                         </td>
                         <td align='right'>
-                            <span>Not Logged In</span>
+                            <span>CART</span>
                         </td>
                     </tr>
                 </table>
@@ -45,58 +43,26 @@
                     <li><a href="#">Contact Us</a></li>     
                 </ul>
             </div>
-            <div>
-                <img src = "images/books.jpg" alt="banner">
-            </div>
-            <script>
-                var slideIndex = 0;
-                showSlides();
-                function showSlides() {
-                    var i;
-                    var slides = document.getElementsByName("slideShow");
-                    var dots   = document.getElementsByName("dots");
-                    for (i = 0; i < slides.length; i++) {
-                        slides[i].style.display = "none";  
-                    }	
-                    slideIndex++;
-                    if (slideIndex> slides.length) {
-                        slideIndex = 1;
-                    }    
-                    for (i = 0; i < dots.length; i++) {
-                        dots[i].className = dots[i].className.replace(" active", "");
-                    }
-                    slides[slideIndex-1].style.display = "block";  
-                    dots[slideIndex-1].className += " active";
-                    setTimeout(showSlides, 7000); // Change image every 7 seconds
-                }
-            </script>
-            <div class="slideshow-container">
-                <div class="mySlides fade" name="slideShow">
-                    <div class="numbertext">1 / 2</div>
-                    <img src="images/slideShowImage1.jpg" style="width:100%">
-                    <div>Promotion Code: BUYNOW</div>
-                </div>
-                <div class="mySlides fade" name="slideShow">
-                    <div class="numbertext">2 / 2</div>
-                    <img src="images/slideShowImage2.jpg" style="width:100%">
-                    <div>Best Seller</div>
-                </div>
-                <br>
-                <div style="text-align:center">
-                    <span class="dot" name="dots"></span> 
-                    <span class="dot" name="dots"></span> 
-                </div>
-            </div>
-            <div>
-                <img class = "stars" src = "images/five-stars.png">
-                <p class = "HomeReview-text">I've always had good service from The Online Bookstore...I use it to buy most of my books.</p>
-                <p class = "HomeReview-author">-Bob</p>
-                <p class = "HomeReview-stats">
-                    <strong>Posted </strong>
-                </p>
-                <p class ="HomeReview-stats">
-                    2 reviews on The Online Bookstore! | Latest review 1 hour ago
-                </p>
+            <div align="center" style="padding:5px">
+                <table style="border:solid 1px" class="loginPageOptions">
+                    <tr>
+                        <td style="width:50%;border-right:solid 1px">
+                            <p>LOGIN</p>
+                            <form action="HomeServlet" method="get">
+                                <table>
+                                    <tr><td style="width:50%">Email or ID: </td>            <td><input style="width:100%;border:1px solid #CCC" type="text" name="username"></td></tr>
+                                    <tr><td style="width:50%">Password: </td>         <td><input style="width:100%;border:1px solid #CCC" type="text" name="pass"></td></tr>
+                                </table>
+                                <input type="submit" value="Login" class="submitRegistration" name="login">
+                            </form>
+                            <h5 style="color:red">${error}</h5>
+                        </td>
+                        <td>
+                            <p align="center">Or Register</p>
+                            <p align="center"><a href="registration.html">Click here to Register</a></p>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="FooterStatsContent">

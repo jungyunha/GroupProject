@@ -44,10 +44,10 @@ public class UserPersist {
 		
 	}
 
-	public static int verifyUser(String email, String pass) {
-		int userType = -1;
-		String sql = "SELECT usertype FROM bookstore.users WHERE email = ? AND password = ?";
-		PreparedStatement stmt = null;
+	public static User verifyUser(String username, String pass) {
+		User user = new User();
+		String sql = "SELECT userid, firstname, lastname, usertype FROM bookstore.users WHERE email = ? AND password = ?";
+		PreparedStatement stmt;
 		try {
 			conn = DbUtils.connect();
 		}
@@ -55,21 +55,50 @@ public class UserPersist {
 			e.printStackTrace();
 		}
 		
+		boolean notEmail = false;		
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
-			stmt.setString(1, email);
+			stmt.setString(1, username);
 			stmt.setString(2,  pass);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
-			int temp = 0;
-			while (rs.next() && temp == 0) {
-				userType = rs.getInt(1);
-				temp++;
+			if (rs.next()) {
+				notEmail = false;
+				user.setId(rs.getInt(1));
+				user.setFirstName(rs.getString(2));
+				user.setLastName(rs.getString(3));
+				user.setUserType(rs.getInt(4));
+				user.setEmail(username);
+			}
+			else {
+				notEmail = true;
 			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return userType;
+		/*
+		if (notEmail) {
+			String sql2 = "SELECT email, firstname, lastname, usertype FROM bookstore.users WHERE userid = ? AND password = ?";
+			try {
+				stmt = (PreparedStatement) conn.prepareStatement(sql2);
+				stmt.setString(1, username);
+				stmt.setString(2,  pass);
+				stmt.executeQuery();
+				ResultSet rs = stmt.getResultSet();
+				if (rs.next()) {
+					user.setId(Integer.parseInt(username));
+					user.setEmail(rs.getString(1));
+					user.setFirstName(rs.getString(2));
+					user.setLastName(rs.getString(3));
+					user.setUserType(rs.getInt(4));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		*/
+		
+		return user;
 	}
 }

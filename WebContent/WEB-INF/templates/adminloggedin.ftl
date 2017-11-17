@@ -27,9 +27,6 @@
                                 <option value="isbn">ISBN</option>
                             </select>
                         </td>
-                        <td align='right'>
-                            <span>Not Logged In</span>
-                        </td>
                     </tr>
                 </table>
             </div>
@@ -38,11 +35,10 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="registration.html">Register</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>     
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">My Cart</a></li>
+                    <li><a href="#">Order History</a></li>
+                    <li><a href="#">Logout</a></li>     
                 </ul>
             </div>
             <div>
@@ -87,6 +83,7 @@
                     <span class="dot" name="dots"></span> 
                 </div>
             </div>
+            ${hello}
             <div>
                 <img class = "stars" src = "images/five-stars.png">
                 <p class = "HomeReview-text">I've always had good service from The Online Bookstore...I use it to buy most of my books.</p>

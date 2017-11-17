@@ -23,6 +23,18 @@ public class User {
 	}
 	
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+		id = 0;
+		firstName = "";
+		lastName = "";
+		phoneNumber = "";
+		email = "";
+		password = "";
+		userType = 0;
+	}
+
+
 	public int getId() {
 		return id;
 	}

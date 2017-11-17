@@ -28,7 +28,7 @@
                             </select>
                         </td>
                         <td align='right'>
-                            <span>Not Logged In</span>
+                            <span>Welcome ${first} ${last}!</span>
                         </td>
                     </tr>
                 </table>
@@ -38,11 +38,10 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="registration.html">Register</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>     
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#"></a>My Cart</li>
+                    <li><a href="#">Order History</a></li>
+                    <li><a href="login.html">Log Out</a></li>
                 </ul>
             </div>
             <div>
