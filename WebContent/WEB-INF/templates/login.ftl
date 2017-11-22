@@ -50,8 +50,8 @@
                             <p>LOGIN</p>
                             <form action="HomeServlet" method="get">
                                 <table>
-                                    <tr><td style="width:50%">Email or ID: </td>            <td><input style="width:100%;border:1px solid #CCC" type="text" name="username"></td></tr>
-                                    <tr><td style="width:50%">Password: </td>         <td><input style="width:100%;border:1px solid #CCC" type="text" name="pass"></td></tr>
+                                    <tr><td style="width:50%">Email or ID: </td>            <td><input style="width:100%;border:1px solid #CCC" type="text" name="username" required></td></tr>
+                                    <tr><td style="width:50%">Password: </td>         <td><input style="width:100%;border:1px solid #CCC" type="text" name="pass" required></td></tr>
                                 </table>
                                 <input type="submit" value="Login" class="submitRegistration" name="login">
                             </form>
