@@ -53,8 +53,6 @@ public class HomeServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		
-		PrintWriter out = response.getWriter();
-		
 		if (request.getParameter("register") != null) {
 			registerUser(request, response);
 		}
@@ -71,8 +69,14 @@ public class HomeServlet extends HttpServlet {
 	private void verifyUser(HttpServletRequest request, HttpServletResponse response) {
 		String verificationCode = request.getParameter("code");
 		if (verificationCode.equals(currentUser.getVerificationCode())) {
+			System.out.println(verificationCode);
 			UserLogic.setStatus(currentUser, "Active");
 		}
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "login.ftl";
+		root.put("error",  "Your account has successfully been verified. You may now log in.");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) {
@@ -86,6 +90,10 @@ public class HomeServlet extends HttpServlet {
 			templateName = "login.ftl";
 			root.put("error", "Invalid email/ID or password. Please try again.");
 			processor.runTemp(templateName, root, request, response);
+		}else if (user.getStatus().equals("Waiting")){
+			templateName = "login.ftl";
+			root.put("error", "Account pending verification. Please verify your account and try logging in again.");
+			processor.runTemp(templateName, root, request, response);
 		}else if(user.getUserType() == 1){
 			templateName = "logged_in.ftl";
 			root.put("first", user.getFirstName());
@@ -93,6 +101,14 @@ public class HomeServlet extends HttpServlet {
 			processor.runTemp(templateName, root, request, response);
 		}else if(user.getUserType() == 2) {
 			templateName = "adminloggedin.ftl";
+			root.put("hello", "Hi there " + user.getFirstName());
+			processor.runTemp(templateName, root, request, response);
+		}else if(user.getUserType() == 3) {
+			templateName = "managerloggedin.ftl";
+			root.put("hello", "Hi there " + user.getFirstName());
+			processor.runTemp(templateName, root, request, response);
+		}else if(user.getUserType() == 4) {
+			templateName = "shipperloggedin.ftl";
 			root.put("hello", "Hi there " + user.getFirstName());
 			processor.runTemp(templateName, root, request, response);
 		}
@@ -109,12 +125,13 @@ public class HomeServlet extends HttpServlet {
 		String mailingAddress = request.getParameter("address");
 		int userType = 1;
 		
-		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress);
+		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, "Waiting");
 		UserLogic.registerUser(newUser);
 		String verificationCode = getRandomString();
 		String subject = "Verify your New Account";
 		String content = "Your verification code is " + verificationCode;
 		UserLogic.setVerificationCode(newUser, verificationCode);
+		newUser.setVerificationCode(verificationCode);
 		currentUser = newUser;
 		
 		try {

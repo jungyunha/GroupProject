@@ -48,7 +48,7 @@ public class UserPersist {
 
 	public static User verifyUser(String username, String pass) {
 		User user = new User();
-		String sql = "SELECT userid, firstname, lastname, usertype FROM bookstore.users WHERE email = ? AND password = ?";
+		String sql = "SELECT userid, firstname, lastname, usertype, status FROM bookstore.users WHERE email = ? AND password = ?";
 		PreparedStatement stmt;
 		try {
 			conn = DbUtils.connect();
@@ -70,6 +70,7 @@ public class UserPersist {
 				user.setFirstName(rs.getString(2));
 				user.setLastName(rs.getString(3));
 				user.setUserType(rs.getInt(4));
+				user.setStatus(rs.getString(5));
 				user.setEmail(username);
 			}
 			else {
@@ -81,7 +82,7 @@ public class UserPersist {
 		}
 		
 		if (notEmail) {
-			String sql2 = "SELECT email, firstname, lastname, usertype FROM bookstore.users WHERE userid = ? AND password = ?";
+			String sql2 = "SELECT email, firstname, lastname, usertype, status FROM bookstore.users WHERE userid = ? AND password = ?";
 			try {
 				stmt = (PreparedStatement) conn.prepareStatement(sql2);
 				stmt.setString(1, username);
@@ -94,6 +95,7 @@ public class UserPersist {
 					user.setFirstName(rs.getString(2));
 					user.setLastName(rs.getString(3));
 					user.setUserType(rs.getInt(4));
+					user.setStatus(rs.getString(5));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

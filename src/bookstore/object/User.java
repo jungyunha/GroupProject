@@ -11,6 +11,7 @@ public class User {
 	private String shippingAddress;
 	private String billingAddress;
 	private String verificationCode;
+	private String status;
 	
 	
 	public String getVerificationCode() {
@@ -24,7 +25,7 @@ public class User {
 
 
 	public User(int id, String firstName, String lastName, String phoneNumber, String email, String password,
-			int userType, String shippingAddress, String billingAddress) {
+			int userType, String shippingAddress, String billingAddress, String status) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -35,6 +36,7 @@ public class User {
 		this.userType = userType;
 		this.shippingAddress = shippingAddress;
 		this.billingAddress = billingAddress;
+		this.status = status;
 	}
 	
 	
@@ -50,6 +52,7 @@ public class User {
 		shippingAddress = "";
 		billingAddress = "";
 		verificationCode = "";
+		status = "";
 	}
 
 
@@ -110,6 +113,16 @@ public class User {
 	
 	public void setBillingAddress(String billingAddress) {
 		this.billingAddress = billingAddress;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
