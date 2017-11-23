@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.User;
@@ -64,8 +65,25 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("verify") != null) {
 			verifyUser(request, response);
 		}
+		if (request.getParameter("logout") !=null){
+			logout(request, response);
+		}
 	}
-
+	//logout
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		response.setContentType("text/html");  
+        PrintWriter out=response.getWriter();  
+          
+        request.getRequestDispatcher("index.html").include(request, response);  
+          
+        HttpSession session=request.getSession();  
+        session.invalidate();  
+          
+        out.print("You are successfully logged out!");  
+          
+        out.close(); 
+	}
+	
 	private void verifyUser(HttpServletRequest request, HttpServletResponse response) {
 		String verificationCode = request.getParameter("code");
 		if (verificationCode.equals(currentUser.getVerificationCode())) {
