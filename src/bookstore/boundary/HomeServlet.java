@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -97,7 +98,7 @@ public class HomeServlet extends HttpServlet {
 		processor.runTemp(templateName, root, request, response);
 	}
 
-	private void login(HttpServletRequest request, HttpServletResponse response) {
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);

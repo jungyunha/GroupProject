@@ -6,6 +6,9 @@ div.main {
     box-shadow: 5px 5px 10px #CCC;
     margin: auto;
 }
+h2{
+	text-align:center;
+}
 
 button.admin{
 	width:50%;
