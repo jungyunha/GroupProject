@@ -39,7 +39,7 @@
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
                     <li><a href="#">My Account</a></li>
-                    <li><a href="#"></a>My Cart</li>
+                    <li><a href="#">My Cart</a></li>
                     <li><a href="#">Order History</a></li>
                     <li><a href="login.html">Log Out</a></li>
                 </ul>
