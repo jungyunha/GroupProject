@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 import bookstore.object.User;
+import bookstore.object.UserType;
 
 public class UserPersist {
 
@@ -32,7 +33,7 @@ public class UserPersist {
 			stmt1.setString(4, user.getPhoneNumber());
 			stmt1.setString(5,  user.getEmail());
 			stmt1.setString(6,  user.getPassword());
-			stmt1.setInt(7,  user.getUserType());
+			stmt1.setInt(7,  user.getUserType().ordinal());
 			stmt1.setString(8,  user.getShippingAddress());
 			stmt1.setString(9,  user.getBillingAddress());
 			
@@ -46,6 +47,7 @@ public class UserPersist {
 		
 	}
 
+	private static UserType[] userTypeValues = UserType.values();
 	public static User verifyUser(String username, String pass) {
 		User user = new User();
 		String sql = "SELECT userid, firstname, lastname, usertype, status FROM bookstore.users WHERE email = ? AND password = ?";
@@ -69,7 +71,7 @@ public class UserPersist {
 				user.setId(rs.getInt(1));
 				user.setFirstName(rs.getString(2));
 				user.setLastName(rs.getString(3));
-				user.setUserType(rs.getInt(4));
+				user.setUserType(userTypeValues[rs.getInt(4)]);
 				user.setStatus(rs.getString(5));
 				user.setEmail(username);
 			}
@@ -94,7 +96,7 @@ public class UserPersist {
 					user.setEmail(rs.getString(1));
 					user.setFirstName(rs.getString(2));
 					user.setLastName(rs.getString(3));
-					user.setUserType(rs.getInt(4));
+					user.setUserType(userTypeValues[rs.getInt(4)]);
 					user.setStatus(rs.getString(5));
 				}
 			} catch (SQLException e) {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.User;
+import bookstore.object.UserType;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -113,25 +114,36 @@ public class HomeServlet extends HttpServlet {
 			templateName = "login.ftl";
 			root.put("error", "Account pending verification. Please verify your account and try logging in again.");
 			processor.runTemp(templateName, root, request, response);
-		}else if(user.getUserType() == 1){
-			templateName = "logged_in.ftl";
-			root.put("first", user.getFirstName());
-			root.put("last", user.getLastName());
-			processor.runTemp(templateName, root, request, response);
-		}else if(user.getUserType() == 2) {
-			templateName = "adminloggedin.ftl";
-			root.put("hello", "Hi there " + user.getFirstName());
-			processor.runTemp(templateName, root, request, response);
-		}else if(user.getUserType() == 3) {
-			templateName = "managerloggedin.ftl";
-			root.put("hello", "Hi there " + user.getFirstName());
-			processor.runTemp(templateName, root, request, response);
-		}else if(user.getUserType() == 4) {
-			templateName = "shipperloggedin.ftl";
-			root.put("hello", "Hi there " + user.getFirstName());
-			processor.runTemp(templateName, root, request, response);
+		}else{
+			UserType userType = user.getUserType();
+			switch(userType) {
+				case Customer:
+					templateName = "logged_in.ftl";
+					root.put("first", user.getFirstName());
+					root.put("last", user.getLastName());
+					processor.runTemp(templateName, root, request, response);
+					break;
+				case Admin:
+					templateName = "adminloggedin.ftl";
+					root.put("hello", "Hi there " + user.getFirstName());
+					processor.runTemp(templateName, root, request, response);
+					break;
+				case Manager:
+					templateName = "managerloggedin.ftl";
+					root.put("hello", "Hi there " + user.getFirstName());
+					processor.runTemp(templateName, root, request, response);
+					break;
+				case ShipmentEmployee:
+					templateName = "shipperloggedin.ftl";
+					root.put("hello", "Hi there " + user.getFirstName());
+					processor.runTemp(templateName, root, request, response);
+					break;
+				case None:
+				default:
+					// TODO: Display an error or something...
+					break;
+			}
 		}
-		
 	}
 
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
@@ -142,7 +154,7 @@ public class HomeServlet extends HttpServlet {
 		String emailAddress = request.getParameter("email");
 		String password = request.getParameter("password");
 		String mailingAddress = request.getParameter("address");
-		int userType = 1;
+		UserType userType = UserType.Customer;
 		
 		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, "Waiting");
 		UserLogic.registerUser(newUser);

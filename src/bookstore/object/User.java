@@ -7,7 +7,7 @@ public class User {
 	private String phoneNumber;
 	private String email;
 	private String password;
-	private int userType;
+	private UserType userType;
 	private String shippingAddress;
 	private String billingAddress;
 	private String verificationCode;
@@ -25,7 +25,7 @@ public class User {
 
 
 	public User(int id, String firstName, String lastName, String phoneNumber, String email, String password,
-			int userType, String shippingAddress, String billingAddress, String status) {
+			UserType userType, String shippingAddress, String billingAddress, String status) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -48,7 +48,7 @@ public class User {
 		phoneNumber = "";
 		email = "";
 		password = "";
-		userType = 0;
+		userType = UserType.None;
 		shippingAddress = "";
 		billingAddress = "";
 		verificationCode = "";
@@ -92,10 +92,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
-	public void setUserType(int userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 
