@@ -120,7 +120,7 @@ public class UserPersist {
 	}
 
 	public static void setVerificationCode(User newUser, String verificationCode) {
-		String insertSql = "UPDATE bookstore.users SET verificationCode = ? WHERE email = ?";
+		String insertSql = "UPDATE bookstore.users SET verifcode = ? WHERE email = ?";
 		PreparedStatement stmt1;
 		
 		try {
