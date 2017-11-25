@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bookstore.logic.UserLogic;
-import bookstore.object.User;
-import bookstore.object.UserStatus;
-import bookstore.object.UserType;
+import bookstore.object.*;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -91,7 +89,7 @@ public class HomeServlet extends HttpServlet {
 		String verificationCode = request.getParameter("code");
 		if (verificationCode.equals(currentUser.getVerificationCode())) {
 			System.out.println(verificationCode);
-			UserLogic.setStatus(currentUser, "Active");
+			UserLogic.setStatus(currentUser, UserStatus.Active);
 		}
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
