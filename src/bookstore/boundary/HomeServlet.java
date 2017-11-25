@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.User;
+import bookstore.object.UserStatus;
 import bookstore.object.UserType;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -110,11 +111,12 @@ public class HomeServlet extends HttpServlet {
 			templateName = "login.ftl";
 			root.put("error", "Invalid email/ID or password. Please try again.");
 			processor.runTemp(templateName, root, request, response);
-		}else if (user.getStatus().equals("Waiting")){
+		}else if (user.getStatus() == UserStatus.Waiting){
 			templateName = "login.ftl";
 			root.put("error", "Account pending verification. Please verify your account and try logging in again.");
 			processor.runTemp(templateName, root, request, response);
-		}else{
+		} //TODO: Add conditions for UserStatus.Supsended... ?
+		else{
 			UserType userType = user.getUserType();
 			switch(userType) {
 				case Customer:
@@ -159,13 +161,12 @@ public class HomeServlet extends HttpServlet {
 		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
 		// If not, return to registration page and show error...
 		
-		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, "Waiting");
-		UserLogic.registerUser(newUser);
+		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting);
 		String verificationCode = getRandomString();
+		newUser.setVerificationCode(verificationCode);
+		UserLogic.registerUser(newUser);
 		String subject = "Verify your New Account";
 		String content = "Your verification code is " + verificationCode;
-		UserLogic.setVerificationCode(newUser, verificationCode);
-		newUser.setVerificationCode(verificationCode);
 		currentUser = newUser;
 		
 		try {
