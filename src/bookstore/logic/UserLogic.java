@@ -1,6 +1,6 @@
 package bookstore.logic;
 
-import bookstore.object.User;
+import bookstore.object.*;
 import bookstore.persistent.UserPersist;
 
 public class UserLogic {
@@ -13,8 +13,9 @@ public class UserLogic {
 		return UserPersist.verifyUser(email, pass);
 	}
 
-	public static void setStatus(User currentUser, String string) {
-		UserPersist.setStatus(currentUser, string);
+	public static void setStatus(User currentUser, UserStatus status) {
+		currentUser.setStatus(status);
+		UserPersist.setStatus(currentUser, status);
 	}
 
 }

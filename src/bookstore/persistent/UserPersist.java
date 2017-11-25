@@ -134,7 +134,7 @@ public class UserPersist {
 		return user;
 	}
 
-	public static void setStatus(User currentUser, String status) {
+	public static void setStatus(User currentUser, UserStatus status) {
 		String insertSql = "UPDATE bookstore.users SET status = ? WHERE email = ?";
 		PreparedStatement stmt1;
 		
@@ -151,7 +151,7 @@ public class UserPersist {
 			
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 			
-			stmt1.setString(1, status);
+			stmt1.setInt(1, status.ordinal());
 			stmt1.setString(2, currentUser.getEmail());
 			stmt1.executeUpdate();
 			
