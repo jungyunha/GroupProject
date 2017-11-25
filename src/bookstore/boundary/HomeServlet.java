@@ -147,7 +147,7 @@ public class HomeServlet extends HttpServlet {
 	}
 
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
-		int id = 15;
+		int id = 15; // TODO: ...
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
@@ -155,6 +155,9 @@ public class HomeServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String mailingAddress = request.getParameter("address");
 		UserType userType = UserType.Customer;
+		
+		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
+		// If not, return to registration page and show error...
 		
 		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, "Waiting");
 		UserLogic.registerUser(newUser);

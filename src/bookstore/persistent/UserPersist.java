@@ -18,11 +18,14 @@ public class UserPersist {
 		PreparedStatement stmt1;
 		
 		try {
-			try {
-				conn = DbUtils.connect();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
@@ -53,10 +56,18 @@ public class UserPersist {
 		String sql = "SELECT userid, firstname, lastname, usertype, status FROM bookstore.users WHERE email = ? AND password = ?";
 		PreparedStatement stmt;
 		try {
-			conn = DbUtils.connect();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		boolean notEmail = false;		
@@ -113,11 +124,14 @@ public class UserPersist {
 		PreparedStatement stmt1;
 		
 		try {
-			try {
-				conn = DbUtils.connect();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
@@ -137,11 +151,14 @@ public class UserPersist {
 		PreparedStatement stmt1;
 		
 		try {
-			try {
-				conn = DbUtils.connect();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
