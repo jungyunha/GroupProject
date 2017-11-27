@@ -5,5 +5,5 @@ public enum UserStatus {
 	//
 	Waiting, // Waiting for the user to enter verification code
 	Active, // User has entered verification code
-	Suspened, // Account suspended...
+	Suspended, // Account suspended...
 }
