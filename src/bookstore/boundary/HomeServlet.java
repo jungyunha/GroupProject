@@ -72,6 +72,7 @@ public class HomeServlet extends HttpServlet {
 	}
 	//logout
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		currentUser = null;
 		response.setContentType("text/html");  
         PrintWriter out=response.getWriter();  
           
