@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>
+            Bookers
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="scripts/script.js"></script>
+    <head>
+    <body>
+        <div class="main">
+            <h1>BOOKERS SHIPPER PAGE</h1>
+			<div align="center">
+			<div>
+                <table>
+                    <tr>
+                        <td align="left">
+                            <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
+                        </td>
+                        <td class="search" align='center'>
+                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
+                            <select style="height:18px">
+                                <option value="all">All</option>
+                                <option value="name">Name</option>
+                                <option value="author">Author</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                        </td>
+                        </tr>
+                        </table>
+                        </div>
+                <div id="menu_side" class="sidenav">
+                <ul class="menuList">
+                    <li style="float:right">
+                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                    </li>
+                    <li><a class="adminMenu" href="#">View New Orders</a></li> 
+                    <li><a class="adminMenu" href="#">Update Shipment Status</a></li>
+                    <li><a class="adminMenu" href="#">Update Order Status</a></li>
+                    <li><a class="adminMenu" href="#">Select Shipment Agency</a></li> 
+                    <li><a class="adminMenu" href="#">Manage Inventory</a></li> 
+                    <li><a class="adminMenu" href="#">Logout</a></li>        
+                </ul>      
+            </div>
+                 <div align="center">
+                <p align="center">Select Shipper Agency</p>
+                <img src = "https://www.globaltranz.com/wp-content/uploads/2016/04/TRUCKLOAD-SHIPPING.png">
+                <select>
+  				<option value="USPS">USPS</option>
+  				<option value="FEDEX">FEDEX</option>
+ 				<option value="UPS">UPS</option>
+</select>
+                <button value = "select" name = "SelectShipper" > Select Shipper</button>
+            </div>
+            
+            </div>
+            
+    </body>
+</html>
+	</body>
+</html>
