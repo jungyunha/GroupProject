@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
+import com.sun.imageio.plugins.common.SubImageInputStream;
+
+import bookstore.object.Book;
 import bookstore.object.User;
 import bookstore.object.UserStatus;
 import bookstore.object.UserType;
@@ -159,5 +162,53 @@ public class UserPersist {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static List<Book> getBooksByTitle(String value) {
+		List<Book> searchResults = new ArrayList<Book>();
+		boolean isEmpty = true;
+		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE title=? ORDER BY title ASC";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, value);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Book temp = new Book();
+				temp.title = rs.getString(1);
+				temp.price = rs.getString(2);
+				temp.coverphoto = rs.getString(3);
+				System.out.println(temp.coverphoto);
+				temp.rating = rs.getFloat(4);
+				temp.author = rs.getString(5);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			System.out.println("returning a list");
+			return searchResults;
+		}
+		
 	}
 }

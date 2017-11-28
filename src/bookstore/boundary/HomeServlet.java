@@ -2,6 +2,7 @@ package bookstore.boundary;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -66,10 +67,30 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("verify") != null) {
 			verifyUser(request, response);
 		}
-		if (request.getParameter("logout") !=null){
+		if (request.getParameter("logout") != null){
 			logout(request, response);
 		}
+		if (request.getParameter("searchBook") != null) {
+			searchBook(request, response);
+		}
 	}
+	private void searchBook(HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("searchType");
+		String value = request.getParameter("searchValue");
+		boolean loggedin = (currentUser != null);
+		if(type != null && value != null) {
+			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+			SimpleHash root = new SimpleHash(db.build());
+			String templateName = "searchresults.ftl";
+			root.put("loggedin", loggedin);
+			if (type.equals("title")) {
+				List<Book> listOfBooks = UserLogic.getBooksByTitle(value);
+				root.put("books", listOfBooks);
+				processor.runTemp(templateName, root, request, response);
+			}
+		}
+	}
+
 	//logout
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		currentUser = null;
@@ -130,7 +151,7 @@ public class HomeServlet extends HttpServlet {
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case Manager:
-					templateName = "managerloggedin.ftl";
+					templateName = "managerhome.ftl";
 					root.put("hello", "Hi there " + user.getFirstName());
 					processor.runTemp(templateName, root, request, response);
 					break;

@@ -1,5 +1,7 @@
 package bookstore.logic;
 
+import java.util.List;
+
 import bookstore.object.*;
 import bookstore.persistent.UserPersist;
 
@@ -16,6 +18,10 @@ public class UserLogic {
 	public static void setStatus(User currentUser, UserStatus status) {
 		currentUser.setStatus(status);
 		UserPersist.setStatus(currentUser, status);
+	}
+
+	public static List<Book> getBooksByTitle(String value) {
+		return UserPersist.getBooksByTitle(value);
 	}
 
 }
