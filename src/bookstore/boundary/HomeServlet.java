@@ -125,7 +125,7 @@ public class HomeServlet extends HttpServlet {
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case Admin:
-					templateName = "adminloggedin.ftl";
+					templateName = "adminhome.ftl";
 					root.put("hello", "Hi there " + user.getFirstName());
 					processor.runTemp(templateName, root, request, response);
 					break;

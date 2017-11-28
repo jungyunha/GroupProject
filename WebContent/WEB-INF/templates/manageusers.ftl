@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>
+            Bookers
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="scripts/script.js"></script>
+    <head>
+    <body>
+        <div class="main">
+            <h1>BOOKERS ADMINISTRATION PAGE</h1>
+            <div>
+                <table>
+                    <tr>
+                        <td align="left">
+                            <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
+                        </td>
+                        <td class="search" align='center'>
+                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
+                            <select style="height:18px">
+                                <option value="all">All</option>
+                                <option value="name">Name</option>
+                                <option value="author">Author</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                        </td>
+                        </tr>
+                        </table>
+                        </div>
+                <div id="menu_side" class="sidenav">
+                <ul class="menuList">
+                    <li style="float:right">
+                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                    </li>
+                    <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
+	                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=managesupplier">Manage Suppliers</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=manageshipper">Manage Shippers</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>  
+	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>     
+                </ul>
+            </div>
+            <h2> View Customer </h2>
+                <img id="profile" src="https://ubmemeaensoprod.s3.amazonaws.com/FI_webroot/styles/responsive_grid_scaled_and_cropped/public/team_member_photos/2016/08/profile-no-picture-male.png?itok=dqf2_02a" alt="img">
+            
+                <table>
+                    <tr><td>First Name: </td>       <td>Michael</tr>
+                    <tr><td>Last Name: </td>        <td>Johnson</td></tr>
+                    <tr><td>Email: </td>            <td>mj342535@gmail.com</td></tr>
+                    <tr><td>Phone #: </td>          <td>(555)712-3340</td></tr>
+                    <tr><td>Mailing Address: </td>  <td>123 Pleasant Lane</td></tr>
+                </table>
+                <br><br>
+                <input type="button" value="Edit Customer">
+                <input type="button" value="Remove Customer">
+        </div>
+    </body>
+</html>
+	</body>
+</html>

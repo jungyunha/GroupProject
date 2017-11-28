@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bookstore.object.User;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.SimpleHash;
 
 /**
  * Servlet implementation class AdminServlet
@@ -48,8 +51,39 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("adminaddbook") != null) {
-			//route to add book ftl page
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName;
+		String action = request.getParameter("action");
+		if (action != null) {
+			if (action.equals("addbook")) {
+				templateName = "addbook.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("updatebook")) {
+				//templateName = "adminaddbook.ftl";
+				//processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("createpromo")) {
+				templateName = "createpromo.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("addemployee")) {
+				templateName = "addemployee.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("suspendacct")) {
+				templateName = "suspendaccount.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("manageuser")) {
+				templateName = "manageusers.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("managesupplier")) {
+				templateName = "managesupplier.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("manageshipper")) {
+				//templateName = "adminaddbook.ftl";
+				//processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("viewsales")) {
+				templateName = "salesreport.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}
 		}
 	}
 

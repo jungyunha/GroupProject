@@ -29,23 +29,21 @@
                         </table>
                         </div>
                 <div id="menu_side" class="sidenav">
-                <form action="AdminServlet" method="post">
 	                <ul class="menuList">
 	                    <li style="float:right">
 	                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
 	                    </li>
-	                    <li><a class="adminMenu" name="adminaddbook">Add books</a></li>
-	                    <li><a class="adminMenu" href="#">Update books</a></li>
-	                    <li><a class="adminMenu" href="#">Create Promotion</a></li>
-	                    <li><a class="adminMenu" name="adminaddemployee">Add Employees</a></li>
-	                    <li><a class="adminMenu" name="adminsuspendaccount">Suspend Account</a></li>  
-	                    <li><a class="adminMenu" name="manageusersadmin">Manage Users</a></li>
-	                    <li><a class="adminMenu" href="#">Manage Suppliers</a></li>
-	                    <li><a class="adminMenu" href="#">Manage Shippers</a></li>
-	                    <li><a class="adminMenu" name="adminsalespage">View End of Day Sales Reports</a></li>  
+	                    <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
+	                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=managesupplier">Manage Suppliers</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=manageshipper">Manage Shippers</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>  
 	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>       
 	                </ul>
-                </form>
             </div>
 			  <div>
                 <img src = "images/books.jpg" alt="banner">
