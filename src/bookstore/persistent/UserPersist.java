@@ -193,7 +193,6 @@ public class UserPersist {
 				temp.title = rs.getString(1);
 				temp.price = rs.getString(2);
 				temp.coverphoto = rs.getString(3);
-				System.out.println(temp.coverphoto);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
 				searchResults.add(temp);
@@ -206,9 +205,143 @@ public class UserPersist {
 		if (isEmpty) {
 			return null;
 		}else {
-			System.out.println("returning a list");
 			return searchResults;
 		}
 		
+	}
+
+	public static List<Book> getBooksBySubject(String value) {
+		List<Book> searchResults = new ArrayList<Book>();
+		boolean isEmpty = true;
+		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE category=? ORDER BY title ASC";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, value);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Book temp = new Book();
+				temp.title = rs.getString(1);
+				temp.price = rs.getString(2);
+				temp.coverphoto = rs.getString(3);
+				temp.rating = rs.getFloat(4);
+				temp.author = rs.getString(5);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
+	}
+
+	public static List<Book> getBooksByAuthor(String value) {
+		List<Book> searchResults = new ArrayList<Book>();
+		boolean isEmpty = true;
+		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE author=? ORDER BY title ASC";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, value);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Book temp = new Book();
+				temp.title = rs.getString(1);
+				temp.price = rs.getString(2);
+				temp.coverphoto = rs.getString(3);
+				temp.rating = rs.getFloat(4);
+				temp.author = rs.getString(5);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
+	}
+
+	public static List<Book> getBooksByISBN(String value) {
+		List<Book> searchResults = new ArrayList<Book>();
+		boolean isEmpty = true;
+		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE isbn=? ORDER BY title ASC";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, value);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Book temp = new Book();
+				temp.title = rs.getString(1);
+				temp.price = rs.getString(2);
+				temp.coverphoto = rs.getString(3);
+				temp.rating = rs.getFloat(4);
+				temp.author = rs.getString(5);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
 	}
 }

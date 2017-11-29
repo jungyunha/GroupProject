@@ -26,6 +26,86 @@ public class Book {
 		author = "";
 	}
 
+	public int getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(int iSBN) {
+		ISBN = iSBN;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getCoverphoto() {
+		return coverphoto;
+	}
+
+	public void setCoverphoto(String coverphoto) {
+		this.coverphoto = coverphoto;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getThresholdLimit() {
+		return thresholdLimit;
+	}
+
+	public void setThresholdLimit(int thresholdLimit) {
+		this.thresholdLimit = thresholdLimit;
+	}
+
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
 	public Book(int iSBN, String title, String price, int quantity, String coverphoto, String category,
 			String description, int thresholdLimit, float rating, String author) {
 		ISBN = iSBN;

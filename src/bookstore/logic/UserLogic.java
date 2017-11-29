@@ -24,4 +24,16 @@ public class UserLogic {
 		return UserPersist.getBooksByTitle(value);
 	}
 
+	public static List<Book> getBooksBySubject(String value) {
+		return UserPersist.getBooksBySubject(value);
+	}
+
+	public static List<Book> getBooksByAuthor(String value) {
+		return UserPersist.getBooksByAuthor(value);
+	}
+
+	public static List<Book> getBooksByISBN(String value) {
+		return UserPersist.getBooksByISBN(value);
+	}
+
 }

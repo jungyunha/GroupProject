@@ -81,10 +81,22 @@ public class HomeServlet extends HttpServlet {
 		if(type != null && value != null) {
 			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 			SimpleHash root = new SimpleHash(db.build());
-			String templateName = "searchresults.ftl";
 			root.put("loggedin", loggedin);
+			String templateName = "searchresults.ftl";
 			if (type.equals("title")) {
 				List<Book> listOfBooks = UserLogic.getBooksByTitle(value);
+				root.put("books", listOfBooks);
+				processor.runTemp(templateName, root, request, response);
+			}else if (type.equals("subject")) {
+				List<Book> listOfBooks = UserLogic.getBooksBySubject(value);
+				root.put("books", listOfBooks);
+				processor.runTemp(templateName, root, request, response);
+			}else if (type.equals("author")) {
+				List<Book> listOfBooks = UserLogic.getBooksByAuthor(value);
+				root.put("books", listOfBooks);
+				processor.runTemp(templateName, root, request, response);
+			}else if (type.equals("isbn")) {
+				List<Book> listOfBooks = UserLogic.getBooksByISBN(value);
 				root.put("books", listOfBooks);
 				processor.runTemp(templateName, root, request, response);
 			}
@@ -137,6 +149,7 @@ public class HomeServlet extends HttpServlet {
 			processor.runTemp(templateName, root, request, response);
 		} //TODO: Add conditions for UserStatus.Supsended... ?
 		else{
+			currentUser = user;
 			UserType userType = user.getUserType();
 			switch(userType) {
 				case Customer:
