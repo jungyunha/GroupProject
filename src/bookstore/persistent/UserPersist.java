@@ -24,7 +24,7 @@ public class UserPersist {
 		  4:	`phonenumber` varchar(255) NOT NULL,
 		  5:	`email` varchar(255) NOT NULL,
 		  6:	`password` varchar(255) NOT NULL COMMENT 'Hashed and stored.',
-		  7:	`usertype` int(11) NOT NULL COMMENT 'Type 1 is Admin.',
+		  7:	`usertype` int(11) NOT NULL COMMENT 'Type 2 is Admin.',
 		  8:	`verifcode` tinyint(4) NOT NULL,
 		  9:	`shippingaddress` varchar(255) NOT NULL,
 		  10:	`billingaddress` varchar(255) NOT NULL,

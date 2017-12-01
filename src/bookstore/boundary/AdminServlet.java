@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.User;
+import bookstore.object.UserStatus;
+import bookstore.object.UserType;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -90,6 +92,44 @@ public class AdminServlet extends HttpServlet {
 		if (request.getParameter("promosubmit") != null) {
 			createPromotion(request, response);
 		}
+		if (request.getParameter("addemployee") != null) {
+			addEmployee(request, response);
+		}
+	}
+
+	private void addEmployee(HttpServletRequest request, HttpServletResponse response) {
+		String firstName = request.getParameter("fName");
+		String lastName = request.getParameter("lName");
+		int id = Integer.parseInt(request.getParameter("employeeID"));
+		String email = request.getParameter("emailAddress");
+		String password = request.getParameter("employeePassword");
+		String phoneNumber = request.getParameter("employeePhone");
+		String type = request.getParameter("employeeType");
+		User newEmployee = new User();
+		newEmployee.setFirstName(firstName);
+		newEmployee.setLastName(lastName);
+		newEmployee.setId(id);
+		newEmployee.setEmail(email);
+		newEmployee.setPassword(password);
+		newEmployee.setPhoneNumber(phoneNumber);
+		if (type.equals("admin")) {
+			newEmployee.setUserType(UserType.Admin);
+		} else if (type.equals("manager")) {
+			newEmployee.setUserType(UserType.Manager);
+		} else {
+			newEmployee.setUserType(UserType.ShipmentEmployee);
+		}
+		newEmployee.setShippingAddress(" ");
+		newEmployee.setBillingAddress(" ");
+		newEmployee.setStatus(UserStatus.Active);
+		newEmployee.setSuscribed(false);
+		newEmployee.setVerificationCode(" ");
+		UserLogic.registerUser(newEmployee);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "adminhome.ftl";
+		root.put("hello", "Employee was created successfully.");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void createPromotion(HttpServletRequest request, HttpServletResponse response) {

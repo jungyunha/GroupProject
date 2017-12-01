@@ -17,15 +17,6 @@
                         <td align="left">
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
                         </td>
-                        <td class="search" align='center'>
-                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
-                            <select style="height:18px">
-                                <option value="all">All</option>
-                                <option value="name">Name</option>
-                                <option value="author">Author</option>
-                                <option value="isbn">ISBN</option>
-                            </select>
-                        </td>
 					</tr>
 				</table>
 			</div>

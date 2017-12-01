@@ -16,15 +16,6 @@
                         <td align="left">
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
                         </td>
-                        <td class="search" align='center'>
-                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
-                            <select style="height:18px">
-                                <option value="all">All</option>
-                                <option value="name">Name</option>
-                                <option value="author">Author</option>
-                                <option value="isbn">ISBN</option>
-                            </select>
-                        </td>
                         </tr>
                         </table>
                         </div>
@@ -47,16 +38,21 @@
             </div>
             <div align="center">
                 <p align="center">Add Employee</p>
-                <form>
+                <form action="AdminServlet" method="post">
                     <table class="registration">
-                        <tr><td class="registrationForm">First name: </td>       <td class="registrationInput"><input type="text" required></td></tr>
-                        <tr><td class="registrationForm">Last Name: </td>        <td class="registrationInput"><input type="text" required></td></tr>
-                        <tr><td class="registrationForm">Email: </td>            <td class="registrationInput"><input type="text" required></td></tr>
-                        <tr><td class="registrationForm">Employee ID:</td>          <td class="registrationInput"><input type="text" required></td></tr>
-						<tr><td class="registrationForm">Phone number: </td>          <td class="registrationInput"><input type="text" required></td></tr>
-						<tr><td class="registrationForm">Type of Employee: </td>          <td class="registrationInput"><input type="text" required></td></tr>
+                        <tr><td class="registrationForm">First name: </td>       <td class="registrationInput"><input type="text" name="fName" required></td></tr>
+                        <tr><td class="registrationForm">Last Name: </td>        <td class="registrationInput"><input type="text" name="lName" required></td></tr>
+                        <tr><td class="registrationForm">Email: </td>            <td class="registrationInput"><input type="text" name="emailAddress" required></td></tr>
+                        <tr><td class="registrationForm">Employee Password: </td>            <td class="registrationInput"><input type="text" name="employeePassword" required></td></tr>
+                        <tr><td class="registrationForm">Employee ID:</td>          <td class="registrationInput"><input type="text" name="employeeID" required></td></tr>
+						<tr><td class="registrationForm">Phone number: </td>          <td class="registrationInput"><input type="text" name="employeePhone" required></td></tr>
+						<tr><td class="registrationForm">Type of Employee: </td>          <td class="registrationInput"><select style="height:18px; width:150px" name="employeeType" required>
+																							                            	<option value="admin">Admin</option>
+																							                                <option value="manager">Manager</option>
+																							                                <option value="shipper">Shipper</option>
+																							                            </select></td></tr>
                     </table>
-                      <input type="submit"  class="SubmitRegistration" value="Add" />
+                      <input type="submit"  class="SubmitRegistration" value="Add Employee" name="addemployee" />
                 </form>
 				
             </div>
