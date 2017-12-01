@@ -141,14 +141,10 @@ DROP TABLE IF EXISTS `promocodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `promocodes` (
-  `promocode` int(11) NOT NULL,
-  `coupanvalue` int(11) NOT NULL,
-  `couponclass` int(11) NOT NULL,
-  `isbn` bigint(20) DEFAULT NULL,
+  `promocode` varchar(10) NOT NULL,
+  `percentage` int(3) NOT NULL,
   PRIMARY KEY (`promocode`),
-  UNIQUE KEY `promocode_UNIQUE` (`promocode`),
-  KEY `f_isbn` (`isbn`),
-  CONSTRAINT `f_isbn` FOREIGN KEY (`isbn`) REFERENCES `book` (`isbn`)
+  UNIQUE KEY `promocode_UNIQUE` (`promocode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,6 +154,7 @@ CREATE TABLE `promocodes` (
 
 LOCK TABLES `promocodes` WRITE;
 /*!40000 ALTER TABLE `promocodes` DISABLE KEYS */;
+INSERT INTO `promocodes` VALUES ('abcd',10),('abcd1234',10);
 /*!40000 ALTER TABLE `promocodes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,11 +247,6 @@ DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE `shoppingcart` (
   `userid` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  `promocode` int(11) NOT NULL,
-  `actualprice` double NOT NULL,
-  `discountedprice` double NOT NULL,
-  `shippingfee` double NOT NULL,
   `isbn` bigint(20) NOT NULL,
   KEY `f_shopuserid` (`userid`),
   KEY `f_shopisbn` (`isbn`),
@@ -269,6 +261,7 @@ CREATE TABLE `shoppingcart` (
 
 LOCK TABLES `shoppingcart` WRITE;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
+INSERT INTO `shoppingcart` VALUES (15,1,456);
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,6 +319,7 @@ CREATE TABLE `users` (
   `billingaddress` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `fogotpasswordcode` varchar(255) DEFAULT NULL,
+  `subscribed` bit(1) DEFAULT NULL,
   UNIQUE KEY `password_UNIQUE` (`password`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phonenumber_UNIQUE` (`phonenumber`),
@@ -340,7 +334,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'nicky','desai','777','nope','admin',2,'verify','nope','nope',2,'forgot'),(15,'a','b','d','c','e',1,'L4EZD9','f','f',2,NULL),(2,'nicky','desai','7777','yup','man',3,'verify','nope','nope',2,'forgotpass');
+INSERT INTO `users` VALUES (3,'a','a','a','a','a',1,'a','a','a',2,NULL,''),(1,'nicky','desai','777','nope','admin',2,'verify','nope','nope',2,'forgot',NULL),(15,'a','b','d','c','e',1,'L4EZD9','f','f',2,NULL,NULL),(2,'nicky','desai','7777','yup','man',3,'verify','nope','nope',2,'forgotpass',NULL),(10,'no','no','no','ndesai121212@gmail.com','no',1,'5S6I7F','no','no',2,NULL,'');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -353,4 +347,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29  0:38:37
+-- Dump completed on 2017-11-30 21:15:52
