@@ -25,11 +25,10 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a class="adminMenu" href="#">View Inventory</a></li> 
-                    <li><a class="adminMenu" href="#">Manage Users</a></li>
-                    <li><a class="adminMenu" href="#">Manage Suppliers</a></li>
-                    <li><a class="adminMenu" href="#">View End of Day Sales Reports</a></li>  
-                    <li><a class="adminMenu" href = "index.html">Logout</a></li>       
+                    <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewinventory">View Inventory Report</a></li>
+                    <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewsales">View End of Day Sales Report</a></li>
+                    <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewpublisher">View Publisher Report</a></li>  
+                    <li><a class="adminMenu" href = "index.html">Logout</a></li>
                 </ul>
             </div>
             <div>

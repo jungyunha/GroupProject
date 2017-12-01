@@ -87,6 +87,12 @@ public class AdminServlet extends HttpServlet {
 			}else if (action.equals("viewsales")) {
 				templateName = "salesreport.ftl";
 				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("viewinventory")) {
+				templateName = "inventoryreport.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("viewpublisher")) {
+				templateName = "publisherreport.ftl";
+				processor.runTemp(templateName, root, request, response);
 			}
 		}
 		if (request.getParameter("promosubmit") != null) {

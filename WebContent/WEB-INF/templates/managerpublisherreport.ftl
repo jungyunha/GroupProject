@@ -4,11 +4,11 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="scripts/script.js"></script>
-<title>Admin Sales Report</title>
+<title>Manager Publisher Report</title>
 </head>
 <body>
 	<div class = "main">
-		<h1>End of Day Sales</h1>
+		<h1>Publisher Report</h1>
 		<div>
 		    <table>
 		        <tr>
@@ -23,18 +23,10 @@
 		        <li style="float:right">
 		            <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
 		        </li>
-		        <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=managesupplier">Manage Suppliers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageshipper">Manage Shippers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewpublisher">View Publisher Report</a></li>  
-	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>
+		        <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewinventory">View Inventory Report</a></li>
+                <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewsales">View End of Day Sales Report</a></li>
+                <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewpublisher">View Publisher Report</a></li>  
+                <li><a class="adminMenu" href = "index.html">Logout</a></li>
 		    </ul>
 		</div>
 		<table style="width:70%" align="center">

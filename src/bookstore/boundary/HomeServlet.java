@@ -177,7 +177,7 @@ public class HomeServlet extends HttpServlet {
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case ShipmentEmployee:
-					templateName = "shipperloggedin.ftl";
+					templateName = "shipperhome.ftl";
 					root.put("hello", "Hi there " + user.getFirstName());
 					processor.runTemp(templateName, root, request, response);
 					break;

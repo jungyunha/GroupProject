@@ -9,36 +9,26 @@
     <head>
     <body>
         <div class="main">
-            <h1>BOOKERS ADMINISTRATION PAGE</h1>
-            <div>
+            <h1>BOOKERS SHIPPER PAGE</h1>
+			 <div>
                 <table>
                     <tr>
                         <td align="left">
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
                         </td>
-                        </tr>
-                        </table>
-                        </div>
-                <div id="menu_side" class="sidenav">
-	                <ul class="menuList">
-	                    <li style="float:right">
-	                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
-	                    </li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=managesupplier">Manage Suppliers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageshipper">Manage Shippers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Report</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewpublisher">View Publisher Report</a></li>  
-	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>       
-	                </ul>
+					</tr>
+				</table>
+			</div>
+            <div id="menu_side" class="sidenav">
+                <ul class="menuList">
+                    <li style="float:right">
+                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                    </li>
+                    <li><a class="adminMenu" href="ShipperServlet?ShipperAction=updateorder">Update Order Status</a></li>
+                    <li><a class="adminMenu" href = "index.html">Logout</a></li>
+                </ul>
             </div>
-			  <div>
+            <div>
                 <img src = "images/books.jpg" alt="banner">
             </div>
             <div class="slideshow-container">
@@ -58,7 +48,7 @@
                     <span class="dot" name="dots"></span> 
                 </div>
             </div>
-            <h3> ${hello} </h3>
+            <h3> Update Order Status </h3>
             <div>
                 <img class = "stars" src = "images/five-stars.png">
                 <p class = "HomeReview-text">I've always had good service from The Online Bookstore...I use it to buy most of my books.</p>
@@ -108,3 +98,4 @@
         </div>
     </body>
 </html>
+

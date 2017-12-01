@@ -30,7 +30,7 @@ public class UserPersist {
 		  10:	`billingaddress` varchar(255) NOT NULL,
 		  11:	`status` int(11) NOT NULL,
 		  12:	`fogotpasswordcode` varchar(255) NOT NULL*/
-		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, null, ?)";
+		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, ?)";
 		PreparedStatement stmt1;
 		
 		try {
@@ -56,10 +56,11 @@ public class UserPersist {
 			stmt1.setString	(8, user.getVerificationCode());
 			stmt1.setString	(9, user.getShippingAddress());
 			stmt1.setString	(10,user.getBillingAddress());
+			stmt1.setInt(11,  user.getStatus().ordinal());
 			if (user.isSuscribed()) {
-				stmt1.setInt(11, 1);
+				stmt1.setInt(12, 1);
 			}else {
-				stmt1.setInt(11, 0);
+				stmt1.setInt(12, 0);
 			}
 			
 			

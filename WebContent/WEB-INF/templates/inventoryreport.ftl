@@ -4,11 +4,11 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="scripts/script.js"></script>
-<title>Admin Sales Report</title>
+<title>Admin Inventory Report</title>
 </head>
 <body>
 	<div class = "main">
-		<h1>End of Day Sales</h1>
+		<h1>Inventory Report</h1>
 		<div>
 		    <table>
 		        <tr>
