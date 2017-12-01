@@ -36,4 +36,16 @@ public class UserLogic {
 		return UserPersist.getBooksByISBN(value);
 	}
 
+	public static void addToCart(int id, int quantity, int isbn) {
+		UserPersist.addToCart(id, quantity, isbn);
+	}
+
+	public static void addPromotion(String promocode, int percentage) {
+		UserPersist.addPromotion(promocode, percentage);
+	}
+
+	public static List<User> getSubscribedUsers() {
+		return UserPersist.getSubscribedUsers();
+	}
+
 }

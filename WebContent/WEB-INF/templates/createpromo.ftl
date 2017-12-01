@@ -47,11 +47,12 @@
             </div>
             <div align="center">
                 <p align="center">Create Promotion Code</p>
-                <form>
+                <form action="AdminServlet" method="post">
                     <table class="promotioncode">
-                        <tr><td class="registrationForm">Promotion Code: </td><td class="registrationInput"><input type="text" required></td></tr>
+                        <tr><td class="registrationForm">Promotion Code: </td><td class="registrationInput"><input type="text" name="promocode" required></td></tr>
+                        <tr><td class="registrationForm">Percentage: </td><td class="registrationInput"><input type="text" name="promopercent" required></td></tr>
                     </table>
-                      <input type="submit"  class="SubmitRegistration" value="Create Promotion Code" />
+                      <input type="submit"  class="SubmitRegistration" value="Create Promotion Code" name="promosubmit" />
                 </form>
 				
             </div>

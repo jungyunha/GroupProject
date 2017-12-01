@@ -73,7 +73,15 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("searchBook") != null) {
 			searchBook(request, response);
 		}
+		if (request.getParameter("addtocart") != null) {
+			addToCart(request, response);
+		}
 	}
+	private void addToCart(HttpServletRequest request, HttpServletResponse response) {
+		String isbn = request.getParameter("addtocart");
+		UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn));
+	}
+
 	private void searchBook(HttpServletRequest request, HttpServletResponse response) {
 		String type = request.getParameter("searchType");
 		String value = request.getParameter("searchValue");
@@ -182,19 +190,21 @@ public class HomeServlet extends HttpServlet {
 	}
 
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
-		int id = 15; // TODO: ...
+		int id = 10; // TODO: ...
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
 		String emailAddress = request.getParameter("email");
 		String password = request.getParameter("password");
 		String mailingAddress = request.getParameter("address");
+		String subscribeForPromo = request.getParameter("subscribe");
+		boolean subscribe = (subscribeForPromo.equals("on"));
 		UserType userType = UserType.Customer;
 		
 		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
 		// If not, return to registration page and show error...
 		
-		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting);
+		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting, subscribe);
 		String verificationCode = getRandomString();
 		newUser.setVerificationCode(verificationCode);
 		UserLogic.registerUser(newUser);

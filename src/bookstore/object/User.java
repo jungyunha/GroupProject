@@ -12,12 +12,13 @@ public class User {
 	private String billingAddress;
 	private String verificationCode;
 	private UserStatus status;
+	private boolean suscribed;
 	
 	
 
 
 	public User(int id, String firstName, String lastName, String phoneNumber, String email, String password,
-			UserType userType, String shippingAddress, String billingAddress, UserStatus status) {
+			UserType userType, String shippingAddress, String billingAddress, UserStatus status, boolean subscribed) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -29,6 +30,7 @@ public class User {
 		this.shippingAddress = shippingAddress;
 		this.billingAddress = billingAddress;
 		this.status = status;
+		this.setSuscribed(subscribed);
 	}
 	
 	
@@ -123,6 +125,16 @@ public class User {
 	}
 	public void setStatus(UserStatus status) {
 		this.status = status;
+	}
+
+
+	public boolean isSuscribed() {
+		return suscribed;
+	}
+
+
+	public void setSuscribed(boolean suscribed) {
+		this.suscribed = suscribed;
 	}
 
 }

@@ -42,10 +42,10 @@
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="registration.html">Register</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>     
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">My Cart</a></li>
+                    <li><a href="#">Order History</a></li>
+                    <li><a href="login.html">Log Out</a></li>     
                 </ul>
 </div>
 
@@ -60,7 +60,7 @@
       Rating: ${book.rating}
     </p>
     <#if loggedin>
-    	<a href="#">Add to Cart</a>    	
+    	<a href="HomeServlet?addtocart=${book.ISBN}">Add to Cart</a>    	
     </#if>
   </figcaption>
 </figure>

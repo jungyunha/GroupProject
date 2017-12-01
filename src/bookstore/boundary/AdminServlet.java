@@ -1,6 +1,7 @@
 package bookstore.boundary;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bookstore.logic.UserLogic;
 import bookstore.object.User;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -85,6 +87,30 @@ public class AdminServlet extends HttpServlet {
 				processor.runTemp(templateName, root, request, response);
 			}
 		}
+		if (request.getParameter("promosubmit") != null) {
+			createPromotion(request, response);
+		}
+	}
+
+	private void createPromotion(HttpServletRequest request, HttpServletResponse response) {
+		String promocode = request.getParameter("promocode");
+		int percentage = Integer.parseInt(request.getParameter("promopercent"));
+		UserLogic.addPromotion(promocode, percentage);
+		List<User> listOfSubscribedUsers = UserLogic.getSubscribedUsers();
+		String subject = "New Promotion!";
+		String content = "There is a new promotion available! In order to get " + percentage + "% off of your next order, enter the promo code " + promocode + " at checkout. Happy shopping!";
+		for(User x : listOfSubscribedUsers) {
+			try {
+	            EmailUtility.sendEmail(host, port, user, pass, x.getEmail(), subject, content);
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+		}
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "adminhome.ftl";
+		root.put("hello", "Promotion was created successfully. All subcribed users have been notified via email.");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	/**

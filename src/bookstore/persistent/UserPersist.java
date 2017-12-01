@@ -30,7 +30,7 @@ public class UserPersist {
 		  10:	`billingaddress` varchar(255) NOT NULL,
 		  11:	`status` int(11) NOT NULL,
 		  12:	`fogotpasswordcode` varchar(255) NOT NULL*/
-		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, null)";
+		String insertSql = "INSERT INTO bookstore.users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, null, ?)";
 		PreparedStatement stmt1;
 		
 		try {
@@ -56,10 +56,14 @@ public class UserPersist {
 			stmt1.setString	(8, user.getVerificationCode());
 			stmt1.setString	(9, user.getShippingAddress());
 			stmt1.setString	(10,user.getBillingAddress());
+			if (user.isSuscribed()) {
+				stmt1.setInt(11, 1);
+			}else {
+				stmt1.setInt(11, 0);
+			}
+			
 			
 			stmt1.executeUpdate();
-			
-			System.out.println(stmt1.toString());
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -167,7 +171,7 @@ public class UserPersist {
 	public static List<Book> getBooksByTitle(String value) {
 		List<Book> searchResults = new ArrayList<Book>();
 		boolean isEmpty = true;
-		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE title=? ORDER BY title ASC";
+		String sql = "SELECT title, price, coverphoto, rating, author, isbn FROM bookstore.book WHERE title=? ORDER BY title ASC";
 		PreparedStatement stmt1;
 		
 		try {
@@ -195,6 +199,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
+				temp.ISBN = rs.getInt(6);
 				searchResults.add(temp);
 			}
 			
@@ -213,7 +218,7 @@ public class UserPersist {
 	public static List<Book> getBooksBySubject(String value) {
 		List<Book> searchResults = new ArrayList<Book>();
 		boolean isEmpty = true;
-		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE category=? ORDER BY title ASC";
+		String sql = "SELECT title, price, coverphoto, rating, author, isbn FROM bookstore.book WHERE category=? ORDER BY title ASC";
 		PreparedStatement stmt1;
 		
 		try {
@@ -241,6 +246,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
+				temp.ISBN = rs.getInt(6);
 				searchResults.add(temp);
 			}
 			
@@ -258,7 +264,7 @@ public class UserPersist {
 	public static List<Book> getBooksByAuthor(String value) {
 		List<Book> searchResults = new ArrayList<Book>();
 		boolean isEmpty = true;
-		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE author=? ORDER BY title ASC";
+		String sql = "SELECT title, price, coverphoto, rating, author, isbn FROM bookstore.book WHERE author=? ORDER BY title ASC";
 		PreparedStatement stmt1;
 		
 		try {
@@ -286,6 +292,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
+				temp.ISBN = rs.getInt(6);
 				searchResults.add(temp);
 			}
 			
@@ -303,7 +310,7 @@ public class UserPersist {
 	public static List<Book> getBooksByISBN(String value) {
 		List<Book> searchResults = new ArrayList<Book>();
 		boolean isEmpty = true;
-		String sql = "SELECT title, price, coverphoto, rating, author FROM bookstore.book WHERE isbn=? ORDER BY title ASC";
+		String sql = "SELECT title, price, coverphoto, rating, author, isbn FROM bookstore.book WHERE isbn=? ORDER BY title ASC";
 		PreparedStatement stmt1;
 		
 		try {
@@ -331,6 +338,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
+				temp.ISBN = rs.getInt(6);
 				searchResults.add(temp);
 			}
 			
@@ -342,6 +350,100 @@ public class UserPersist {
 			return null;
 		}else {
 			return searchResults;
+		}
+	}
+
+	public static void addToCart(int id, int quantity, int isbn) {
+		String sql = "INSERT INTO bookstore.shoppingcart VALUES (?, ?, ?)";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setInt(1, id);
+			stmt1.setInt(2, quantity);
+			stmt1.setInt(3,  isbn);
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void addPromotion(String promocode, int percentage) {
+		String sql = "INSERT INTO bookstore.promocodes VALUES (?, ?)";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, promocode);
+			stmt1.setInt(2, percentage);
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static List<User> getSubscribedUsers() {
+		List<User> results = new ArrayList<User>();
+		boolean isEmpty = true;
+		String sql = "SELECT email FROM bookstore.users WHERE subscribed = 1";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				User temp = new User();
+				temp.setEmail(rs.getString(1));
+				results.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return results;
 		}
 	}
 }
