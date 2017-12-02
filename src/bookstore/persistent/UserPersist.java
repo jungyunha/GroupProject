@@ -12,13 +12,47 @@ import com.sun.imageio.plugins.common.SubImageInputStream;
 
 import bookstore.object.Book;
 import bookstore.object.User;
+import bookstore.logic.*;
 import bookstore.object.UserStatus;
 import bookstore.object.UserType;
 
 public class UserPersist {
 
 	private static Connection conn = null;
-	
+	public static void insertBook(int iSBN, String title, String price, int quantity, String coverphoto, String category,
+			String description, int thresholdLimit, float rating, String author){
+		String sql = "INSERT INTO bookstore.book VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt1;
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			
+			stmt1.setInt(1, iSBN);
+			stmt1.setString (2, title);
+			stmt1.setString(3, price);
+			stmt1.setInt(4, quantity);
+			stmt1.setString(5, coverphoto);
+			stmt1.setString(6, category);
+			stmt1.setString(7, description);
+			stmt1.setInt(8, thresholdLimit);
+			stmt1.setFloat(9, rating);
+			stmt1.setString(10, author);
+			stmt1.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+		
+
 	public static void registerUser(User user) {
 		/*1:	`userid` int(11) NOT NULL,
 		  2:	`firstname` varchar(255) NOT NULL,
