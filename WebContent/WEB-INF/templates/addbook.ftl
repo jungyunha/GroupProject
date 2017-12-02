@@ -42,15 +42,20 @@
             </div>
             <div align="center">
                 <p align="center">Add book</p>
-                <form>
+                <form action="AdminServlet" method="post">
                     <table class="registration">
-                        <tr><td class="registrationForm">Book Title: </td>       <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Book Author: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Book ISBN: </td>            <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Book Subject: </td>          <td class="registrationInput"><input type="text"></td></tr>
-						<tr><td class="registrationForm">Selling Price: </td>          <td class="registrationInput"><input type="number"></td></tr>
+                        <tr><td class="registrationForm">Book Title: </td>       <td class="registrationInput" ><input type="text" name="title"></td></tr>
+                        <tr><td class="registrationForm">Book Author: </td>        <td class="registrationInput"><input type="text" name="author"></td></tr>
+                        <tr><td class="registrationForm">Book ISBN: </td>            <td class="registrationInput"><input type="number" name="iSBN"></td></tr>
+                        <tr><td class="registrationForm">Book Subject: </td>          <td class="registrationInput"><input type="text" name="category"></td></tr>
+						<tr><td class="registrationForm">Selling Price: </td>          <td class="registrationInput"><input type="number" name="price"></td></tr>
+						<tr><td class="registrationForm">Coverphoto URL: </td>          <td class="registrationInput"><input type="text" name="coverphoto"></td></tr>
+						<tr><td class="registrationForm">Quantity: </td>          <td class="registrationInput"><input type="number" name="quantity"></td></tr>
+						<tr><td class="registrationForm">Description: </td>          <td class="registrationInput"><input type="text" name="description"></td></tr>
+						<tr><td class="registrationForm">Threshold: </td>          <td class="registrationInput"><input type="number" name="thresholdLimit"></td></tr>
+						<tr><td class="registrationForm">Rating: </td>          <td class="registrationInput"><input type="number" name="rating"></td></tr>
                     </table>
-                      <input type="submit"  class="SubmitRegistration" value="Add" />
+                      <input type="submit"  class="SubmitRegistration" value="Add" name="addbook"/>
                 </form>
             </div>
         </div>

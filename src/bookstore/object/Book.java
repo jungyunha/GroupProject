@@ -12,6 +12,20 @@ public class Book {
 	public int thresholdLimit;
 	public float rating;
 	public String author;
+
+	public Book(int iSBN, String title, String price, int quantity, String coverphoto, String category,
+			String description, int thresholdLimit, float rating, String author) {
+		ISBN = iSBN;
+		this.title = title;
+		this.price = price;
+		this.quantity = quantity;
+		this.coverphoto = coverphoto;
+		this.category = category;
+		this.description = description;
+		this.thresholdLimit = thresholdLimit;
+		this.rating = rating;
+		this.author = author;
+	}
 	
 	public Book() {
 		ISBN = 0;
@@ -106,18 +120,4 @@ public class Book {
 		this.author = author;
 	}
 
-	public Book(int iSBN, String title, String price, int quantity, String coverphoto, String category,
-			String description, int thresholdLimit, float rating, String author) {
-		ISBN = iSBN;
-		this.title = title;
-		this.price = price;
-		this.quantity = quantity;
-		this.coverphoto = coverphoto;
-		this.category = category;
-		this.description = description;
-		this.thresholdLimit = thresholdLimit;
-		this.rating = rating;
-		this.author = author;
-	}
-	
 }

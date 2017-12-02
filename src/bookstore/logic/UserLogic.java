@@ -48,4 +48,10 @@ public class UserLogic {
 		return UserPersist.getSubscribedUsers();
 	}
 
+	public static void insertBook(int iSBN, String title, String price, int quantity, String coverphoto,
+			String category, String description, int thresholdLimit, int rating, String author) {
+		UserPersist.insertBook(iSBN, title, price, quantity, coverphoto,
+				category,  description, thresholdLimit, rating, author);
+	}
+
 }

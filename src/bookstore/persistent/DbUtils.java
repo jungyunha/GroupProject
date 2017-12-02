@@ -3,6 +3,11 @@ package bookstore.persistent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DbUtils {
 
@@ -96,5 +101,77 @@ public class DbUtils {
             throw new Exception( "DbUtils.connect: Unable to connect to database " + ex.getMessage() );
         }
     }
+    public static ResultSet retrieve(Connection con, String query)
+    {
+      ResultSet rset = null;
+      try
+      {
+        Statement stmt = con.createStatement();
+        return stmt.executeQuery(query);
+      }
+      catch (SQLException e)
+      {
+        e.printStackTrace();
+      }
+      return rset;
+    }
+    
+    public static int create(String sql) throws Exception
+    {
+     Connection c = connect();
+     int r = 0;
+     try{
+  	   Statement s = c.createStatement();
+  	   r = s.executeUpdate(sql);
+     }catch(SQLException e){
+  	   e.printStackTrace();
+     }finally{
+  	   closeConnection(c);
+     }
+     return r;
+    }
 
-}
+	public static int update(String sql) throws Exception
+    {
+  	   Connection c = connect();
+  	   int r = 0;
+  	   try{
+  		   Statement s = c.createStatement();
+  		   r = s.executeUpdate(sql);
+  	   }catch(SQLException e){
+  		   e.printStackTrace();
+  	   }finally{
+  		   closeConnection(c);
+  	   }
+  	   return r;
+  	  }
+
+    public static int delete(String sql) throws Exception
+    {
+  	   Connection c = connect();
+  	   int r = 0;
+  	   try{
+  		   Statement s = c.createStatement();
+  		   r = s.executeUpdate(sql);
+  	   }catch(SQLException e){
+  		   e.printStackTrace();
+  	   }finally{
+  		   closeConnection(c);
+  	   }
+  	   return r;
+  	  }
+    public static void closeConnection(Connection con)
+    {
+      try
+      {
+        if (con != null) {
+          con.close();
+        }
+      }
+      catch (SQLException e)
+      {
+        e.printStackTrace();
+      }
+    }
+  }
+
