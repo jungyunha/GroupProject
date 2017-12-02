@@ -4,7 +4,7 @@ public class Book {
 
 	public int ISBN;
 	public String title;
-	public String price;
+	public double price;
 	public int quantity;
 	public String coverphoto;
 	public String category;
@@ -16,7 +16,7 @@ public class Book {
 	public Book() {
 		ISBN = 0;
 		title = "";
-		price = "";
+		price = 0;
 		quantity = 0;
 		coverphoto = "";
 		category = "";
@@ -42,11 +42,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -106,7 +106,7 @@ public class Book {
 		this.author = author;
 	}
 
-	public Book(int iSBN, String title, String price, int quantity, String coverphoto, String category,
+	public Book(int iSBN, String title, double price, int quantity, String coverphoto, String category,
 			String description, int thresholdLimit, float rating, String author) {
 		ISBN = iSBN;
 		this.title = title;

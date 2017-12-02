@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -47,6 +48,7 @@ public class HomeServlet extends HttpServlet {
         user = context.getInitParameter("user");
         pass = context.getInitParameter("pass");
     	processor = new TemplateProcessor(getServletContext());
+    	currentUser = null;
     }
 
 	/**
@@ -76,7 +78,28 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("addtocart") != null) {
 			addToCart(request, response);
 		}
+		if (request.getParameter("mycart") != null) {
+			goToCart(request, response);
+		}
 	}
+	
+	private void goToCart(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName;
+		if (currentUser == null) {
+			templateName = "login.ftl";
+			root.put("error", "Please login in order to view your shopping cart.");
+			processor.runTemp(templateName, root, request, response);
+		} else {
+			Vector<Integer> bookNumbers = new Vector<Integer>();
+			bookNumbers = UserLogic.getBookNumbers(currentUser.getId());
+			for (int i : bookNumbers) {
+				System.out.println("this blows");
+			}
+		}
+	}
+
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("addtocart");
 		UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn));

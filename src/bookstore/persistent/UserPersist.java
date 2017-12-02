@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+
 import com.mysql.jdbc.PreparedStatement;
 import com.sun.imageio.plugins.common.SubImageInputStream;
 
@@ -196,7 +198,7 @@ public class UserPersist {
 				isEmpty = false;
 				Book temp = new Book();
 				temp.title = rs.getString(1);
-				temp.price = rs.getString(2);
+				temp.price = rs.getFloat(2);
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
@@ -243,7 +245,7 @@ public class UserPersist {
 				isEmpty = false;
 				Book temp = new Book();
 				temp.title = rs.getString(1);
-				temp.price = rs.getString(2);
+				temp.price = rs.getFloat(2);
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
@@ -289,7 +291,7 @@ public class UserPersist {
 				isEmpty = false;
 				Book temp = new Book();
 				temp.title = rs.getString(1);
-				temp.price = rs.getString(2);
+				temp.price = rs.getFloat(2);
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
@@ -335,7 +337,7 @@ public class UserPersist {
 				isEmpty = false;
 				Book temp = new Book();
 				temp.title = rs.getString(1);
-				temp.price = rs.getString(2);
+				temp.price = rs.getFloat(2);
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
@@ -435,6 +437,45 @@ public class UserPersist {
 				User temp = new User();
 				temp.setEmail(rs.getString(1));
 				results.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return results;
+		}
+	}
+
+	public static Vector<Integer> getBookNumbers(int id) {
+		Vector<Integer> results = new Vector();
+		boolean isEmpty = true;
+		String sql = "SELECT isbn FROM bookstore.shoppingcart WHERE userid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setInt(1, id);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				int isbn = rs.getInt(1);
+				results.add(isbn);
 			}
 			
 		}

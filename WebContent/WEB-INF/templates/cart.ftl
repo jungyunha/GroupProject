@@ -10,7 +10,7 @@
         </script>
     <head>
     <body>
-        <div class="main">	
+        <div class="main">
             <h1>BOOKERS</h1>
             <div>
                 <table>
@@ -31,7 +31,7 @@
                         </form>
                         </td>
                         <td align='right'>
-                            <span>Not Logged In</span>
+                            <span>Welcome ${first} ${last}!</span>
                         </td>
                     </tr>
                 </table>
@@ -41,32 +41,60 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="index.html">Home</a></li>
                     <li><a href="#">My Account</a></li>
                     <li><a href="#">My Cart</a></li>
                     <li><a href="#">Order History</a></li>
-                    <li><a href="login.html">Log Out</a></li>     
+                    <li><a href="login.html">Log Out</a></li>
                 </ul>
-</div>
-
-<#list books as book>
-<figure class="searchbook">
-  <img class = "images"  src="${book.coverphoto}"/>
-  <div class="price">$${book.price}</div>
-  <figcaption>
-    <h3>${book.title}</h3>
-    <p>
-      ${book.title} by ${book.author} <br/>
-      Rating: ${book.rating}
-    </p>
-    <#if loggedin>
-    	<a href="HomeServlet?addtocart=${book.ISBN}">Add to Cart</a>    	
-    </#if>
-  </figcaption>
-</figure>
-</#list>
-
-
-</div>
-</body>
+            </div>
+            <div>
+          <table class = "carttable">
+          <tr>
+          	<th> Book Name </th>
+          	<th> Quantity </th>
+          	<th> Price </th>
+          </tr>
+          <#list books as book>
+          <tr>
+          	<td> ${book.title} </td>
+          	<td> x ${quantity} </td>
+          	<td> $${book.price} </td>
+          </tr>
+          </#list>
+ 		<tr>
+	 		<td> </td>
+	 		<td>Subtotal: </td>
+	 		<td>$${subtotal}</td>
+ 		</tr>
+ 		<tr>
+ 			<td> </td>
+ 			<td>Tax: </td>
+ 			<td> $${tax} </td>
+ 		</tr>
+ 		<tr>
+ 			<td> </td>
+ 			<td><strong>Total: </strong></td>
+ 			<td> $${total} </td>
+ 		</tr>
+          </table>
+          </div>
+            <div id="cartInfo"> 
+                You have (2) items in your cart. Please choose your payment method.
+                <br><br>
+                <form action="" method="post" id="payment">
+                    <select name="filter">
+                        <option value="cc1">Visa Credit Card XXXX-0521</option>
+                        <option value="cc2">Mastercard Credit Card XXXX-2894</option>
+                    </select>
+                    <br>
+                    <input type="button" value="Select">
+                    <input type="button" value="Edit">
+                    <br><br>
+                    <input type="button" value="Add new payment method">
+                    <br><br><br><br>
+                    <input id="placeOrder" type="button" value="Place Order">
+                </form>
+            </div>
+            </div>
+    </body>
 </html>

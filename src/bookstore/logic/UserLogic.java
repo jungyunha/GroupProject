@@ -1,6 +1,7 @@
 package bookstore.logic;
 
 import java.util.List;
+import java.util.Vector;
 
 import bookstore.object.*;
 import bookstore.persistent.UserPersist;
@@ -46,6 +47,10 @@ public class UserLogic {
 
 	public static List<User> getSubscribedUsers() {
 		return UserPersist.getSubscribedUsers();
+	}
+
+	public static Vector<Integer> getBookNumbers(int id) {
+		return UserPersist.getBookNumbers(id);
 	}
 
 }
