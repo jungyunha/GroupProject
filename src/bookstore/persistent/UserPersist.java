@@ -485,7 +485,7 @@ public class UserPersist {
 	}
 
 	public static Vector<Integer> getBookNumbers(int id) {
-		Vector<Integer> results = new Vector();
+		Vector<Integer> results = new Vector<Integer>();
 		boolean isEmpty = true;
 		String sql = "SELECT isbn FROM bookstore.shoppingcart WHERE userid = ?";
 		PreparedStatement stmt1;
