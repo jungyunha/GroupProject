@@ -249,7 +249,7 @@ public class HomeServlet extends HttpServlet {
 			error = true;
 		}
 		
-		if(request.getParameter("password") != request.getParameter("password2")){
+		if(!password.equals( request.getParameter("password2"))){
 			root.put("pwd_error", "Passwords do not match.");
 			error = true;
 		}
