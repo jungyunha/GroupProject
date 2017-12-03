@@ -5,6 +5,10 @@
     float: left;
 }
 
+.carttable {
+	empty-cells: show;
+}
+
 #cartInfo {
     margin-left: 400px;
 }

@@ -15,6 +15,7 @@ import bookstore.object.User;
 import bookstore.logic.*;
 import bookstore.object.UserStatus;
 import bookstore.object.UserType;
+import javafx.util.Pair;
 
 public class UserPersist {
 
@@ -236,7 +237,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -283,7 +284,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -329,7 +330,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -375,7 +376,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -388,6 +389,47 @@ public class UserPersist {
 		}else {
 			return searchResults;
 		}
+	}
+
+
+	public static Book getBookByISBN(long value) {
+		String sql = "SELECT title, price, coverphoto, rating, author, isbn FROM bookstore.book WHERE isbn=? ORDER BY title ASC";
+		PreparedStatement stmt1;
+		Book book = null;
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setLong(1, value);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+		
+			book = new Book();
+			while (rs.next()) {
+				book.setTitle( rs.getString(1));
+				book.setPrice(rs.getFloat(2));
+				book.setCoverphoto(rs.getString(3));
+				book.setRating(rs.getFloat(4));
+				book.setAuthor(rs.getString(5));
+				book.setISBN(rs.getLong(6));
+			}
+			
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return book;
 	}
 
 	public static void addToCart(int id, int quantity, int isbn) {
@@ -484,10 +526,10 @@ public class UserPersist {
 		}
 	}
 
-	public static Vector<Integer> getBookNumbers(int id) {
-		Vector<Integer> results = new Vector();
-		boolean isEmpty = true;
-		String sql = "SELECT isbn FROM bookstore.shoppingcart WHERE userid = ?";
+	public static Vector<Pair<Long,Integer>> getCart(int id) {
+		Vector<Pair<Long,Integer>> results = new Vector<Pair<Long,Integer>>();
+		//boolean isEmpty = true;
+		String sql = "SELECT quantity, isbn FROM bookstore.shoppingcart WHERE userid = ?";
 		PreparedStatement stmt1;
 		
 		try {
@@ -507,19 +549,21 @@ public class UserPersist {
 			
 			ResultSet rs = stmt1.getResultSet();
 			while (rs.next()) {
-				isEmpty = false;
-				int isbn = rs.getInt(1);
-				results.add(isbn);
+				//isEmpty = false;
+				int q = rs.getInt(1);
+				long isbn = rs.getInt(2);
+				results.add(new Pair<Long, Integer>(isbn,q));
 			}
 			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if (isEmpty) {
-			return null;
-		}else {
-			return results;
-		}
+		//if (isEmpty) {
+		//	return null;
+		//}else {
+		return results;
+		//}
 	}
+
 }

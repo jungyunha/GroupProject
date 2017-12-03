@@ -31,7 +31,7 @@
                         </form>
                         </td>
                         <td align='right'>
-                            <span>Welcome ${first} ${last}!</span>
+                            <span><h3>Your Cart</h3></span>
                         </td>
                     </tr>
                 </table>
@@ -49,48 +49,37 @@
             </div>
             <div>
           <table class = "carttable">
+          <#list books as cartItem>
           <tr>
-          	<th> Book Name </th>
-          	<th> Quantity </th>
-          	<th> Price </th>
-          </tr>
-          <#list books as book>
-          <tr>
-          	<td> ${book.title} </td>
-          	<td> x ${quantity} </td>
-          	<td> $${book.price} </td>
+          	<td> ${cartItem.book.title} </td>
+          	<td> x ${cartItem.quantity} </td>
+          	<td> $${cartItem.book.price} </td>
           </tr>
           </#list>
  		<tr>
-	 		<td> </td>
+	 		<td> - </td>
 	 		<td>Subtotal: </td>
 	 		<td>$${subtotal}</td>
  		</tr>
  		<tr>
- 			<td> </td>
+ 			<td> - </td>
  			<td>Tax: </td>
  			<td> $${tax} </td>
  		</tr>
  		<tr>
- 			<td> </td>
+ 			<td> - </td>
  			<td><strong>Total: </strong></td>
  			<td> $${total} </td>
  		</tr>
           </table>
           </div>
             <div id="cartInfo"> 
-                You have (2) items in your cart. Please choose your payment method.
+                You have (${numberOfItems}) items in your cart. Click Add Payment Method to continue.
                 <br><br>
-                <form action="" method="post" id="payment">
-                    <select name="filter">
-                        <option value="cc1">Visa Credit Card XXXX-0521</option>
-                        <option value="cc2">Mastercard Credit Card XXXX-2894</option>
-                    </select>
+                <form action="HomeServlet" method="post" id="payment">
                     <br>
-                    <input type="button" value="Select">
-                    <input type="button" value="Edit">
                     <br><br>
-                    <input type="button" value="Add new payment method">
+                    <input type="button" value="Add Payment Method" name="addPayment">
                     <br><br><br><br>
                     <input id="placeOrder" type="button" value="Place Order">
                 </form>
