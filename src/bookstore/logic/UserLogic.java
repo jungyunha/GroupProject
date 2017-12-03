@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import bookstore.object.*;
 import bookstore.persistent.UserPersist;
+import javafx.util.Pair;
 
 public class UserLogic {
 	
@@ -49,8 +50,8 @@ public class UserLogic {
 		return UserPersist.getSubscribedUsers();
 	}
 
-	public static Vector<Integer> getBookNumbers(int id) {
-		return UserPersist.getBookNumbers(id);
+	public static Vector<Pair<Long,Integer>> getCart(int id) {
+		return UserPersist.getCart(id);
 	}
 
 	public static void insertBook(int iSBN, String title, String price, int quantity, String coverphoto,

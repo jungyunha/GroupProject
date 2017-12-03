@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -18,9 +19,11 @@ import javax.servlet.http.HttpSession;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.*;
+import bookstore.persistent.UserPersist;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
+import javafx.util.Pair;
 
 /**
  * Servlet implementation class HomeServlet
@@ -92,11 +95,16 @@ public class HomeServlet extends HttpServlet {
 			root.put("error", "Please login in order to view your shopping cart.");
 			processor.runTemp(templateName, root, request, response);
 		} else {
-			Vector<Integer> bookNumbers = new Vector<Integer>();
-			bookNumbers = UserLogic.getBookNumbers(currentUser.getId());
-			for (int i : bookNumbers) {
-				System.out.println("this blows");
+			Vector<Pair<Long,Integer>> cart = UserLogic.getCart(currentUser.getId());
+			CartItem[] books = cart
+					.stream()
+					.map(p -> new CartItem(UserPersist.getBookByISBN(p.getKey()),p.getValue()))
+					.toArray(CartItem[]::new);
+			templateName = "cart.ftl";
+			for (CartItem book : books) {
+				// TODO: Add book data stuff to root?
 			}
+			processor.runTemp(templateName, root, request, response);
 		}
 	}
 
