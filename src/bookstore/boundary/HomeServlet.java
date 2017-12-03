@@ -95,7 +95,8 @@ public class HomeServlet extends HttpServlet {
 			Vector<Integer> bookNumbers = new Vector<Integer>();
 			bookNumbers = UserLogic.getBookNumbers(currentUser.getId());
 			for (int i : bookNumbers) {
-				System.out.println("this blows");
+				Book book = new Book();
+				
 			}
 		}
 	}
