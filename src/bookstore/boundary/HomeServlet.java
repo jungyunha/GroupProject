@@ -220,6 +220,7 @@ public class HomeServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
 		int id = 10; // TODO: ...
 		String firstName = request.getParameter("fname");
@@ -235,24 +236,53 @@ public class HomeServlet extends HttpServlet {
 		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
 		// If not, return to registration page and show error...
 		
-		User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting, subscribe);
-		String verificationCode = getRandomString();
-		newUser.setVerificationCode(verificationCode);
-		UserLogic.registerUser(newUser);
-		String subject = "Verify your New Account";
-		String content = "Your verification code is " + verificationCode;
-		currentUser = newUser;
-		
-		try {
-            EmailUtility.sendEmail(host, port, user, pass, emailAddress, subject, content);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
-		String templateName = "verify.ftl";
-		root.put("name", newUser.getFirstName());
-		processor.runTemp(templateName, root, request, response);
+		String templateName = "registration.ftl";
+		boolean error = false;
+		try {
+			javax.mail.internet.InternetAddress addr = new javax.mail.internet.InternetAddress(emailAddress);
+			addr.validate();
+		}
+		catch (javax.mail.internet.AddressException e){
+			root.put("email_error", "Please enter a valid email address.");
+			error = true;
+		}
+		
+		if(request.getParameter("password") != request.getParameter("password2")){
+			root.put("pwd_error", "Passwords do not match.");
+			error = true;
+		}
+		else if(false/*email already in use*/){
+			error = true;
+		}
+		else {
+			User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting, subscribe);
+			String verificationCode = getRandomString();
+			newUser.setVerificationCode(verificationCode);
+			UserLogic.registerUser(newUser);
+			String subject = "Verify your New Account";
+			String content = "Your verification code is " + verificationCode;
+			currentUser = newUser;
+			
+			try {
+	            EmailUtility.sendEmail(host, port, user, pass, emailAddress, subject, content);
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+			templateName = "verify.ftl";
+			root.put("name", newUser.getFirstName());
+			processor.runTemp(templateName, root, request, response);
+		}
+		
+		if(error){
+			root.put("fname",firstName);
+			root.put("lname",lastName);
+			root.put("phone",phoneNumber);
+			root.put("email",emailAddress);
+			root.put("mail", mailingAddress);
+			processor.runTemp(templateName, root, request, response);
+		}
 	}
 	
 	protected String getRandomString() {
