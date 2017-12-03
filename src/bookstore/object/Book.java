@@ -2,7 +2,7 @@ package bookstore.object;
 
 public class Book {
 
-	public int ISBN;
+	public long ISBN;
 	public String title;
 	public double price;
 	public int quantity;
@@ -13,7 +13,7 @@ public class Book {
 	public float rating;
 	public String author;
 
-	public Book(int iSBN, String title, float price, int quantity, String coverphoto, String category,
+	public Book(long iSBN, String title, float price, int quantity, String coverphoto, String category,
 			String description, int thresholdLimit, float rating, String author) {
 		ISBN = iSBN;
 		this.title = title;
@@ -40,11 +40,11 @@ public class Book {
 		author = "";
 	}
 
-	public int getISBN() {
+	public long getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(int iSBN) {
+	public void setISBN(long iSBN) {
 		ISBN = iSBN;
 	}
 
@@ -120,7 +120,7 @@ public class Book {
 		this.author = author;
 	}
 
-	public Book(int iSBN, String title, double price, int quantity, String coverphoto, String category,
+	public Book(long iSBN, String title, double price, int quantity, String coverphoto, String category,
 			String description, int thresholdLimit, float rating, String author) {
 		ISBN = iSBN;
 		this.title = title;

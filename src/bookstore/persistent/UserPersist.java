@@ -236,7 +236,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -283,7 +283,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -329,7 +329,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
@@ -375,7 +375,7 @@ public class UserPersist {
 				temp.coverphoto = rs.getString(3);
 				temp.rating = rs.getFloat(4);
 				temp.author = rs.getString(5);
-				temp.ISBN = rs.getInt(6);
+				temp.ISBN = rs.getLong(6);
 				searchResults.add(temp);
 			}
 			
