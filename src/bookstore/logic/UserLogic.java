@@ -76,4 +76,13 @@ public class UserLogic {
 	}
 
 
+	public static void updateBook(int iSBN, String title, String price, int quantity, String coverphoto,
+			String category, String description, int thresholdLimit, int rating, String author, int iSBN2) {
+		UserPersist.updateBook(iSBN, title, price, quantity, coverphoto, category, description, thresholdLimit, rating, author, iSBN2);
+	}
+
+	public static void deleteBook(int iSBN){
+		UserPersist.deleteBook(iSBN);
+	}
+
 }

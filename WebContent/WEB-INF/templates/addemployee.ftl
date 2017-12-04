@@ -25,7 +25,9 @@
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
                     <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
+	                     <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=deletebook">DeleteBook</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
@@ -35,7 +37,7 @@
 	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=viewpublisher">View Publisher Report</a></li>  
-	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>    
+	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>   
                 </ul>
             </div>
             <div align="center">

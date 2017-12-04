@@ -66,13 +66,16 @@ public class AdminServlet extends HttpServlet {
 				templateName = "addbook.ftl";
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("updatebook")) {
-				//templateName = "adminaddbook.ftl";
-				//processor.runTemp(templateName, root, request, response);
+				templateName = "updatebook.ftl";
+				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("createpromo")) {
 				templateName = "createpromo.ftl";
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("addemployee")) {
 				templateName = "addemployee.ftl";
+				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("deletebook")){
+				templateName = "deletebook.ftl";
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("suspendacct")) {
 				templateName = "suspendaccount.ftl";
@@ -106,12 +109,29 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("addbook") != null){
 			addBook(request, response);
 		}
+		if(request.getParameter("updatebook") != null){
+			updateBook(request, response);
+		}
+		if(request.getParameter("deletebook") != null){
+			deleteBook(request, response);
+		}
 	}
-
-	private void addBook(HttpServletRequest request, HttpServletResponse response){
+	
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response){
+		int iSBN = Integer.parseInt(request.getParameter("iSBN"));
+		UserLogic.deleteBook(iSBN);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "adminhome.ftl";
+		root.put("hello","Book deleted successfully!");
+		processor.runTemp(templateName, root, request, response);	
+	}
+	
+	private void updateBook(HttpServletRequest request, HttpServletResponse response){
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		int iSBN = Integer.parseInt(request.getParameter("iSBN"));
+		int iSBN2 = Integer.parseInt(request.getParameter("iSBN2"));
 		String category = request.getParameter("category");
 		String price = request.getParameter("price");
 		String coverphoto = request.getParameter("coverphoto");
@@ -127,19 +147,22 @@ public class AdminServlet extends HttpServlet {
 		newBook.setCoverphoto(description);
 		newBook.setThresholdLimit(thresholdLimit);
 		newBook.setRating(rating);
+		newBook.setISBN(iSBN2);
 		newBook.setISBN(iSBN);
 		newBook.setAuthor(author);
 		newBook.setCategory(category);
 		newBook.setPrice(Float.parseFloat(price));
-		UserLogic.insertBook(iSBN, title, price, quantity, coverphoto, category,
-				 description, thresholdLimit,  rating, author);
+		UserLogic.updateBook(iSBN, title, price, quantity, coverphoto, category,
+				 description, thresholdLimit,  rating, author,iSBN2);
 		 
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "adminhome.ftl";
-		root.put("hello","Added book successfully!");
+		root.put("hello","Updated book successfully!");
 		processor.runTemp(templateName, root, request, response); 
 	}
+
+
 	
 	private void addEmployee(HttpServletRequest request, HttpServletResponse response) {
 		String firstName = request.getParameter("fName");
