@@ -10,7 +10,7 @@
         </script>
     <head>
     <body>
-        <div class="main">
+        <div class="main">	
             <h1>BOOKERS</h1>
             <div>
                 <table>
@@ -19,19 +19,16 @@
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
                         </td>
                         <td class="search" align='center'>
-                            <form action="HomeServlet" method="post">
-                            Search: <input style="height:18px;width:200px" type="text" name="searchValue"/> by 
-                            <select style="height:18px" name="searchType">
-                            	<option value="title">Title</option>
-                                <option value="subject">Subject</option>
+                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
+                            <select style="height:18px">
+                                <option value="all">All</option>
+                                <option value="name">Name</option>
                                 <option value="author">Author</option>
                                 <option value="isbn">ISBN</option>
                             </select>
-                            <input type="submit" value="Search" name="searchBook" style="width:100px" />
-                        </form>
                         </td>
                         <td align='right'>
-                            <span><h3>Your Cart</h3></span>
+                            <span>Not Logged In</span>
                         </td>
                     </tr>
                 </table>
@@ -41,48 +38,34 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="#">My Account</a></li>
+                     <li><a href="#">My Account</a></li>
                     <li><a href="#">My Cart</a></li>
                     <li><a href="#">Order History</a></li>
-                    <li><a href="login.html">Log Out</a></li>
+                    <li><a href="login.html">Log Out</a></li>  
                 </ul>
             </div>
-            <div>
-          <table class = "carttable">
-          <#list books as cartItem>
-          <tr>
-          	<td> ${cartItem.book.title} </td>
-          	<td> x ${cartItem.quantity} </td>
-          	<td> $${cartItem.book.price} </td>
-          </tr>
-          </#list>
- 		<tr>
-	 		<td> - </td>
-	 		<td>Subtotal: </td>
-	 		<td>$${subtotal}</td>
- 		</tr>
- 		<tr>
- 			<td> - </td>
- 			<td>Tax: </td>
- 			<td> $${tax} </td>
- 		</tr>
- 		<tr>
- 			<td> - </td>
- 			<td><strong>Total: </strong></td>
- 			<td> $${total} </td>
- 		</tr>
-          </table>
-          </div>
+         <div id="wrapper">
+            
+            <h2> Checkout </h2>
+            
+            <img id="cart" src="https://image.flaticon.com/icons/svg/2/2772.svg" alt="cart">
+            
             <div id="cartInfo"> 
-                You have (${numberOfItems}) items in your cart. Click Add Payment Method to continue.
+                You have (${numberOfItems}) items in your cart.
                 <br><br>
                 <form action="HomeServlet" method="post" id="payment">
                     <br>
                     <br><br>
-                    <input type="submit" value="Add Payment Method" name="addPayment">
+                    Your selected payment method: ${payment}
                     <br><br><br><br>
+                    Total price of order: ${totalPrice}. <br>
+                    Press the Place Order button to place your order. 
+                    <br><br><br><br>
+                    <input id="placeOrder" type="submit" value="Place Order" name="placeOrder">
                 </form>
+            
             </div>
-            </div>
+        
+        </div>
     </body>
 </html>

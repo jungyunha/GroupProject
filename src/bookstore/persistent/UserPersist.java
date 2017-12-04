@@ -11,6 +11,8 @@ import com.mysql.jdbc.PreparedStatement;
 import com.sun.imageio.plugins.common.SubImageInputStream;
 
 import bookstore.object.Book;
+import bookstore.object.Cart;
+import bookstore.object.CartItem;
 import bookstore.object.User;
 import bookstore.logic.*;
 import bookstore.object.UserStatus;
@@ -564,6 +566,69 @@ public class UserPersist {
 		//}else {
 		return results;
 		//}
+	}
+
+
+	public static void placeOrder(Cart currentCart, String dateTime, int newID, int userID) {
+		for (CartItem c : currentCart.cartItems) {
+			String sql = "INSERT INTO bookstore.transactions VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmt1;
+			
+			try {
+				if(conn == null || conn.isClosed())
+				{
+					try {
+						conn = DbUtils.connect();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+	
+				stmt1.setInt(1, newID);
+				stmt1.setInt(2, userID);
+				stmt1.setInt(3,  c.quantity);
+				stmt1.setString(4, dateTime);
+				stmt1.setInt(5,  currentCart.promoPercentage);
+				stmt1.setDouble(6, currentCart.totalPrice);
+				stmt1.setLong(7, c.book.getISBN());
+				stmt1.setString(8,  "Not yet shipped");
+				stmt1.executeUpdate();
+				
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	public static void emptyCart(int id) {
+		String sql = "DELETE FROM bookstore.shoppingcart WHERE userid=?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setInt(1, id);
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

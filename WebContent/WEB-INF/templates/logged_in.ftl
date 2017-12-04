@@ -47,6 +47,7 @@
                     <li><a href="login.html">Log Out</a></li>
                 </ul>
             </div>
+            <h2> ${message} </h2>
             <div>
                 <img src = "images/books.jpg" alt="banner">
             </div>

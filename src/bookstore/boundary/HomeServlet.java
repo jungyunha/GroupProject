@@ -2,7 +2,10 @@ package bookstore.boundary;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
@@ -34,6 +37,7 @@ public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private User currentUser;
+	private Cart currentCart;
 	private TemplateProcessor processor;
 	private String host;
 	private String port;
@@ -53,6 +57,7 @@ public class HomeServlet extends HttpServlet {
         pass = context.getInitParameter("pass");
     	processor = new TemplateProcessor(getServletContext());
     	currentUser = null;
+    	currentCart = null;
     }
 
 	/**
@@ -65,11 +70,9 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("register") != null) {
 			registerUser(request, response);
 		}
-		
 		if (request.getParameter("login") != null) {
 			login(request, response);
 		}
-		
 		if (request.getParameter("verify") != null) {
 			verifyUser(request, response);
 		}
@@ -86,12 +89,69 @@ public class HomeServlet extends HttpServlet {
 			goToCart(request, response);
 		}
 		if (request.getParameter("addPayment") != null) {
+			System.out.println("were here");
 			addPayment(request, response);
+		}
+		if (request.getParameter("submitPayment") != null) {
+			submitPayment(request, response);
+		}
+		if (request.getParameter("placeOrder") != null) {
+			placeOrder(request, response);
 		}
 	}
 	
-	private void addPayment(HttpServletRequest request, HttpServletResponse response) {
+	private void placeOrder(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		int newID = Integer.parseInt(getRandomID());
+		UserLogic.placeOrder(currentCart, dateFormat.format(date), newID, currentUser.getId());
+		String subject = "Order Confirmation";
+		String content = "Thank you for placing an order with us. You will be emailed again once the order has been delievered. Here is the order summary: \n\n\n";
+		for (CartItem c : currentCart.cartItems) {
+			content += c.book.getTitle() + "\t\t x " + c.quantity + "\t\t Price per unit: $" + c.book.getPrice() + "\n";
+		}
+		content += "\n\n\n \t Total Amount Paid: \t" + currentCart.totalPrice;
 		
+		try {
+            EmailUtility.sendEmail(host, port, user, pass, currentUser.getEmail(), subject, content);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+		UserLogic.emptyCart(currentUser.getId());
+		currentCart = null;
+		templateName = "logged_in.ftl";
+		String message = "Your order has been placed. A confirmation email was sent to you and another email will be sent when the order is delivered. Thank you for shopping with us!";
+		root.put("first", currentUser.getFirstName());
+		root.put("last",  currentUser.getLastName());
+		root.put("message", message);
+		processor.runTemp(templateName, root, request, response);
+	}
+
+	private void submitPayment(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName;
+		if (currentUser != null) {
+			templateName = "checkout.ftl";
+			int numberOfItems = currentCart.cartItems.size();
+			String payment = request.getParameter("cardType");
+			double totalPrice = currentCart.totalPrice;
+			root.put("numberOfItems", numberOfItems);
+			root.put("payment", payment);
+			root.put("totalPrice", totalPrice);
+			processor.runTemp(templateName, root, request, response);
+		}
+	}
+
+	private void addPayment(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "addPayment.ftl";
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void goToCart(HttpServletRequest request, HttpServletResponse response) {
@@ -115,17 +175,18 @@ public class HomeServlet extends HttpServlet {
 			for (Pair<Long,Integer> p : cart) {
 				Book b = UserLogic.getBookByISBN(p.getKey());
 				CartItem c = new CartItem(b,p.getValue());
-				System.out.println(b.title);
 				books.add(c);
 			}
 			double subtotal = 0;
 			int numberOfItems = 0;
 			for (CartItem c : books) {
-				subtotal += c.book.getPrice();
+				subtotal += c.book.getPrice() * c.quantity;
 				numberOfItems++;
 			}
 			double tax = 0.07 * subtotal;
 			double total = subtotal + tax;
+			Cart newCart = new Cart(books, total, 0, "Not Yet Selected");
+			currentCart = newCart;
 			/*
 			List<CartItem> books = cart
 					.stream()
@@ -229,6 +290,7 @@ public class HomeServlet extends HttpServlet {
 					templateName = "logged_in.ftl";
 					root.put("first", user.getFirstName());
 					root.put("last", user.getLastName());
+					root.put("message", "");
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case Admin:
@@ -321,6 +383,19 @@ public class HomeServlet extends HttpServlet {
 	
 	protected String getRandomString() {
         String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder str = new StringBuilder();
+        Random rnd = new Random();
+        while (str.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * allChars.length());
+            str.append(allChars.charAt(index));
+        }
+        String randomString = str.toString();
+        return randomString;
+
+    }
+	
+	protected String getRandomID() {
+        String allChars = "1234567890";
         StringBuilder str = new StringBuilder();
         Random rnd = new Random();
         while (str.length() < 6) { // length of the random string.

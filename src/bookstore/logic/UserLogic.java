@@ -63,5 +63,13 @@ public class UserLogic {
 		return UserPersist.getBookByISBN(key);
 	}
 
+	public static void placeOrder(Cart currentCart, String dateTime, int newID, int userID) {
+		UserPersist.placeOrder(currentCart, dateTime, newID, userID);
+	}
+
+	public static void emptyCart(int id) {
+		UserPersist.emptyCart(id);
+	}
+
 
 }
