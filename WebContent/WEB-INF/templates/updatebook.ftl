@@ -58,7 +58,7 @@
 						<tr><td class="registrationForm">Coverphoto URL: </td>          <td class="registrationInput"><input type="text" name="coverphoto"></td></tr>
 						<tr><td class="registrationForm">Quantity: </td>          <td class="registrationInput"><input type="number" name="quantity"></td></tr>
 						<tr><td class="registrationForm">Description: </td>          <td class="registrationInput"><input type="text" name="description"></td></tr>
-						<tr><td class="registrationForm">Threshold: </td>          <td class="registrationInput"><input type="number" name="thresholdLimit"></td></tr>
+						<tr><td class="registrationForm">Threshhold: </td>          <td class="registrationInput"><input type="number" name="thresholdLimit"></td></tr>
 						<tr><td class="registrationForm">Rating: </td>          <td class="registrationInput"><input type="number" name="rating"></td></tr>
                     </table>
                       <input type="submit"  class="SubmitRegistration" value="Update Book" name="updatebook"/>

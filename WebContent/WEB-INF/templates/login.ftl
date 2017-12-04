@@ -54,9 +54,11 @@
                                     <tr><td style="width:50%">Password: </td>         <td><input style="width:100%;border:1px solid #CCC" type="text" name="pass" required></td></tr>
                                 </table>
                                 <input type="submit" value="Login" class="submitRegistration" name="login">
-                                <input type="submit" value="Forgot Password?" class ="forgotPassword" name = "forgotpassword">
                             </form>
                             <h5 style="color:red">${error}</h5>
+                            <form action="HomeServlet" method="get">
+                             <input type="submit" value="Forgot Password?" class ="forgotPassword" name = "forgotpassword">
+                             </form>
                         </td>
                         <td>
                             <p align="center">Or Register</p>

@@ -1,5 +1,7 @@
 package bookstore.persistent;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 public abstract class DbAccessConfiguration {
 	
@@ -10,5 +12,6 @@ public abstract class DbAccessConfiguration {
 	static final String DB_CONNECTION_USERNAME = "root";
 	
 	static final String DB_CONNECTION_PASSWORD = "gokorea57"; //your password
+
 
 }

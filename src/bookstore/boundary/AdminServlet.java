@@ -107,7 +107,7 @@ public class AdminServlet extends HttpServlet {
 			addEmployee(request, response);
 		}
 		if(request.getParameter("addbook") != null){
-			//addBook(request, response);
+			addBook(request, response);
 		}
 		if(request.getParameter("updatebook") != null){
 			updateBook(request, response);
@@ -153,7 +153,7 @@ public class AdminServlet extends HttpServlet {
 		newBook.setCategory(category);
 		newBook.setPrice(Float.parseFloat(price));
 		UserLogic.updateBook(iSBN, title, price, quantity, coverphoto, category,
-				 description, thresholdLimit,  rating, author,iSBN2);
+				 description, thresholdLimit,  rating, author, iSBN2);
 		 
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
@@ -185,7 +185,7 @@ public class AdminServlet extends HttpServlet {
 		newBook.setCategory(category);
 		newBook.setPrice(Float.parseFloat(price));
 		UserLogic.insertBook(iSBN, title, price, quantity, coverphoto, category,
-				 description, thresholdLimit,  rating, author);
+				 description, thresholdLimit, rating, author);
 		 
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());

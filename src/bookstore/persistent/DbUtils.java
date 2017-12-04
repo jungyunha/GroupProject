@@ -101,12 +101,12 @@ public class DbUtils {
             throw new Exception( "DbUtils.connect: Unable to connect to database " + ex.getMessage() );
         }
     }
-    public static ResultSet retrieve(Connection con, String query)
+    public static ResultSet retrieve(Connection conn, String query)
     {
       ResultSet rset = null;
       try
       {
-        Statement stmt = con.createStatement();
+        Statement stmt = conn.createStatement();
         return stmt.executeQuery(query);
       }
       catch (SQLException e)

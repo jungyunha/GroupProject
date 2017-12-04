@@ -21,7 +21,6 @@ public class UserPersist {
 	
 
 	private static Connection conn = null;
-
 	public static void updateUser(User user){
 		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
 		PreparedStatement stmt1;
@@ -104,11 +103,10 @@ public class UserPersist {
 	}
 	public static void updateBook(int iSBN, String title, String price, int quantity, String coverphoto, String category,
 			String description, int thresholdLimit, float rating, String author, int iSBN2){
-		String sql = "update bookstore.book set isbn = ?, title = ?, price = ?, quantity = ?, coverphoto = ?, "
-				+ "category = ?, description = ?, thresholdLimit = ?, rating = ?, author = ? where iSBN = ?";
+		 String sql = "update bookstore.book set isbn = ?, title = ?, price = ?, quantity = ?, coverphoto = ?, category = ?, description = ?, threshholdlimit = ?, rating = ?, author = ? where iSBN = ?";
 		//String sql = "update bookstore.book set isbn = " + iSBN + ", title = '"+ title + "', price = " + price + ", "
-		//		+ "quantity = "+ quantity + ", coverphoto = '" + coverphoto + "', category = '" + category + "', description = '" + description + 
-		//		"', thresholdLimit = " + thresholdLimit + ", rating = " + rating + ", author = '" + author + "' where iSBN = " + iSBN2;
+		//	+ "quantity = "+ quantity + ", coverphoto = '" + coverphoto + "', category = '" + category + "', description = '" + description + 
+		//	"', threshholdlimit = " + thresholdLimit + ", rating = " + rating + ", author = '" + author + "' where iSBN = " + iSBN2;
 		
 		PreparedStatement stmt1;
 		try {
@@ -124,8 +122,8 @@ public class UserPersist {
 			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
 			
 			stmt1.setInt(1,iSBN);
-			stmt1.setString (1,title);
-			stmt1.setString(1,price);
+			stmt1.setString(2, title);
+			stmt1.setString(3,price);
 			stmt1.setInt(4, quantity);
 			stmt1.setString(5, coverphoto);
 			stmt1.setString(6, category);

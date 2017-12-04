@@ -18,7 +18,7 @@
             		<input style="width:100px" type="submit" value="verify" name="verify">
             	</center>
             </form>
-            <h5 style="color:red">${error}</h5>
+            <h5 style="color:red"></h5>
             </div>
         </div>
         <div class="FooterStatsContent">

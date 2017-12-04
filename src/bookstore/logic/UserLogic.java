@@ -77,8 +77,8 @@ public class UserLogic {
 
 
 	public static void updateBook(int iSBN, String title, String price, int quantity, String coverphoto,
-			String category, String description, int thresholdLimit, int rating, String author, int iSBN2) {
-		UserPersist.updateBook(iSBN, title, price, quantity, coverphoto, category, description, thresholdLimit, rating, author, iSBN2);
+			String category, String description, int threshholdLimit, int rating, String author, int iSBN2) {
+		UserPersist.updateBook(iSBN, title, price, quantity, coverphoto, category, description, threshholdLimit, rating, author, iSBN2);
 	}
 
 	public static void deleteBook(long iSBN){
@@ -97,5 +97,6 @@ public class UserLogic {
 	public static String getEmailWithUserID(int id) {
 		return UserPersist.getEmailWithUserID(id);
 	}
+
 
 }
