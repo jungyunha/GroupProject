@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Random;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.*;
@@ -29,12 +28,14 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import javafx.util.Pair;
+import java.util.Random;
 
 /**
  * Servlet implementation class HomeServlet
  */
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	
 	private User currentUser;
@@ -353,7 +354,7 @@ public class HomeServlet extends HttpServlet {
 
 	@SuppressWarnings("unused")
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
-		int id = 10; // TOO ..
+		int id = 0;
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
