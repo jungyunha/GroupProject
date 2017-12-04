@@ -23,7 +23,7 @@ public class UserPersist {
 	private static Connection conn = null;
 
 	public static void updateUser(User user){
-		String insertSql = "UPDATE bookstore.users SET firstname = ? SET lastname = ? SET phonenumber = ? SET email = ? SET shippingaddress = ? SET billingaddress = ? WHERE userid = ?";
+		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
 		PreparedStatement stmt1;
 		
 		try {
@@ -233,7 +233,7 @@ public class UserPersist {
 	private static UserStatus[] userStatusValues = UserStatus.values();
 	public static User verifyUser(String username, String pass) {
 		User user = new User();
-		String sql = "SELECT userid, firstname, lastname, usertype, status FROM bookstore.users WHERE email = ? AND password = ?";
+		String sql = "SELECT userid, firstname, lastname, usertype, status, shippingaddress, phonenumber FROM bookstore.users WHERE email = ? AND password = ?";
 		PreparedStatement stmt;
 		try {
 			if(conn == null || conn.isClosed())
@@ -265,6 +265,8 @@ public class UserPersist {
 				user.setUserType(userTypeValues[rs.getInt(4)]);
 				user.setStatus(userStatusValues[rs.getInt(5)]);
 				user.setEmail(username);
+				user.setShippingAddress(rs.getString(6));
+				user.setPhoneNumber(rs.getString(7));
 			}
 			else {
 				notEmail = true;
@@ -289,6 +291,8 @@ public class UserPersist {
 					user.setLastName(rs.getString(3));
 					user.setUserType(userTypeValues[rs.getInt(4)]);
 					user.setStatus(userStatusValues[rs.getInt(5)]);
+					user.setShippingAddress(rs.getString(6));
+					user.setPhoneNumber(rs.getString(7));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

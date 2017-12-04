@@ -110,11 +110,31 @@ public class HomeServlet extends HttpServlet {
 			editProfile(request, response);
 		}
 		if (request.getParameter("gotoEditProfile") != null) {
-			GotoEditProfile(request, response);
+			gotoEditProfile(request, response);
+		}
+		if (request.getParameter("editPassword") != null) {
+			editPassword(request, response);
+		}
+		if (request.getParameter("gotoEditPassword") != null) {
+			gotoEditPassword(request, response);
 		}
 	}
 	
-	private void GotoEditProfile(HttpServletRequest request, HttpServletResponse response) {
+	private void gotoEditPassword(HttpServletRequest request, HttpServletResponse response) {
+		String templateName = "editPassword.ftl";
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		
+		processor.runTemp(templateName, root, request, response);
+	}
+
+	private void editPassword(HttpServletRequest request, HttpServletResponse response) {
+		String currentPw = request.getParameter("password");
+		String newPw = request.getParameter("newpassword");
+		String newPw2 = request.getParameter("newpassword2");
+	}
+
+	private void gotoEditProfile(HttpServletRequest request, HttpServletResponse response) {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "editProfile.ftl";
@@ -133,9 +153,6 @@ public class HomeServlet extends HttpServlet {
 		String emailAddress = request.getParameter("email");
 		String mailingAddress = request.getParameter("address");
 		String subscribeForPromo = request.getParameter("subscribe");
-		
-		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
-		// If not, return to registration page and show error...
 		
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
@@ -454,8 +471,6 @@ public class HomeServlet extends HttpServlet {
 		boolean subscribe = (subscribeForPromo.equals("on"));
 		UserType userType = UserType.Customer;
 		
-		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
-		// If not, return to registration page and show error...
 		
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
@@ -474,6 +489,7 @@ public class HomeServlet extends HttpServlet {
 			root.put("pwd_error", "Passwords do not match.");
 			error = true;
 		}
+		// TODO: Validate info: Check if the submitted email is already used for another account
 		else if(false/*email already in use*/){
 			error = true;
 		}

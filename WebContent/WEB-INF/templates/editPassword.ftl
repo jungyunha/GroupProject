@@ -49,14 +49,21 @@
                 <p align="center">REGISTRATION FORM</p>
                 <form action="HomeServlet" method="post" >
                     <table class="editProfile">
-                        <tr><td class="registrationForm">Password: </td>         <td class="registrationInput"><input type="text" name="password" required></td></tr>
                         <tr>
-                        	<td class="registrationForm">Re-Enter Password: </td>
-                        	<td class="registrationInput"><input type="text" name="password2" required></td>
+                        	<td class="registrationForm">Current Password: </td>         
+                        	<td class="registrationInput"><input type="text" name="password" required></td>
+                        </tr>
+                        <tr>
+                        	<td class="registrationForm">New Password: </td>         
+                        	<td class="registrationInput"><input type="text" name="newpassword" required></td>
+                        </tr>
+                        <tr>
+                        	<td class="registrationForm">Re-Enter New Password: </td>
+                        	<td class="registrationInput"><input type="text" name="newpassword2" required></td>
                         	<td><h5 style="color:red">${pwd_error!""}</h5></td>
                         </tr>
-                                           </table>
-                    <input type="submit" class="submitRegistration" name="register">
+                    </table>
+                    <input type="submit" class="submitRegistration" name="editPassword">
                 </form>
             </div>
             
