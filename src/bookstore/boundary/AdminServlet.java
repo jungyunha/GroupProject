@@ -190,7 +190,7 @@ public class AdminServlet extends HttpServlet {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "adminhome.ftl";
-		root.put("hello","Updated book successfully!");
+		root.put("hello","Added book successfully!");
 		processor.runTemp(templateName, root, request, response); 
 	}
 
