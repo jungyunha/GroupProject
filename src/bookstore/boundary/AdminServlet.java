@@ -107,7 +107,7 @@ public class AdminServlet extends HttpServlet {
 			addEmployee(request, response);
 		}
 		if(request.getParameter("addbook") != null){
-			addBook(request, response);
+			//addBook(request, response);
 		}
 		if(request.getParameter("updatebook") != null){
 			updateBook(request, response);

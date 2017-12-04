@@ -731,5 +731,93 @@ public class UserPersist {
 			return password;
 		}
 	}
+	public static void updateOrderStatus(int transactionID, String status) {
+		String sql = "UPDATE bookstore.transactions SET orderstatus = ? WHERE tid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.setString(1, status);
+			stmt1.setInt(2, transactionID);
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static int getUserIDFromTransactionID(int transactionID) {
+		int id = 0;
+		String sql = "SELECT userid FROM bookstore.transactions WHERE tid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setInt(1, transactionID);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				id = rs.getInt(1);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	public static String getEmailWithUserID(int id) {
+		String email = "";
+		String sql = "SELECT email FROM bookstore.users WHERE userid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setInt(1, id);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				email = rs.getString(1);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return email;
+	}
 
 }

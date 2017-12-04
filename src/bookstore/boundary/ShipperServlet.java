@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bookstore.logic.UserLogic;
 import bookstore.object.User;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -62,6 +63,38 @@ public class ShipperServlet extends HttpServlet {
 				processor.runTemp(templateName, root, request, response);
 			}
 		}
+		if (request.getParameter("updateStatus") != null) {
+			updateStatus(request, response);
+		}
+	}
+
+	private void updateStatus(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "shipperhome.ftl";
+		int transactionID = Integer.parseInt(request.getParameter("transactionid"));
+		String statusInput = request.getParameter("orderstatus");
+		String status = "";
+		if (statusInput.equals("notyet")) {
+			status = "Not yet shipped";
+		}else if (statusInput.equals("shipped")) {
+			status = "Shipped";
+		}else if (statusInput.equals("delivered")) {
+			status = "Delivered";
+			String subject = "Order Update";
+			String content = "Your order has been delivered! ";
+			int userID = UserLogic.getUserIDFromTransactionID(transactionID);
+			String emailAddress = UserLogic.getEmailWithUserID(userID);
+			try {
+	            EmailUtility.sendEmail(host, port, user, pass, emailAddress, subject, content);
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+		}
+		UserLogic.updateOrderStatus(transactionID, status);
+		
+		root.put("hello",  "Order Updated Successfully!");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	/**

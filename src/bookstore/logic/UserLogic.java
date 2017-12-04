@@ -85,4 +85,17 @@ public class UserLogic {
 		UserPersist.deleteBook(iSBN);
 	}
 
+	public static void updateOrderStatus(int transactionID, String status) {
+		UserPersist.updateOrderStatus(transactionID, status);
+		
+	}
+
+	public static int getUserIDFromTransactionID(int transactionID) {
+		return UserPersist.getUserIDFromTransactionID(transactionID);
+	}
+
+	public static String getEmailWithUserID(int id) {
+		return UserPersist.getEmailWithUserID(id);
+	}
+
 }
