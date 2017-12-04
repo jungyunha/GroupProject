@@ -81,7 +81,7 @@ public class UserLogic {
 		UserPersist.updateBook(iSBN, title, price, quantity, coverphoto, category, description, thresholdLimit, rating, author, iSBN2);
 	}
 
-	public static void deleteBook(int iSBN){
+	public static void deleteBook(long iSBN){
 		UserPersist.deleteBook(iSBN);
 	}
 

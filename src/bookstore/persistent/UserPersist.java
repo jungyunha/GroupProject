@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Vector;
 
 import com.mysql.jdbc.PreparedStatement;
-import com.sun.imageio.plugins.common.SubImageInputStream;
-
 import bookstore.object.Book;
 import bookstore.object.Cart;
 import bookstore.object.CartItem;
@@ -24,8 +22,66 @@ public class UserPersist {
 
 	private static Connection conn = null;
 
+	public static void updateUser(User user){
+		String insertSql = "UPDATE bookstore.users SET firstname = ? SET lastname = ? SET phonenumber = ? SET email = ? SET shippingaddress = ? SET billingaddress = ? WHERE userid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
+			stmt1.setString(1, user.getFirstName());
+			stmt1.setString(2, user.getLastName());
+			stmt1.setString(3, user.getPhoneNumber());
+			stmt1.setString(4, user.getEmail());
+			stmt1.setString(5, user.getShippingAddress());
+			stmt1.setString(6, user.getBillingAddress());
+			stmt1.setInt(7, user.getId());
+			
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateUserPassword(User user){
+		String insertSql = "UPDATE bookstore.users SET password = ? WHERE userid = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
+			stmt1.setString(1, user.getPassword());
+			stmt1.setInt(2, user.getId());
+			
+			stmt1.executeUpdate();
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-	public static void deleteBook(int iSBN){
+	public static void deleteBook(long iSBN){
 		String sql = "DELETE FROM bookstore.book where isbn = ?";
 		PreparedStatement stmt1;
 		try {
@@ -39,7 +95,7 @@ public class UserPersist {
 				}
 			}
 			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
-			stmt1.setInt(1,iSBN);
+			stmt1.setLong(1,iSBN);
 			stmt1.executeUpdate();
 		}
 		catch (SQLException e) {

@@ -106,8 +106,91 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("emailSubmit") != null) {
 			sendPassword(request, response);
 		}
+		if (request.getParameter("editProfile") != null) {
+			editProfile(request, response);
+		}
+		if (request.getParameter("gotoEditProfile") != null) {
+			GotoEditProfile(request, response);
+		}
 	}
 	
+	private void GotoEditProfile(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "editProfile.ftl";
+		root.put("fname",currentUser.getFirstName());
+		root.put("lname",currentUser.getLastName());
+		root.put("phone",currentUser.getPhoneNumber());
+		root.put("email",currentUser.getEmail());
+		root.put("mail", currentUser.getShippingAddress());
+		processor.runTemp(templateName, root, request, response);
+	}
+
+	private void editProfile(HttpServletRequest request, HttpServletResponse response) {
+		String firstName = request.getParameter("fname");
+		String lastName = request.getParameter("lname");
+		String phoneNumber = request.getParameter("phone");
+		String emailAddress = request.getParameter("email");
+		String mailingAddress = request.getParameter("address");
+		String subscribeForPromo = request.getParameter("subscribe");
+		
+		// TODO: Validate info: make sure passwords match, check if the submitted email is already used for another account, etc.
+		// If not, return to registration page and show error...
+		
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "editProfile.ftl";
+		boolean error = false;
+		try {
+			javax.mail.internet.InternetAddress addr = new javax.mail.internet.InternetAddress(emailAddress);
+			addr.validate();
+		}
+		catch (javax.mail.internet.AddressException e){
+			root.put("email_error", "Please enter a valid email address.");
+			error = true;
+		}
+		root.put("fname",currentUser.getFirstName());
+		root.put("lname",currentUser.getLastName());
+		root.put("phone",currentUser.getPhoneNumber());
+		root.put("email",currentUser.getEmail());
+		root.put("mail", currentUser.getShippingAddress());
+		
+		if (!error) {
+			boolean updated = false;
+			if(!currentUser.getFirstName().equals(firstName))
+			{
+				updated = true;
+				currentUser.setFirstName(firstName);
+			}
+			if(!currentUser.getLastName().equals(lastName))
+			{
+				updated = true;
+				currentUser.setLastName(lastName);
+			}
+			if(!currentUser.getPhoneNumber().equals(phoneNumber))
+			{
+				updated = true;
+				currentUser.setPhoneNumber(phoneNumber);
+			}
+			if(!currentUser.getEmail().equals(emailAddress))
+			{
+				updated = true;
+				currentUser.setEmail(emailAddress);
+			}
+			if(!currentUser.getShippingAddress().equals(mailingAddress))
+			{
+				updated = true;
+				currentUser.setShippingAddress(mailingAddress);
+			}
+			
+			if(updated){
+				UserPersist.updateUser(currentUser);
+			}
+		}
+		
+		processor.runTemp(templateName, root, request, response);
+	}
+
 	private void sendPassword(HttpServletRequest request, HttpServletResponse response) {
 		String emailEntered = request.getParameter("emailValue");
 		String password = UserLogic.getUserPasswordWithEmail(emailEntered);
@@ -291,14 +374,20 @@ public class HomeServlet extends HttpServlet {
 	
 	private void verifyUser(HttpServletRequest request, HttpServletResponse response) {
 		String verificationCode = request.getParameter("code");
-		if (verificationCode.equals(currentUser.getVerificationCode())) {
-			System.out.println(verificationCode);
-			UserLogic.setStatus(currentUser, UserStatus.Active);
-		}
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
-		String templateName = "login.ftl";
-		root.put("error",  "Your account has successfully been verified. You may now log in.");
+		String templateName;
+		if (verificationCode!= null && currentUser != null && verificationCode.equals(currentUser.getVerificationCode())) {
+			System.out.println(verificationCode);
+			UserLogic.setStatus(currentUser, UserStatus.Active);
+			root.put("error",  "Your account has successfully been verified. You may now log in.");
+			templateName = "login.ftl";
+		}
+		else{
+			root.put("name", currentUser.getFirstName());
+			root.put("error",  "Failed to validate account.");
+			templateName = "verify.ftl";
+		}
 		processor.runTemp(templateName, root, request, response);
 	}
 
@@ -388,7 +477,7 @@ public class HomeServlet extends HttpServlet {
 		else if(false/*email already in use*/){
 			error = true;
 		}
-		else {
+		else if (!error) {
 			User newUser = new User(id, firstName, lastName, phoneNumber, emailAddress, password, userType, mailingAddress, mailingAddress, UserStatus.Waiting, subscribe);
 			String verificationCode = getRandomString();
 			newUser.setVerificationCode(verificationCode);

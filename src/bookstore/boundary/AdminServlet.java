@@ -118,7 +118,7 @@ public class AdminServlet extends HttpServlet {
 	}
 	
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response){
-		int iSBN = Integer.parseInt(request.getParameter("iSBN"));
+		long iSBN = Long.parseLong(request.getParameter("iSBN"));
 		UserLogic.deleteBook(iSBN);
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());

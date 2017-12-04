@@ -90,6 +90,11 @@ table.registration {
     text-align:absolute;
     padding:5px;
 }
+table.editProfile {
+    width:50%;
+    text-align:absolute;
+    padding:5px;
+}
 select {
 	width: 300px;
 }
