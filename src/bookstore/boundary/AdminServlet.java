@@ -161,6 +161,38 @@ public class AdminServlet extends HttpServlet {
 		root.put("hello","Updated book successfully!");
 		processor.runTemp(templateName, root, request, response); 
 	}
+	private void addBook(HttpServletRequest request, HttpServletResponse response){
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		int iSBN = Integer.parseInt(request.getParameter("iSBN"));
+		String category = request.getParameter("category");
+		String price = request.getParameter("price");
+		String coverphoto = request.getParameter("coverphoto");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String description = request.getParameter("description");
+		int thresholdLimit = Integer.parseInt(request.getParameter("thresholdLimit"));
+		int rating = Integer.parseInt(request.getParameter("rating"));
+		Book newBook = new Book();
+		newBook.setAuthor(title);
+		newBook.setCategory(category);
+		newBook.setQuantity(quantity);
+		newBook.setDescription(coverphoto);
+		newBook.setCoverphoto(description);
+		newBook.setThresholdLimit(thresholdLimit);
+		newBook.setRating(rating);
+		newBook.setISBN(iSBN);
+		newBook.setAuthor(author);
+		newBook.setCategory(category);
+		newBook.setPrice(Float.parseFloat(price));
+		UserLogic.insertBook(iSBN, title, price, quantity, coverphoto, category,
+				 description, thresholdLimit,  rating, author);
+		 
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "adminhome.ftl";
+		root.put("hello","Added book successfully!");
+		processor.runTemp(templateName, root, request, response); 
+	}
 
 
 	
