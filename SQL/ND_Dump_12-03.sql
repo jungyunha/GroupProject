@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `isbn` bigint(20) NOT NULL,
   `title` varchar(45) NOT NULL,
-  `price` varchar(10) NOT NULL,
+  `price` float NOT NULL,
   `quantity` int(11) NOT NULL,
   `coverphoto` varchar(255) DEFAULT NULL,
   `category` varchar(255) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (123,'Algorithms','$90.00',3,'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Clrs3.jpeg/220px-Clrs3.jpeg','Textbook','math book',5,3.9,'Thomas Cormen'),(234,'Calculus','$65.00',4,'https://images-na.ssl-images-amazon.com/images/I/61jixF5KEkL.jpg','Textbook','another math book',5,3.2,'James Stewart'),(456,'Biology','$70.00',2,'http://vidyaprakashan.com/wp-content/uploads/2013/02/CBSE-Text-Book-Biology-10.png','Textbook','science book',10,4.1,'Bill Nye'),(567,'Chemistry','$80.00',7,'https://images-na.ssl-images-amazon.com/images/I/51GVJE1DjIL.jpg','Textbook','another science book',15,3.8,'Jeromy Chemical');
+INSERT INTO `book` VALUES (123,'Algorithms',89.99,3,'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Clrs3.jpeg/220px-Clrs3.jpeg','Textbook','math book',5,3.9,'Thomas Cormen'),(234,'Calculus',64.99,4,'https://images-na.ssl-images-amazon.com/images/I/61jixF5KEkL.jpg','Textbook','another math book',5,3.2,'James Stewart'),(456,'Biology',69.99,2,'http://vidyaprakashan.com/wp-content/uploads/2013/02/CBSE-Text-Book-Biology-10.png','Textbook','science book',10,4.1,'Bill Nye'),(567,'Chemistry',79.99,7,'https://images-na.ssl-images-amazon.com/images/I/51GVJE1DjIL.jpg','Textbook','another science book',15,3.8,'Jeromy Chemical'),(90112,'temp',10,1,'temp','temp','Nothing',2,5,'temp');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +261,7 @@ CREATE TABLE `shoppingcart` (
 
 LOCK TABLES `shoppingcart` WRITE;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
-INSERT INTO `shoppingcart` VALUES (15,1,456);
+INSERT INTO `shoppingcart` VALUES (15,1,456),(15,2,123);
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,13 +276,11 @@ CREATE TABLE `transactions` (
   `tid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `data` datetime NOT NULL,
+  `date` datetime NOT NULL,
   `promocode` int(11) NOT NULL,
-  `actualprice` float NOT NULL,
-  `discountprice` float NOT NULL,
-  `shippingfee` float NOT NULL,
+  `totalamountpaid` float NOT NULL,
   `isbn` bigint(20) NOT NULL,
-  PRIMARY KEY (`tid`),
+  `orderstatus` varchar(45) NOT NULL,
   KEY `f_tuserid` (`userid`),
   KEY `f_tisbn` (`isbn`),
   CONSTRAINT `f_tisbn` FOREIGN KEY (`isbn`) REFERENCES `book` (`isbn`),
@@ -296,6 +294,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (1,15,1,'2017-12-03 07:30:00',0,74.68,123,'Not yet shipped'),(1,15,1,'2017-12-03 07:30:00',0,74.68,456,'Not yet shipped');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,7 +333,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'a','a','a','a','a',1,'a','a','a',2,NULL,''),(1,'nicky','desai','777','nope','admin',2,'verify','nope','nope',2,'forgot',NULL),(15,'a','b','d','c','e',1,'L4EZD9','f','f',2,NULL,NULL),(2,'nicky','desai','7777','yup','man',3,'verify','nope','nope',2,'forgotpass',NULL),(10,'no','no','no','ndesai121212@gmail.com','no',1,'5S6I7F','no','no',2,NULL,'');
+INSERT INTO `users` VALUES (3,'a','a','a','a','a',1,'a','a','a',2,NULL,''),(1,'nicky','desai','777','nope','admin',2,'verify','nope','nope',2,'forgot',NULL),(111,'nope','nope!','111','just no','balls',2,' ',' ',' ',1,NULL,'\0'),(15,'a','b','d','c','e',1,'L4EZD9','f','f',2,NULL,NULL),(107,'d','magic','10101010','ship','magic',4,' ',' ',' ',2,NULL,'\0'),(2,'nicky','desai','7777','yup','man',3,'verify','nope','nope',2,'forgotpass',NULL),(10,'no','no','no','ndesai121212@gmail.com','no',1,'5S6I7F','no','no',2,NULL,''),(123456,'ship','per','1234354677','shipper@ship.com','ship',4,' ',' ',' ',1,NULL,'\0');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -347,4 +346,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 21:15:52
+-- Dump completed on 2017-12-03 19:54:14
