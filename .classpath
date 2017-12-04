@@ -11,7 +11,7 @@
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/freemarker.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/javax.mail.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="apache-tomcat-8.5.23/lib/servlet-api.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>

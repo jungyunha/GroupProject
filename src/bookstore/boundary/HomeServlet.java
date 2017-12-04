@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.*;
@@ -352,7 +353,7 @@ public class HomeServlet extends HttpServlet {
 
 	@SuppressWarnings("unused")
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
-		int id = 10; // TODO: ...
+		int id = 10; // TOO ..
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
@@ -393,7 +394,7 @@ public class HomeServlet extends HttpServlet {
 			UserLogic.registerUser(newUser);
 			String subject = "Verify your New Account";
 			String content = "Your verification code is " + verificationCode;
-			currentUser = newUser;
+			currentUser = newUser;;
 			
 			try {
 	            EmailUtility.sendEmail(host, port, user, pass, emailAddress, subject, content);
