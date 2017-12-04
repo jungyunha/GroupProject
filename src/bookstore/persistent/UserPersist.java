@@ -631,4 +631,43 @@ public class UserPersist {
 		}
 	}
 
+
+	public static String getUserPasswordWithEmail(String emailEntered) {
+		String password = "";
+		boolean isEmpty = true;
+		String sql = "SELECT password FROM bookstore.users WHERE email = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setString(1,  emailEntered);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				password = rs.getString(1);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return password;
+		}
+	}
+
 }

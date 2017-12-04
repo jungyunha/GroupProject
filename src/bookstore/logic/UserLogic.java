@@ -71,5 +71,9 @@ public class UserLogic {
 		UserPersist.emptyCart(id);
 	}
 
+	public static String getUserPasswordWithEmail(String emailEntered) {
+		return UserPersist.getUserPasswordWithEmail(emailEntered);
+	}
+
 
 }

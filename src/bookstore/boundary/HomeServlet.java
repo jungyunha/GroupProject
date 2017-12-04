@@ -73,6 +73,9 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("login") != null) {
 			login(request, response);
 		}
+		if (request.getParameter("forgotpassword") != null) {
+			forgotPassword(request, response);
+		}
 		if (request.getParameter("verify") != null) {
 			verifyUser(request, response);
 		}
@@ -98,8 +101,39 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("placeOrder") != null) {
 			placeOrder(request, response);
 		}
+		if (request.getParameter("emailSubmit") != null) {
+			sendPassword(request, response);
+		}
 	}
 	
+	private void sendPassword(HttpServletRequest request, HttpServletResponse response) {
+		String emailEntered = request.getParameter("emailValue");
+		String password = UserLogic.getUserPasswordWithEmail(emailEntered);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "login.ftl";
+		if (password != null) {
+			String subject = "Password Information";
+			String content = "Your password: " + password;
+			try {
+	            EmailUtility.sendEmail(host, port, user, pass, emailEntered, subject, content);
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+			root.put("error", "Your password has been emailed to you.");
+		} else {
+			root.put("error", "Email entered does not match any records in our system.");
+		}
+		processor.runTemp(templateName, root, request, response);
+	}
+
+	private void forgotPassword(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "forgotpassword.ftl";
+		processor.runTemp(templateName, root, request, response);
+	}
+
 	private void placeOrder(HttpServletRequest request, HttpServletResponse response) {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
