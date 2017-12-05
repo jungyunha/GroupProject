@@ -40,12 +40,19 @@
                 </ul>
             </div>
       		 <div align="center">
-                <p align="center">View Customer</p>
+                <p align="center">Update User</p>
                 <form action="AdminServlet" method="post">
                     <table class="registration">
-                        <tr><td class="registrationForm">Email: </td>       <td class="registrationInput" ><input type="text" name="email"></td></tr>
+                        <tr><td class="registrationForm">User Id: </td>       <td class="registrationInput" ><input type="number" name="userid"></td></tr>
+                        <tr><td class="registrationForm">First Name: </td>        <td class="registrationInput"><input type="text" name="fname"></td></tr>
+                        <tr><td class="registrationForm">Last Name: </td>            <td class="registrationInput"><input type="text" name="lname"></td></tr>
+                        <tr><td class="registrationForm">Phone Number: </td>          <td class="registrationInput"><input type="text" name="phone"></td></tr>
+						<tr><td class="registrationForm">Email: </td>          <td class="registrationInput"><input type="text" name="email"></td></tr>
+						<tr><td class="registrationForm">Password: </td>          <td class="registrationInput"><input type="text" name="password"></td></tr>
+						<tr><td class="registrationForm">Shipping Address </td>          <td class="registrationInput"><input type="text" name="shipaddress"></td></tr>
+						<tr><td class="registrationForm">Billing Address </td>          <td class="registrationInput"><input type="text" name="billaddress"></td></tr>
                     </table>
-                      <input type="submit"  class="SubmitRegistration" value="Search" name="manageusers"/>
+                      <input type="submit"  class="SubmitRegistration" value="Edit User" name="manageusers"/>
                 </form>
             </div>
     </body>

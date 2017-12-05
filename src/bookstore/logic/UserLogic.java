@@ -106,6 +106,9 @@ public class UserLogic {
 		return UserPersist.getBookQuantities();
 	}
 
+	public static void manageUser(int id, String fname, String lname, String email, String phone, String password, String shipaddress, String billaddress) {
+		UserPersist.manageUser(id, fname, lname, email, phone, password, shipaddress, billaddress);
+	}
 	public static List<Transaction> getCurrentDaySales(String today, String tomorrow) {
 		return UserPersist.getCurrentDaySales(today, tomorrow);
 	}
