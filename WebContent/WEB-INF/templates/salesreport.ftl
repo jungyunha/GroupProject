@@ -37,6 +37,7 @@
                 <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
 		    </ul>
 		</div>
+		<#if showSales>
 		<table style="width:70%;color:black;" align="center">
 			<tr>
 				<th>Transaction ID</th> 
@@ -49,6 +50,9 @@
 			</tr>
 			</#list>
 		</table>
+		<#else>
+			<h3>No transactions have been made today. </h3>
+		</#if>
 	</div>
 </body>
 </html>

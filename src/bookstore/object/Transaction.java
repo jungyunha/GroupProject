@@ -64,7 +64,7 @@ public class Transaction {
 	}
 
 	public double getTotalAmountPaid() {
-		return totalAmountPaid;
+		return Math.floor(totalAmountPaid * 100) / 100;
 	}
 
 	public void setTotalAmountPaid(double totalAmountPaid) {

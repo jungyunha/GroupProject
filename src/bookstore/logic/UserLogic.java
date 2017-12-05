@@ -38,8 +38,8 @@ public class UserLogic {
 		return UserPersist.getBooksByISBN(value);
 	}
 
-	public static void addToCart(int id, int quantity, int isbn) {
-		UserPersist.addToCart(id, quantity, isbn);
+	public static void addToCart(int id, int quantity, int i) {
+		UserPersist.addToCart(id, quantity, i);
 	}
 
 	public static void addPromotion(String promocode, int percentage) {
@@ -119,6 +119,10 @@ public class UserLogic {
 
 	public static List<Transaction> getTotalSales() {
 		return UserPersist.getTotalSales();
+	}
+
+	public static int verifyPromoCode(String promoEntered) {
+		return UserPersist.verifyPromoCode(promoEntered);
 	}
 
 

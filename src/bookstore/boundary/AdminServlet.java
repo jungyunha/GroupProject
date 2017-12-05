@@ -172,6 +172,11 @@ public class AdminServlet extends HttpServlet {
 		String today = dateFormat.format(d1);
 		String tomorrow = dateFormat.format(d2);
 		List<Transaction> transactions = UserLogic.getCurrentDaySales(today, tomorrow);
+		if (transactions == null) {
+			root.put("showSales",  false);
+		}else {
+			root.put("showSales",  true);
+		}
 		root.put("transactions",  transactions);
 		processor.runTemp(templateName, root, request, response);
 	}

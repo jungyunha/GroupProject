@@ -59,7 +59,7 @@
 
 <#list books as book>
 <figure class="searchbook">
-  <img class = "images"  src="${book.coverphoto}"/>
+  <img class = "images"  src="${book.coverphoto}" style="width:300px;height:400px;"/>
   <div class="price">$${book.price}</div>
   <figcaption>
     <h3>${book.title}</h3>

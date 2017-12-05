@@ -42,6 +42,7 @@
                 <li><a href="HomeServlet?action=logout">Log Out</a></li>
 		    </ul>
 		</div>
+		<#if showHistory>
 		<table style="width:70%;color:black;" align="center">
 			<tr>
 				<th>Transaction ID</th>
@@ -58,6 +59,9 @@
 			</tr>
 			</#list>
 		</table>
+		<#else>
+			<h3>You have no previous orders. Better get to shopping! </h3>
+		</#if>
 	</div>
 </body>
 </html>

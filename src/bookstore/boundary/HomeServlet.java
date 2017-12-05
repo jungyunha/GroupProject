@@ -3,6 +3,7 @@ package bookstore.boundary;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +93,7 @@ public class HomeServlet extends HttpServlet {
 			addToCart(request, response);
 		}
 		if (request.getParameter("mycart") != null) {
-			goToCart(request, response);
+			goToCart(request, response, 0);
 		}
 		if (request.getParameter("addPayment") != null) {
 			System.out.println("were here");
@@ -125,13 +126,27 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("history") != null) {
 			viewOrderHistory(request, response);
 		}
+		if (request.getParameter("addPromo") != null) {
+			verifyPromotion(request, response);
+		}
 	}
 	
+	private void verifyPromotion(HttpServletRequest request, HttpServletResponse response) {
+		String promoEntered = request.getParameter("promoCode");
+		int percent = UserLogic.verifyPromoCode(promoEntered);
+		goToCart(request, response, percent);
+	}
+
 	private void viewOrderHistory(HttpServletRequest request, HttpServletResponse response) {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "orderhistory.ftl";
 		List<Transaction> transactions = UserLogic.getOrderHistory(currentUser.getId());
+		if (transactions == null) {
+			root.put("showHistory", false);
+		} else {
+			root.put("showHistory", true);
+		}
 		root.put("transactions", transactions);
 		processor.runTemp(templateName, root, request, response);
 	}
@@ -281,15 +296,21 @@ public class HomeServlet extends HttpServlet {
 		String templateName;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
+		DecimalFormat df = new DecimalFormat("#0.00");
 		int newID = Integer.parseInt(getRandomID());
+		String confirmationNumber = getConfirmationNumber();
 		UserLogic.placeOrder(currentCart, dateFormat.format(date), newID, currentUser.getId());
 		String subject = "Order Confirmation";
-		String content = "Thank you for placing an order with us. You will be emailed again once the order has been delievered. Here is the order summary: \n\n\n";
+		String content = "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName() + "! Thank you for placing an order with us. You will be emailed again once the order has been delievered. Here is the order summary: \n\n\n";
+		content += "Confirmation Number: " + confirmationNumber + "\n\n";
+		content += "Order ID: " + newID + "\n\n";
+		content += "Date/Time: " + dateFormat.format(date) + "\n\n";
+		content += "Shipping Address: " + currentUser.getShippingAddress() + "\n\n\n\n\n";
+		content += "Order Breakdown: \n\n";
 		for (CartItem c : currentCart.cartItems) {
-			content += c.book.getTitle() + "\t\t x " + c.quantity + "\t\t Price per unit: $" + c.book.getPrice() + "\n";
+			content += c.book.getTitle() + " (x " + c.quantity + ")\t\t Price per unit: $" + df.format(c.book.getPrice()) + "\n";
 		}
-		content += "\n\n\n \t Total Amount Paid: \t" + currentCart.totalPrice;
+		content += "\n\n\n Total Amount Paid: \t$" + df.format(currentCart.totalPrice);
 		
 		try {
             EmailUtility.sendEmail(host, port, user, pass, currentUser.getEmail(), subject, content);
@@ -315,9 +336,10 @@ public class HomeServlet extends HttpServlet {
 			int numberOfItems = currentCart.cartItems.size();
 			String payment = request.getParameter("cardType");
 			double totalPrice = currentCart.totalPrice;
+			DecimalFormat df = new DecimalFormat("#0.00");
 			root.put("numberOfItems", numberOfItems);
 			root.put("payment", payment);
-			root.put("totalPrice", totalPrice);
+			root.put("totalPrice", df.format(totalPrice));
 			processor.runTemp(templateName, root, request, response);
 		}
 	}
@@ -329,7 +351,7 @@ public class HomeServlet extends HttpServlet {
 		processor.runTemp(templateName, root, request, response);
 	}
 
-	private void goToCart(HttpServletRequest request, HttpServletResponse response) {
+	private void goToCart(HttpServletRequest request, HttpServletResponse response, int promoPercent) {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName;
@@ -338,13 +360,6 @@ public class HomeServlet extends HttpServlet {
 			root.put("error", "Please login in order to view your shopping cart.");
 			processor.runTemp(templateName, root, request, response);
 		} else {
-			/*
-			Vector<Integer> bookNumbers = new Vector<Integer>();
-			bookNumbers = UserLogic.getBookNumbers(currentUser.getId());
-			for (int i : bookNumbers) {
-				Book book = new Book();
-			}
-			*/
 			Vector<Pair<Long,Integer>> cart = UserLogic.getCart(currentUser.getId());
 			List<CartItem> books = new ArrayList<CartItem>();
 			for (Pair<Long,Integer> p : cart) {
@@ -358,22 +373,34 @@ public class HomeServlet extends HttpServlet {
 				subtotal += c.book.getPrice() * c.quantity;
 				numberOfItems++;
 			}
+			double shipping = 5.99;
+			subtotal += shipping;
+			DecimalFormat df = new DecimalFormat("#0.00");
 			double tax = 0.07 * subtotal;
 			double total = subtotal + tax;
-			Cart newCart = new Cart(books, total, 0, "Not Yet Selected");
+			double promoDiscount = 0;
+			if (promoPercent > 0) {
+				double percent = (double)promoPercent / 100;
+				promoDiscount = total * percent;
+				root.put("promoDiscount", df.format(promoDiscount));
+				total -= promoDiscount;
+			} else {
+				root.put("promoDiscount", "");
+			}
+			Cart newCart = new Cart(books, total, promoPercent, "Not Yet Selected");
+			boolean promo = true;
+			if (promoPercent > 0) {
+				promo = false;
+			}
 			currentCart = newCart;
-			/*
-			List<CartItem> books = cart
-					.stream()
-					.map(p -> new CartItem(UserPersist.getBookByISBN(p.getKey()),p.getValue()))
-					.toList(List<CartItem>::new);
-					*/
+			
 			templateName = "cart.ftl";
 			root.put("books", books);
 			root.put("subtotal", subtotal);
-			root.put("tax", tax);
-			root.put("total", total);
+			root.put("tax", df.format(tax));
+			root.put("total", df.format(total));
 			root.put("numberOfItems", numberOfItems);
+			root.put("promo", promo);
 			processor.runTemp(templateName, root, request, response);
 		}
 	}
@@ -381,7 +408,7 @@ public class HomeServlet extends HttpServlet {
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("addtocart");
 		if (isbn != null) {
-			UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn));
+			UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn.replaceAll(",", "")));
 			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 			SimpleHash root = new SimpleHash(db.build());
 			String templateName = "logged_in.ftl";
@@ -471,7 +498,11 @@ public class HomeServlet extends HttpServlet {
 			templateName = "login.ftl";
 			root.put("error", "Account pending verification. Please verify your account and try logging in again.");
 			processor.runTemp(templateName, root, request, response);
-		} //TODO: Add conditions for UserStatus.Supsended... ?
+		}else if (user.getStatus() == UserStatus.Suspended) {
+			templateName = "login.ftl";
+			root.put("error", "This account is currently suspended. Please contact an administrator for assistance.");
+			processor.runTemp(templateName, root, request, response);
+		}
 		else{
 			currentUser = user;
 			UserType userType = user.getUserType();
@@ -508,7 +539,7 @@ public class HomeServlet extends HttpServlet {
 
 	@SuppressWarnings("unused")
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
-		int id = 0;
+		int id = Integer.parseInt(getRandomID());
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
 		String phoneNumber = request.getParameter("phone");
@@ -571,7 +602,7 @@ public class HomeServlet extends HttpServlet {
 		}
 	}
 	
-	protected String getRandomString() {
+	public String getRandomString() {
         String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder str = new StringBuilder();
         Random rnd = new Random();
@@ -581,10 +612,21 @@ public class HomeServlet extends HttpServlet {
         }
         String randomString = str.toString();
         return randomString;
-
     }
 	
-	protected String getRandomID() {
+	public String getConfirmationNumber() {
+        String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder str = new StringBuilder();
+        Random rnd = new Random();
+        while (str.length() < 12) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * allChars.length());
+            str.append(allChars.charAt(index));
+        }
+        String randomString = str.toString();
+        return randomString;
+    }
+	
+	public String getRandomID() {
         String allChars = "1234567890";
         StringBuilder str = new StringBuilder();
         Random rnd = new Random();
@@ -594,7 +636,6 @@ public class HomeServlet extends HttpServlet {
         }
         String randomString = str.toString();
         return randomString;
-
     }
 
 	/**

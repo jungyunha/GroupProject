@@ -35,6 +35,7 @@ public class UserPersist {
 				catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
 				stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 				stmt1.setString(1, fname);
 				stmt1.setString(2, lname);
@@ -44,7 +45,6 @@ public class UserPersist {
 				stmt1.setString(6, billaddress);
 				stmt1.setInt(7, id);
 				stmt1.executeUpdate();
-			}
 		}
 				
 			catch (SQLException e) {
@@ -584,7 +584,7 @@ public class UserPersist {
 		return book;
 	}
 
-	public static void addToCart(int id, int quantity, int isbn) {
+	public static void addToCart(int id, int quantity, int i) {
 		String sql = "INSERT INTO bookstore.shoppingcart VALUES (?, ?, ?)";
 		PreparedStatement stmt1;
 		
@@ -603,7 +603,7 @@ public class UserPersist {
 
 			stmt1.setInt(1, id);
 			stmt1.setInt(2, quantity);
-			stmt1.setInt(3,  isbn);
+			stmt1.setInt(3,  i);
 			stmt1.executeUpdate();
 			
 		}
@@ -1101,6 +1101,38 @@ public class UserPersist {
 		}else {
 			return searchResults;
 		}
+	}
+
+	public static int verifyPromoCode(String promoEntered) {
+		int percent = 0;
+		String sql = "SELECT percentage FROM bookstore.promocodes WHERE promocode = ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setString(1, promoEntered);
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				percent = rs.getInt(1);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return percent;
 	}
 
 }

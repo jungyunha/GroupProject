@@ -57,6 +57,12 @@
           	<td> $${cartItem.book.price} </td>
           </tr>
           </#list>
+          <#if numberOfItems gt 0 >
+          <tr>
+	 		<td> - </td>
+	 		<td>Shipping: </td>
+	 		<td>$5.99</td>
+ 		</tr>
  		<tr>
 	 		<td> - </td>
 	 		<td>Subtotal: </td>
@@ -67,22 +73,37 @@
  			<td>Tax: </td>
  			<td> $${tax} </td>
  		</tr>
+ 		<#if !promo>
+ 		<tr>
+ 			<td> - </td>
+ 			<td>Promo Discount: </td>
+ 			<td> -$${promoDiscount} </td>
+ 		</tr>
+ 		</#if>
  		<tr>
  			<td> - </td>
  			<td><strong>Total: </strong></td>
  			<td> $${total} </td>
  		</tr>
+ 		</#if>
           </table>
           </div>
             <div id="cartInfo"> 
-                You have (${numberOfItems}) items in your cart. Click Add Payment Method to continue.
+                You have ${numberOfItems} item(s) in your cart.
+                <#if numberOfItems gt 0>
+                <#if promo>
+                <form action="HomeServlet" method="post">
+                    <br>
+                    <br><input type="text" style="width:150px" name="promoCode"><br>
+                    <input type="submit" value="Add Promo Code" name="addPromo"><br><br>
+                </form>
+                 </#if> 
+                Click Add Payment Method to continue.
                 <br><br>
                 <form action="HomeServlet" method="post" id="payment">
-                    <br>
-                    <br><br>
                     <input type="submit" value="Add Payment Method" name="addPayment">
-                    <br><br><br><br>
                 </form>
+                </#if><br><br><br><br>
             </div>
             </div>
     </body>
