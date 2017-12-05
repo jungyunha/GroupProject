@@ -63,10 +63,10 @@
                         	<td class="registrationForm">Phone #: </td>
                         	<td class="registrationInput"><input type="text" name="phone" value="${phone}"></td>
                         </tr>
-                        <tr><td class="registrationForm">Password: </td>         <td class="registrationInput"><input type="text" name="password" required></td></tr>
+                        <tr><td class="registrationForm">Password: </td>         <td class="registrationInput"><input type="password" name="password" required></td></tr>
                         <tr>
                         	<td class="registrationForm">Re-Enter Password: </td>
-                        	<td class="registrationInput"><input type="text" name="password2" required></td>
+                        	<td class="registrationInput"><input type="password" name="password2" required></td>
                         	<td><h5 style="color:red">${pwd_error!""}</h5></td>
                         </tr>
                         <tr>
