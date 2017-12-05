@@ -28,6 +28,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import javafx.util.Pair;
+
 import java.util.Random;
 
 /**

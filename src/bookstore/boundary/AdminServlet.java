@@ -79,6 +79,7 @@ public class AdminServlet extends HttpServlet {
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("suspendacct")) {
 				templateName = "suspendaccount.ftl";
+				root.put("message", "");
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("manageuser")) {
 				templateName = "manageusers.ftl";
@@ -119,6 +120,19 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("deletebook") != null){
 			deleteBook(request, response);
 		}
+		if(request.getParameter("suspendacct") != null){
+			suspendAccount(request, response);
+		}
+	}
+
+	private void suspendAccount(HttpServletRequest request, HttpServletResponse response) {
+		int userID = Integer.parseInt(request.getParameter("suspendID"));
+		UserLogic.suspendAccount(userID);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "suspendaccount.ftl";
+		root.put("message", "The account now has a status of suspended.");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response){

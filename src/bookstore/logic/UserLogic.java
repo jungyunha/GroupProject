@@ -98,5 +98,9 @@ public class UserLogic {
 		return UserPersist.getEmailWithUserID(id);
 	}
 
+	public static void suspendAccount(int userID) {
+		UserPersist.suspendAccount(userID);
+	}
+
 
 }

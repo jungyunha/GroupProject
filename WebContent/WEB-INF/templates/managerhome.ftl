@@ -10,7 +10,6 @@
     <body>
         <div class="main">
             <h1>BOOKERS MANAGER PAGE</h1>
-            <h3> ${hello} </h3>
 			 <div>
                 <table>
                     <tr>
@@ -35,6 +34,7 @@
             <div>
                 <img src = "images/books.jpg" alt="banner">
             </div>
+            <center><h3> ${hello} </h3></center>
             <div class="slideshow-container">
                 <div class="mySlides fade" name="slideShow">
                     <div class="numbertext">1 / 2</div>

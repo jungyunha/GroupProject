@@ -42,28 +42,13 @@
             </div>
             <div align="center">
                 <p align="center">Suspend Account</p>
-               
-                <form>
+                <form action="AdminServlet" method="post">
                     <table class="registration">
-                        <tr><td class="registrationForm">First Name: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Last Name: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Account Number: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Email: </td>            <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Phone #: </td>          <td class="registrationInput"><input type="text"></td></tr>
-                    </table>
-                      <input type="submit"  class="SubmitRegistration" value="Search" />
+                        <tr><td class="registrationForm">User ID: </td>            <td class="registrationInput"><input type="number" name="suspendID"></td></tr>
+                    </table><br>
+                      <input type="submit"  class="SubmitRegistration" value="Suspend Account" name="suspendacct"/><br><br>
                 </form>
-				<p align="center">Account Details</p>
-				<form>
-                    <table class="registration">
-                		<tr><td class="registrationForm">First Name: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Last Name: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Account Number: </td>        <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Email: </td>            <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Phone #: </td>          <td class="registrationInput"><input type="text"></td></tr>
-                    </table>
-                      <input type="submit"  class="SubmitRegistration" value="Suspend" />
-                </form>
+                <h3 style="color:red">${message}</h3><br>
             </div>
         </div>
 	</body>
