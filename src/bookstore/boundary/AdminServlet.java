@@ -94,8 +94,7 @@ public class AdminServlet extends HttpServlet {
 				templateName = "salesreport.ftl";
 				processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("viewinventory")) {
-				templateName = "inventoryreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+				viewInventory(request, response);
 			}else if (action.equals("viewpublisher")) {
 				templateName = "publisherreport.ftl";
 				processor.runTemp(templateName, root, request, response);
@@ -123,6 +122,15 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("suspendacct") != null){
 			suspendAccount(request, response);
 		}
+	}
+
+	private void viewInventory(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "inventoryreport.ftl";
+		List<Book> allBooks = UserLogic.getBookQuantities();
+		root.put("books", allBooks);
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void suspendAccount(HttpServletRequest request, HttpServletResponse response) {

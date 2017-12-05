@@ -102,5 +102,9 @@ public class UserLogic {
 		UserPersist.suspendAccount(userID);
 	}
 
+	public static List<Book> getBookQuantities() {
+		return UserPersist.getBookQuantities();
+	}
+
 
 }

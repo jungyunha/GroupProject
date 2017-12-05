@@ -30,56 +30,17 @@
                 <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
 		    </ul>
 		</div>
-		<table style="width:70%" align="center">
+		<table style="width:70%;color:black;" align="center">
 			<tr>
-				<th>Sales</th>
-				<th>ISBN</th>
-				<th>Subject</th>
-				<th>Author</th>
 				<th>Book name</th> 
+				<th>Quantity</th>
 			</tr>
+			<#list books as book>
 			<tr>
-				<td> 5 </td>
-				<td>978-0321573513</td>
-				<td>Computer Science</td>
-				<td>Robert Sedgewick</td>
-				<td>Algorithms (4th Edition)</td>
+				<td align="center">${book.title}</td>
+				<td align="center">${book.quantity}</td>
 			</tr>
-			<tr>
-				<td> 3</td>
-				<td>978-0393929720</td>
-				<td>Statistics</td>
-				<td>David Freedman</td>
-				<td>Statistics, 4th Edition</td>
-			</tr>
-			<tr>
-				<td> 10</td>
-				<td>978-0618502981</td>
-				<td>Calculus</td>
-				<td>Ron Larson</td>
-				<td>Calculus 8th Edition</td>
-			</tr>
-			<tr>
-			  	<td> 3</td>
-			    <td>978-1133187790</td>
-			    <td>Computer Science</td>
-			    <td>Michael Sipser</td>
-			    <td>Introduction to the Theory of Computation 3rd Edition</td>
-			</tr>
-			<tr>
-			  	<td> 12</td>
-			    <td>978-0393614053</td>
-			    <td>Chemistry</td>
-			    <td>Thomas R. Gilbert</td>
-			    <td>Chemistry: An Atoms-Focused Approach (Second Edition)</td>
-			</tr>
-			<tr>
-			  	<td> 40</td>
-			    <td>978-0321775658</td>
-			    <td>Biology</td>
-			    <td>Jane B. Reece</td>
-			    <td>Campbell Biology (10th Edition)</td>
-			</tr>
+			</#list>
 		</table>
 	</div>
 </body>

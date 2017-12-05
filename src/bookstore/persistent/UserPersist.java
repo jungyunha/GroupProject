@@ -904,4 +904,45 @@ public class UserPersist {
 		}
 	}
 
+	public static List<Book> getBookQuantities() {
+		List<Book> searchResults = new ArrayList<Book>();
+		boolean isEmpty = true;
+		String sql = "SELECT title, quantity FROM bookstore.book";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Book temp = new Book();
+				temp.title = rs.getString(1);
+				temp.quantity = rs.getInt(2);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
+	}
+
 }

@@ -17,16 +17,16 @@
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
                         </td>
                         <td class="search" align='center'>
-                            Search By: <input style="height:18px" type="text" value="Name, Author, ISBN or All"/>
-                            <select style="height:18px">
-                                <option value="all">All</option>
-                                <option value="name">Name</option>
+                            <form action="HomeServlet" method="post">
+                            Search: <input style="height:18px;width:200px" type="text" name="searchValue"/> by 
+                            <select style="height:18px" name="searchType">
+                            	<option value="title">Title</option>
+                                <option value="subject">Subject</option>
                                 <option value="author">Author</option>
                                 <option value="isbn">ISBN</option>
                             </select>
-                        </td>
-                        <td align='right'>
-                            <span>CART</span>
+                            <input type="submit" value="Search" name="searchBook" style="width:100px" />
+                        </form>
                         </td>
                     </tr>
                 </table>

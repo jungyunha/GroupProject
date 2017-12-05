@@ -1,6 +1,7 @@
 package bookstore.boundary;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bookstore.logic.UserLogic;
+import bookstore.object.Book;
 import bookstore.object.User;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -57,8 +60,7 @@ public class ManagerServlet extends HttpServlet {
 		String managerAction = request.getParameter("ManagerAction");
 		if (managerAction != null) {
 			if (managerAction.equals("viewinventory")) {
-				templateName = "managerinventoryreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+				viewManagerInventory(request, response);
 			} else if (managerAction.equals("viewsales")) {
 				templateName = "managersalesreport.ftl";
 				processor.runTemp(templateName, root, request, response);
@@ -71,6 +73,15 @@ public class ManagerServlet extends HttpServlet {
 				processor.runTemp(templateName, root, request, response);
 			}
 		}
+	}
+
+	private void viewManagerInventory(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "managerinventoryreport.ftl";
+		List<Book> allBooks = UserLogic.getBookQuantities();
+		root.put("books", allBooks);
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	/**
