@@ -22,6 +22,7 @@ import bookstore.object.Transaction;
 import bookstore.object.User;
 import bookstore.object.UserStatus;
 import bookstore.object.UserType;
+import bookstore.persistent.UserPersist;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
@@ -126,6 +127,33 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("suspendacct") != null){
 			suspendAccount(request, response);
 		}
+		if(request.getParameter("manageusers") !=null) {
+			manageUser(request, response);
+		}
+	}
+		private void manageUser(HttpServletRequest request, HttpServletResponse response){
+			int id = Integer.parseInt(request.getParameter("userid"));
+			String fname = request.getParameter("fname");
+			String lname = request.getParameter("lname");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			String password = request.getParameter("password");
+			String shipaddress = request.getParameter("shipaddress");
+			String billaddress = request.getParameter("billaddress");
+			User newUser = new User();
+			newUser.setFirstName(fname);
+			newUser.setLastName(lname);
+			newUser.setEmail(email);
+			newUser.setPhoneNumber(phone);
+			newUser.setPassword(password);
+			newUser.setBillingAddress(billaddress);
+			newUser.setShippingAddress(shipaddress);
+			UserLogic.manageUser(id, fname, lname, email, phone, password, shipaddress, billaddress);
+			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+			SimpleHash root = new SimpleHash(db.build());
+			String templateName = "adminhome.ftl";
+			root.put("hello","Updated user successfully!");
+			processor.runTemp(templateName, root, request, response);
 	}
 
 	private void getCurrentDaySales(HttpServletRequest request, HttpServletResponse response) {

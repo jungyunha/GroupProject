@@ -22,7 +22,36 @@ public class UserPersist {
 	
 
 	private static Connection conn = null;	
-		
+	public static void manageUser(int id, String fname, String lname, String email, String phone, String password,
+			String shipaddress, String billaddress) {	
+		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
+		PreparedStatement stmt1;
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
+				stmt1.setString(1, fname);
+				stmt1.setString(2, lname);
+				stmt1.setString(3, phone);
+				stmt1.setString(4, email);
+				stmt1.setString(5, shipaddress);
+				stmt1.setString(6, billaddress);
+				stmt1.setInt(7, id);
+				stmt1.executeUpdate();
+			}
+		}
+				
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	public static void updateUser(User user){
 		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
 		PreparedStatement stmt1;
