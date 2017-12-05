@@ -38,20 +38,15 @@
 	                    <li><a class="adminMenu" href = "index.html">Logout</a></li>     
                 </ul>
             </div>
-            <h2> View Customer </h2>
-                <img id="profile" src="https://ubmemeaensoprod.s3.amazonaws.com/FI_webroot/styles/responsive_grid_scaled_and_cropped/public/team_member_photos/2016/08/profile-no-picture-male.png?itok=dqf2_02a" alt="img">
-            
-                <table>
-                    <tr><td>First Name: </td>       <td>Michael</tr>
-                    <tr><td>Last Name: </td>        <td>Johnson</td></tr>
-                    <tr><td>Email: </td>            <td>mj342535@gmail.com</td></tr>
-                    <tr><td>Phone #: </td>          <td>(555)712-3340</td></tr>
-                    <tr><td>Mailing Address: </td>  <td>123 Pleasant Lane</td></tr>
-                </table>
-                <br><br>
-                <input type="button" value="Edit Customer">
-                <input type="button" value="Remove Customer">
-        </div>
+      		 <div align="center">
+                <p align="center">View Customer</p>
+                <form action="AdminServlet" method="post">
+                    <table class="registration">
+                        <tr><td class="registrationForm">Email: </td>       <td class="registrationInput" ><input type="text" name="email"></td></tr>
+                    </table>
+                      <input type="submit"  class="SubmitRegistration" value="Search" name="manageusers"/>
+                </form>
+            </div>
     </body>
 </html>
 	</body>

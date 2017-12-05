@@ -98,5 +98,10 @@ public class UserLogic {
 		return UserPersist.getEmailWithUserID(id);
 	}
 
+	public static List<User>viewUser(User user) {
+		return UserPersist.viewUser(user);
+		
+	}
+
 
 }
