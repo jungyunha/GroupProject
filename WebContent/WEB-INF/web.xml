@@ -8,7 +8,7 @@
  </context-param>
  <context-param>
   <param-name>pass</param-name>
-  <param-value>gokorea57</param-value>
+  <param-value>mario555</param-value>
  </context-param>
  <context-param>
   <param-name>port</param-name>
@@ -16,7 +16,7 @@
  </context-param>
  <context-param>
   <param-name>user</param-name>
-  <param-value>shycic1994@gmail.com</param-value>
+  <param-value>ndesai121212@gmail.com</param-value>
  </context-param>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>

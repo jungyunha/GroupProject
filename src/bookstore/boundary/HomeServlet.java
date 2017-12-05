@@ -509,6 +509,7 @@ public class HomeServlet extends HttpServlet {
 	        }
 			templateName = "verify.ftl";
 			root.put("name", newUser.getFirstName());
+			root.put("error", "");
 			processor.runTemp(templateName, root, request, response);
 		}
 		
