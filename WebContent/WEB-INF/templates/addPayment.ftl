@@ -47,17 +47,17 @@
                 <p align="center">ENTER PAYMENT INFORMATION</p>
                 <form action="HomeServlet" method="post">
                     <table class="registration">
-                        <tr><td class="registrationForm">Cardholder Name: </td>        <td class="registrationInput"><input type="text"></td></tr>
+                        <tr><td class="registrationForm">Cardholder Name: </td>        <td class="registrationInput"><input type="text" required></td></tr>
                         <tr><td class="registrationForm">Card type: </td>        <td class="registrationInput"><select style="height:18px;width:150px" name="cardType">
 																					                            	<option value="visa">VISA</option>
 																					                                <option value="master">MasterCard</option>
 																					                                <option value="amex">American Express</option>
 																					                                <option value="discover">Discover</option>
 																					                            </select></td></tr>
-                        <tr><td class="registrationForm">Card Number: </td>      <td class="registrationInput"><input type="text"></td></tr>
+                        <tr><td class="registrationForm">Card Number: </td>      <td class="registrationInput"><input type="text" required></td></tr>
                         <tr><td class="registrationForm"><img src="images/creditCard.png"></img></td><td class="registrationInput"></td></tr>
-                        <tr><td class="registrationForm">Billing Address: </td>   <td class="registrationInput"><input type="text"></td></tr>
-                        <tr><td class="registrationForm">Billing Zip Code: </td>  <td class="registrationInput"><input type="text" style="width:6em"></td></tr>
+                        <tr><td class="registrationForm">Billing Address: </td>   <td class="registrationInput"><input type="text" required></td></tr>
+                        <tr><td class="registrationForm">Billing Zip Code: </td>  <td class="registrationInput"><input type="text" style="width:6em" required></td></tr>
                     </table>
                     <input type="submit" class="submitRegistration" name="submitPayment" value="Add Payment">
                 </form>
