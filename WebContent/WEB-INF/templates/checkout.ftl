@@ -40,7 +40,7 @@
                     </li>
                     <li><a href="HomeServlet?action=home">Home</a></li>
                     <li><a href="HomeServlet?mycart=yes">My Cart</a></li>
-                    <li><a href="#">Order History</a></li>
+                    <li><a href="HomeServlet?history=yes">Order History</a></li>
                     <li><a href="HomeServlet?gotoEditProfile=42">Edit Profile</a></li>
                     <li><a href="HomeServlet?action=logout">Log Out</a></li> 
                 </ul>

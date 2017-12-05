@@ -122,8 +122,20 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("action") != null) {
 			routeToPage(request, response);
 		}
+		if (request.getParameter("history") != null) {
+			viewOrderHistory(request, response);
+		}
 	}
 	
+	private void viewOrderHistory(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "orderhistory.ftl";
+		List<Transaction> transactions = UserLogic.getOrderHistory(currentUser.getId());
+		root.put("transactions", transactions);
+		processor.runTemp(templateName, root, request, response);
+	}
+
 	private void routeToPage(HttpServletRequest request, HttpServletResponse response) {
 		String action = request.getParameter("action");
 		String templateName;

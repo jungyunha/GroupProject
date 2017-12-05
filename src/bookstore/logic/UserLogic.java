@@ -110,5 +110,9 @@ public class UserLogic {
 		return UserPersist.getCurrentDaySales(today, tomorrow);
 	}
 
+	public static List<Transaction> getOrderHistory(int id) {
+		return UserPersist.getOrderHistory(id);
+	}
+
 
 }
