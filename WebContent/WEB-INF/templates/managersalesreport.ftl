@@ -26,7 +26,7 @@
 		        <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewinventory">View Inventory Report</a></li>
                 <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewsales">View End of Day Sales Report</a></li>
                 <li><a class="adminMenu" href="ManagerServlet?ManagerAction=viewpublisher">View Publisher Report</a></li>  
-                <li><a class="adminMenu" href = "index.html">Logout</a></li>
+                <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
 		    </ul>
 		</div>
 		<table style="width:70%" align="center">

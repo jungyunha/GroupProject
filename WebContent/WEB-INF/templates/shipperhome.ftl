@@ -26,7 +26,7 @@
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
                     <li><a class="adminMenu" href="ShipperServlet?ShipperAction=updateorder">Update Order Status</a></li>
-                    <li><a class="adminMenu" href = "index.html">Logout</a></li>
+                    <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
                 </ul>
             </div>
             <div>

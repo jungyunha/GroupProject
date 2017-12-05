@@ -23,11 +23,11 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="registration.html">Register</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>     
+                    <li><a href="HomeServlet?action=home">Home</a></li>
+                    <li><a href="HomeServlet?mycart=yes">My Cart</a></li>
+                    <li><a href="#">Order History</a></li>
+                    <li><a href="HomeServlet?gotoEditProfile=42">Edit Profile</a></li>
+                    <li><a href="HomeServlet?action=logout">Log Out</a></li>     
                 </ul>
             </div>
             <div align="center">

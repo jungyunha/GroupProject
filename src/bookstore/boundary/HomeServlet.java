@@ -118,8 +118,34 @@ public class HomeServlet extends HttpServlet {
 		if (request.getParameter("gotoEditPassword") != null) {
 			gotoEditPassword(request, response);
 		}
+		if (request.getParameter("action") != null) {
+			routeToPage(request, response);
+		}
 	}
 	
+	private void routeToPage(HttpServletRequest request, HttpServletResponse response) {
+		String action = request.getParameter("action");
+		String templateName;
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		if (action != null) {
+			if (action.equals("home")) {
+				templateName = "logged_in.ftl";
+				root.put("first", currentUser.getFirstName());
+				root.put("last", currentUser.getLastName());
+				root.put("message", "Welcome back home.");
+				processor.runTemp(templateName, root, request, response);
+			}
+			if (action.equals("logout")) {
+				currentUser = null;
+				currentCart = null;
+				templateName = "login.ftl";
+				root.put("error", "You have been successfully logged out.");
+				processor.runTemp(templateName, root, request, response);
+			}
+		}
+	}
+
 	private void gotoEditPassword(HttpServletRequest request, HttpServletResponse response) {
 		String templateName = "editPassword.ftl";
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);

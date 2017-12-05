@@ -41,10 +41,11 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
-                    <li><a href="#">My Account</a></li>
-                    <li><a href="#">My Cart</a></li>
+                    <li><a href="HomeServlet?action=home">Home</a></li>
+                    <li><a href="HomeServlet?mycart=yes">My Cart</a></li>
                     <li><a href="#">Order History</a></li>
-                    <li><a href="login.html">Log Out</a></li>
+                    <li><a href="HomeServlet?gotoEditProfile=42">Edit Profile</a></li>
+                    <li><a href="HomeServlet?action=logout">Log Out</a></li>
                 </ul>
             </div>
             <div>
