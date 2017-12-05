@@ -117,5 +117,9 @@ public class UserLogic {
 		return UserPersist.getOrderHistory(id);
 	}
 
+	public static List<Transaction> getTotalSales() {
+		return UserPersist.getTotalSales();
+	}
+
 
 }

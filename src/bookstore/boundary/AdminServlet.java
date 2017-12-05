@@ -90,19 +90,12 @@ public class AdminServlet extends HttpServlet {
 			}else if (action.equals("manageuser")) {
 				templateName = "manageusers.ftl";
 				processor.runTemp(templateName, root, request, response);
-			}else if (action.equals("managesupplier")) {
-				templateName = "managesupplier.ftl";
-				processor.runTemp(templateName, root, request, response);
-			}else if (action.equals("manageshipper")) {
-				//templateName = "adminaddbook.ftl";
-				//processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("viewsales")) {
 				getCurrentDaySales(request, response);
 			}else if (action.equals("viewinventory")) {
 				viewInventory(request, response);
-			}else if (action.equals("viewpublisher")) {
-				templateName = "publisherreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+			}else if (action.equals("viewallsales")) {
+				viewTotalSales(request, response);
 			}else if (action.equals("adminhome")) {
 				templateName = "adminhome.ftl";
 				root.put("hello", "Welcome back to the Administrator Home Page. ");
@@ -131,29 +124,38 @@ public class AdminServlet extends HttpServlet {
 			manageUser(request, response);
 		}
 	}
-		private void manageUser(HttpServletRequest request, HttpServletResponse response){
-			int id = Integer.parseInt(request.getParameter("userid"));
-			String fname = request.getParameter("fname");
-			String lname = request.getParameter("lname");
-			String email = request.getParameter("email");
-			String phone = request.getParameter("phone");
-			String password = request.getParameter("password");
-			String shipaddress = request.getParameter("shipaddress");
-			String billaddress = request.getParameter("billaddress");
-			User newUser = new User();
-			newUser.setFirstName(fname);
-			newUser.setLastName(lname);
-			newUser.setEmail(email);
-			newUser.setPhoneNumber(phone);
-			newUser.setPassword(password);
-			newUser.setBillingAddress(billaddress);
-			newUser.setShippingAddress(shipaddress);
-			UserLogic.manageUser(id, fname, lname, email, phone, password, shipaddress, billaddress);
-			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-			SimpleHash root = new SimpleHash(db.build());
-			String templateName = "adminhome.ftl";
-			root.put("hello","Updated user successfully!");
-			processor.runTemp(templateName, root, request, response);
+	private void viewTotalSales(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "totalsales.ftl";
+		List<Transaction> allTransactions = UserLogic.getTotalSales();
+		root.put("transactions", allTransactions);
+		processor.runTemp(templateName, root, request, response);
+	}
+
+	private void manageUser(HttpServletRequest request, HttpServletResponse response){
+		int id = Integer.parseInt(request.getParameter("userid"));
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		String shipaddress = request.getParameter("shipaddress");
+		String billaddress = request.getParameter("billaddress");
+		User newUser = new User();
+		newUser.setFirstName(fname);
+		newUser.setLastName(lname);
+		newUser.setEmail(email);
+		newUser.setPhoneNumber(phone);
+		newUser.setPassword(password);
+		newUser.setBillingAddress(billaddress);
+		newUser.setShippingAddress(shipaddress);
+		UserLogic.manageUser(id, fname, lname, email, phone, password, shipaddress, billaddress);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "adminhome.ftl";
+		root.put("hello","Updated user successfully!");
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void getCurrentDaySales(HttpServletRequest request, HttpServletResponse response) {

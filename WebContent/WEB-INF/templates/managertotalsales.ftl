@@ -4,11 +4,11 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="scripts/script.js"></script>
-<title>Manager Sales Report</title>
+<title>Manager Publisher Report</title>
 </head>
 <body>
 	<div class = "main">
-		<h1>End of Day Sales</h1>
+		<h1>Total Sales Report</h1>
 		<div>
 		    <table>
 		        <tr>
@@ -32,13 +32,17 @@
 		</div>
 		<table style="width:70%;color:black;" align="center">
 			<tr>
-				<th>Transaction ID</th> 
+				<th>Transaction ID</th>
+				<th>Date/Time</th>
 				<th>Total Amount Paid</th>
+				<th>Order Status</th>
 			</tr>
 			<#list transactions as transaction>
 			<tr>
 				<td align="center">${transaction.transactionID}</td>
+				<td align="center">${transaction.date}</td>
 				<td align="center">$${transaction.totalAmountPaid}</td>
+				<td align="center">${transaction.status}</td>
 			</tr>
 			</#list>
 		</table>

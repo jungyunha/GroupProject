@@ -1060,4 +1060,47 @@ public class UserPersist {
 		}
 	}
 
+	public static List<Transaction> getTotalSales() {
+		List<Transaction> searchResults = new ArrayList<Transaction>();
+		boolean isEmpty = true;
+		String sql = "SELECT DISTINCT tid, date, totalamountpaid, orderstatus FROM bookstore.transactions";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Transaction temp = new Transaction();
+				temp.transactionID = rs.getInt(1);
+				temp.date = rs.getString(2);
+				temp.totalAmountPaid = rs.getDouble(3);
+				temp.status = rs.getString(4);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
+	}
+
 }

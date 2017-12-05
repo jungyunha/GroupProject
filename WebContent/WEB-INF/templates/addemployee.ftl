@@ -26,19 +26,16 @@
                     </li>
                     <li><a class="adminMenu" href="AdminServlet?action=adminhome">Home</a></li>
                     <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
-	                     <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=deletebook">DeleteBook</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=managesupplier">Manage Suppliers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=manageshipper">Manage Shippers</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
-	                    <li><a class="adminMenu" href="AdminServlet?action=viewpublisher">View Publisher Report</a></li>  
-	                    <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li>   
+                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=deletebook">Delete Book</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=addemployee">Add Employees</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=suspendacct">Suspend Account</a></li>  
+                    <li><a class="adminMenu" href="AdminServlet?action=manageuser">Manage Users</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
+                    <li><a class="adminMenu" href="AdminServlet?action=viewallsales">View Total Sales Report</a></li>  
+                    <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li>
                 </ul>
             </div>
             <div align="center">

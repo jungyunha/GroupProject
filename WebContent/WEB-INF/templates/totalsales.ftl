@@ -4,11 +4,11 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="scripts/script.js"></script>
-<title>Admin Sales Report</title>
+<title>Admin Publisher Report</title>
 </head>
 <body>
 	<div class = "main">
-		<h1>End of Day Sales</h1>
+		<h1>Total Sales</h1>
 		<div>
 		    <table>
 		        <tr>
@@ -34,18 +34,22 @@
                 <li><a class="adminMenu" href="AdminServlet?action=viewsales">View End of Day Sales Reports</a></li>
                 <li><a class="adminMenu" href="AdminServlet?action=viewinventory">View Inventory Report</a></li>
                 <li><a class="adminMenu" href="AdminServlet?action=viewallsales">View Total Sales Report</a></li>  
-                <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
+                <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li>
 		    </ul>
 		</div>
 		<table style="width:70%;color:black;" align="center">
 			<tr>
-				<th>Transaction ID</th> 
+				<th>Transaction ID</th>
+				<th>Date/Time</th>
 				<th>Total Amount Paid</th>
+				<th>Order Status</th>
 			</tr>
 			<#list transactions as transaction>
 			<tr>
 				<td align="center">${transaction.transactionID}</td>
+				<td align="center">${transaction.date}</td>
 				<td align="center">$${transaction.totalAmountPaid}</td>
+				<td align="center">${transaction.status}</td>
 			</tr>
 			</#list>
 		</table>

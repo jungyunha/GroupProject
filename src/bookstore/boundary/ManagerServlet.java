@@ -68,15 +68,23 @@ public class ManagerServlet extends HttpServlet {
 				viewManagerInventory(request, response);
 			} else if (managerAction.equals("viewsales")) {
 				viewManagerCurrentDaySales(request, response);
-			} else if (managerAction.equals("viewpublisher")) {
-				templateName = "managerpublisherreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+			} else if (managerAction.equals("totalsales")) {
+				viewManagerTotalSales(request, response);
 			} else if (managerAction.equals("managerhome")) {
 				templateName = "managerhome.ftl";
 				root.put("hello", "Welcome back to the Manager Home Page.");
 				processor.runTemp(templateName, root, request, response);
 			}
 		}
+	}
+
+	private void viewManagerTotalSales(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "managertotalsales.ftl";
+		List<Transaction> allTransactions = UserLogic.getTotalSales();
+		root.put("transactions", allTransactions);
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void viewManagerCurrentDaySales(HttpServletRequest request, HttpServletResponse response) {
