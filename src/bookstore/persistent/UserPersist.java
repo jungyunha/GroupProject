@@ -678,10 +678,10 @@ public class UserPersist {
 		}
 	}
 
-	public static Vector<Pair<Long,Integer>> getCart(int id) {
-		Vector<Pair<Long,Integer>> results = new Vector<Pair<Long,Integer>>();
+	public static Vector<Long> getCart(int id) {
+		Vector<Long> results = new Vector<Long>();
 		//boolean isEmpty = true;
-		String sql = "SELECT quantity, isbn FROM bookstore.shoppingcart WHERE userid = ?";
+		String sql = "SELECT isbn FROM bookstore.shoppingcart WHERE userid = ?";
 		PreparedStatement stmt1;
 		
 		try {
@@ -702,9 +702,8 @@ public class UserPersist {
 			ResultSet rs = stmt1.getResultSet();
 			while (rs.next()) {
 				//isEmpty = false;
-				int q = rs.getInt(1);
-				long isbn = rs.getInt(2);
-				results.add(new Pair<Long, Integer>(isbn,q));
+				long isbn = rs.getInt(1);
+				results.add(isbn);
 			}
 			
 		}

@@ -76,6 +76,7 @@ public class HomeServlet extends HttpServlet {
 		}
 		if (request.getParameter("login") != null) {
 			login(request, response);
+			System.out.println("aaaa");
 		}
 		if (request.getParameter("forgotpassword") != null) {
 			forgotPassword(request, response);
@@ -360,11 +361,12 @@ public class HomeServlet extends HttpServlet {
 			root.put("error", "Please login in order to view your shopping cart.");
 			processor.runTemp(templateName, root, request, response);
 		} else {
-			Vector<Pair<Long,Integer>> cart = UserLogic.getCart(currentUser.getId());
+			//Vector<Pair<Long,Integer>> cart = UserLogic.getCart(currentUser.getId());
 			List<CartItem> books = new ArrayList<CartItem>();
-			for (Pair<Long,Integer> p : cart) {
-				Book b = UserLogic.getBookByISBN(p.getKey());
-				CartItem c = new CartItem(b,p.getValue());
+			Vector<Long> isbns = UserLogic.getCart(currentUser.getId());
+			for (Long p : isbns) {
+				Book b = UserLogic.getBookByISBN(p);
+				CartItem c = new CartItem(b,1);
 				books.add(c);
 			}
 			double subtotal = 0;

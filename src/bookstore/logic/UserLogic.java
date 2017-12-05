@@ -50,7 +50,7 @@ public class UserLogic {
 		return UserPersist.getSubscribedUsers();
 	}
 
-	public static Vector<Pair<Long,Integer>> getCart(int id) {
+	public static Vector<Long> getCart(int id) {
 		return UserPersist.getCart(id);
 	}
 
