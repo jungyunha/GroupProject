@@ -106,5 +106,9 @@ public class UserLogic {
 		return UserPersist.getBookQuantities();
 	}
 
+	public static List<Transaction> getCurrentDaySales(String today, String tomorrow) {
+		return UserPersist.getCurrentDaySales(today, tomorrow);
+	}
+
 
 }

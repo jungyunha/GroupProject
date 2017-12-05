@@ -1,6 +1,10 @@
 package bookstore.boundary;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.Book;
+import bookstore.object.Transaction;
 import bookstore.object.User;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -62,8 +67,7 @@ public class ManagerServlet extends HttpServlet {
 			if (managerAction.equals("viewinventory")) {
 				viewManagerInventory(request, response);
 			} else if (managerAction.equals("viewsales")) {
-				templateName = "managersalesreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+				viewManagerCurrentDaySales(request, response);
 			} else if (managerAction.equals("viewpublisher")) {
 				templateName = "managerpublisherreport.ftl";
 				processor.runTemp(templateName, root, request, response);
@@ -73,6 +77,24 @@ public class ManagerServlet extends HttpServlet {
 				processor.runTemp(templateName, root, request, response);
 			}
 		}
+	}
+
+	private void viewManagerCurrentDaySales(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "managersalesreport.ftl";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date d1 = new Date();
+		Date d2 = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(d2); 
+		c.add(Calendar.DATE, 1);
+		d2 = c.getTime();
+		String today = dateFormat.format(d1);
+		String tomorrow = dateFormat.format(d2);
+		List<Transaction> transactions = UserLogic.getCurrentDaySales(today, tomorrow);
+		root.put("transactions",  transactions);
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void viewManagerInventory(HttpServletRequest request, HttpServletResponse response) {

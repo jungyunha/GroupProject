@@ -2,6 +2,10 @@ package bookstore.boundary;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bookstore.logic.UserLogic;
 import bookstore.object.Book;
+import bookstore.object.Transaction;
 import bookstore.object.User;
 import bookstore.object.UserStatus;
 import bookstore.object.UserType;
@@ -91,8 +96,7 @@ public class AdminServlet extends HttpServlet {
 				//templateName = "adminaddbook.ftl";
 				//processor.runTemp(templateName, root, request, response);
 			}else if (action.equals("viewsales")) {
-				templateName = "salesreport.ftl";
-				processor.runTemp(templateName, root, request, response);
+				getCurrentDaySales(request, response);
 			}else if (action.equals("viewinventory")) {
 				viewInventory(request, response);
 			}else if (action.equals("viewpublisher")) {
@@ -122,6 +126,24 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("suspendacct") != null){
 			suspendAccount(request, response);
 		}
+	}
+
+	private void getCurrentDaySales(HttpServletRequest request, HttpServletResponse response) {
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		String templateName = "salesreport.ftl";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date d1 = new Date();
+		Date d2 = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(d2); 
+		c.add(Calendar.DATE, 1);
+		d2 = c.getTime();
+		String today = dateFormat.format(d1);
+		String tomorrow = dateFormat.format(d2);
+		List<Transaction> transactions = UserLogic.getCurrentDaySales(today, tomorrow);
+		root.put("transactions",  transactions);
+		processor.runTemp(templateName, root, request, response);
 	}
 
 	private void viewInventory(HttpServletRequest request, HttpServletResponse response) {

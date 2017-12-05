@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 import bookstore.object.Book;
 import bookstore.object.Cart;
 import bookstore.object.CartItem;
+import bookstore.object.Transaction;
 import bookstore.object.User;
 import bookstore.logic.*;
 import bookstore.object.UserStatus;
@@ -931,6 +932,47 @@ public class UserPersist {
 				Book temp = new Book();
 				temp.title = rs.getString(1);
 				temp.quantity = rs.getInt(2);
+				searchResults.add(temp);
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (isEmpty) {
+			return null;
+		}else {
+			return searchResults;
+		}
+	}
+
+	public static List<Transaction> getCurrentDaySales(String today, String tomorrow) {
+		List<Transaction> searchResults = new ArrayList<Transaction>();
+		boolean isEmpty = true;
+		String sql = "SELECT DISTINCT tid, totalamountpaid FROM bookstore.transactions WHERE date > ? AND date < ?";
+		PreparedStatement stmt1;
+		
+		try {
+			if(conn == null || conn.isClosed())
+			{
+				try {
+					conn = DbUtils.connect();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			stmt1 = (PreparedStatement) conn.prepareStatement(sql);
+			stmt1.setString(1, today);
+			stmt1.setString(2, tomorrow);
+
+			stmt1.executeQuery();
+			
+			ResultSet rs = stmt1.getResultSet();
+			while (rs.next()) {
+				isEmpty = false;
+				Transaction temp = new Transaction(rs.getInt(1), rs.getDouble(2));
 				searchResults.add(temp);
 			}
 			
