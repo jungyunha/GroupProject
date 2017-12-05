@@ -24,6 +24,7 @@
                     <li style="float:right">
                         <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
                     </li>
+                    <li><a class="adminMenu" href="ShipperServlet?ShipperAction=shipperhome">Home</a></li>
                     <li><a class="adminMenu" href="ShipperServlet?ShipperAction=updateorder">Update Order Status</a></li>
                     <li><a class="adminMenu" href="HomeServlet?action=logout">Log Out</a></li> 
                 </ul>

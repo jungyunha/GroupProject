@@ -24,6 +24,7 @@
 	                    <li style="float:right">
 	                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
 	                    </li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=adminhome">Home</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=deletebook">DeleteBook</a></li>
@@ -59,7 +60,7 @@
                     <span class="dot" name="dots"></span> 
                 </div>
             </div>
-            <h3> ${hello} </h3>
+            <center><h3> ${hello} </h3></center>
             <div>
                 <img class = "stars" src = "images/five-stars.png">
                 <p class = "HomeReview-text">I've always had good service from The Online Bookstore...I use it to buy most of my books.</p>

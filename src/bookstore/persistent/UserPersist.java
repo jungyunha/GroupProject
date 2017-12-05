@@ -276,7 +276,7 @@ public class UserPersist {
 		}
 		
 		if (notEmail) {
-			String sql2 = "SELECT email, firstname, lastname, usertype, status FROM bookstore.users WHERE userid = ? AND password = ?";
+			String sql2 = "SELECT email, firstname, lastname, usertype, status, shippingaddress, phonenumber FROM bookstore.users WHERE userid = ? AND password = ?";
 			try {
 				stmt = (PreparedStatement) conn.prepareStatement(sql2);
 				stmt.setString(1, username);
@@ -297,7 +297,6 @@ public class UserPersist {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		return user;
 	}

@@ -61,6 +61,10 @@ public class ShipperServlet extends HttpServlet {
 			if (shipperAction.equals("updateorder")) {
 				templateName = "updateorderstatus.ftl";
 				processor.runTemp(templateName, root, request, response);
+			} else if (shipperAction.equals("shipperhome")) {
+				templateName = "shipperhome.ftl";
+				root.put("hello", "Welcome back to the Shipper Home Page.");
+				processor.runTemp(templateName, root, request, response);
 			}
 		}
 		if (request.getParameter("updateStatus") != null) {

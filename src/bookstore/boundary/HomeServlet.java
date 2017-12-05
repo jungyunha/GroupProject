@@ -367,7 +367,16 @@ public class HomeServlet extends HttpServlet {
 
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("addtocart");
-		UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn));
+		if (isbn != null) {
+			UserLogic.addToCart(currentUser.getId(), 1, Integer.parseInt(isbn));
+			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+			SimpleHash root = new SimpleHash(db.build());
+			String templateName = "logged_in.ftl";
+			root.put("first", currentUser.getFirstName());
+			root.put("last", currentUser.getLastName());
+			root.put("message", "Item has been added to cart!"); 
+			processor.runTemp(templateName, root, request, response);
+		}
 	}
 
 	private void searchBook(HttpServletRequest request, HttpServletResponse response) {
@@ -463,17 +472,17 @@ public class HomeServlet extends HttpServlet {
 					break;
 				case Admin:
 					templateName = "adminhome.ftl";
-					root.put("hello", "Hi there " + user.getFirstName());
+					root.put("hello", "Hi there " + user.getFirstName() + "! Welcome to the Administrator Home Page.");
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case Manager:
 					templateName = "managerhome.ftl";
-					root.put("hello", "Hi there " + user.getFirstName());
+					root.put("hello", "Hi there " + user.getFirstName() + "! Welcome to the Manager Home Page.");
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case ShipmentEmployee:
 					templateName = "shipperhome.ftl";
-					root.put("hello", "Hi there " + user.getFirstName());
+					root.put("hello", "Hi there " + user.getFirstName() + "! Welcome to the Shipper Home Page.");
 					processor.runTemp(templateName, root, request, response);
 					break;
 				case None:

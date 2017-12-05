@@ -65,6 +65,10 @@ public class ManagerServlet extends HttpServlet {
 			} else if (managerAction.equals("viewpublisher")) {
 				templateName = "managerpublisherreport.ftl";
 				processor.runTemp(templateName, root, request, response);
+			} else if (managerAction.equals("managerhome")) {
+				templateName = "managerhome.ftl";
+				root.put("hello", "Welcome back to the Manager Home Page.");
+				processor.runTemp(templateName, root, request, response);
 			}
 		}
 	}

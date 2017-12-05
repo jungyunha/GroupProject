@@ -25,7 +25,8 @@
 	                    <li style="float:right">
 	                        <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
 	                    </li>
-	                   <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=adminhome">Home</a></li>
+	                    <li><a class="adminMenu" href="AdminServlet?action=addbook">Add books</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=updatebook">Update books</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=deletebook">DeleteBook</a></li>
 	                    <li><a class="adminMenu" href="AdminServlet?action=createpromo">Create Promotion</a></li>

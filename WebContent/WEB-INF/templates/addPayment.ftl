@@ -15,6 +15,19 @@
                     <tr>
                         <td align="left">
                             <span class="menu_icon" onclick="openNav()">&#9776; Menu</span>
+                        </td>
+                        <td class="search" align='center'>
+                            <form action="HomeServlet" method="post">
+                            Search: <input style="height:18px;width:200px" type="text" name="searchValue"/> by 
+                            <select style="height:18px" name="searchType">
+                            	<option value="title">Title</option>
+                                <option value="subject">Subject</option>
+                                <option value="author">Author</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                            <input type="submit" value="Search" name="searchBook" style="width:100px" />
+                        </form>
+                        </td>
                     </tr>
                 </table>
             </div>
