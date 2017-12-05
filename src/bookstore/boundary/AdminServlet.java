@@ -115,25 +115,8 @@ public class AdminServlet extends HttpServlet {
 		if(request.getParameter("deletebook") != null){
 			deleteBook(request, response);
 		}
-		if(request.getParameter("manageusers") !=null){
-			manageUser(request, response);
-		}
 	}
-	
-	private void manageUser(HttpServletRequest request, HttpServletResponse response){
-		String email = request.getParameter("email");
-		User user = new User();
-		user.setEmail(email);
-		UserLogic.viewUser(user);
-		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-		SimpleHash root = new SimpleHash(db.build());
-		String templateName = "manageusers2.ftl";
-		List<User> listofUsers = UserLogic.viewUser(user);
-		root.put("hello","Searched successfully!");
-		root.put("users", listofUsers);
-		processor.runTemp(templateName, root, request, response);
-	}
-	
+
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response){
 		long iSBN = Long.parseLong(request.getParameter("iSBN"));
 		UserLogic.deleteBook(iSBN);

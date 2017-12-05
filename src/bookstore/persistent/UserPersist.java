@@ -20,45 +20,7 @@ import javafx.util.Pair;
 public class UserPersist {
 	
 
-	private static Connection conn = null;
-	
-	public static List<User> viewUser(User user) {
-		List<User> results = new ArrayList<User>();
-		boolean isEmpty = true;
-		String insertSql = "SELECT * FROM bookstore.users where email = ?";
-		PreparedStatement stmt1;
-		try {
-			if(conn == null || conn.isClosed())
-			{
-				try {
-					conn = DbUtils.connect();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
-		stmt1.setString(1, user.getEmail());
-		stmt1.executeUpdate();	
-		ResultSet rs = stmt1.getResultSet();
-		while (rs.next()) {
-			isEmpty = false;
-			User temp = new User();
-			temp.setEmail(rs.getString(1));
-			results.add(temp);
-		}
-		
-	}
-	catch (SQLException e) {
-		e.printStackTrace();
-	}
-	if (isEmpty) {
-		return null;
-	}else {
-		return results;
-	}
-}
-		
+	private static Connection conn = null;	
 		
 	public static void updateUser(User user){
 		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
