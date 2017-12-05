@@ -57,6 +57,8 @@
                 </ul>
 </div>
 
+<#if results>
+
 <#list books as book>
 <figure class="searchbook">
   <img class = "images"  src="${book.coverphoto}" style="width:300px;height:400px;"/>
@@ -73,6 +75,10 @@
   </figcaption>
 </figure>
 </#list>
+
+<#else>
+<h3> No books match the entered criteria. </h3>
+</#if>
 
 
 </div>

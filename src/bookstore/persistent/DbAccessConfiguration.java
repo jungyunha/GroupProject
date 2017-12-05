@@ -13,5 +13,4 @@ public abstract class DbAccessConfiguration {
 	
 	static final String DB_CONNECTION_PASSWORD = "mario55"; //your password
 
-
 }

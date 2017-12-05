@@ -430,18 +430,38 @@ public class HomeServlet extends HttpServlet {
 			String templateName = "searchresults.ftl";
 			if (type.equals("title")) {
 				List<Book> listOfBooks = UserLogic.getBooksByTitle(value);
+				if (listOfBooks == null) {
+					root.put("results", false);
+				}else {
+					root.put("results",  true);
+				}
 				root.put("books", listOfBooks);
 				processor.runTemp(templateName, root, request, response);
 			}else if (type.equals("subject")) {
 				List<Book> listOfBooks = UserLogic.getBooksBySubject(value);
+				if (listOfBooks == null) {
+					root.put("results", false);
+				}else {
+					root.put("results",  true);
+				}
 				root.put("books", listOfBooks);
 				processor.runTemp(templateName, root, request, response);
 			}else if (type.equals("author")) {
 				List<Book> listOfBooks = UserLogic.getBooksByAuthor(value);
+				if (listOfBooks == null) {
+					root.put("results", false);
+				}else {
+					root.put("results",  true);
+				}
 				root.put("books", listOfBooks);
 				processor.runTemp(templateName, root, request, response);
 			}else if (type.equals("isbn")) {
 				List<Book> listOfBooks = UserLogic.getBooksByISBN(value);
+				if (listOfBooks == null) {
+					root.put("results", false);
+				}else {
+					root.put("results",  true);
+				}
 				root.put("books", listOfBooks);
 				processor.runTemp(templateName, root, request, response);
 			}
