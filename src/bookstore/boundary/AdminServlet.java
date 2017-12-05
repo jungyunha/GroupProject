@@ -116,7 +116,7 @@ public class AdminServlet extends HttpServlet {
 			deleteBook(request, response);
 		}
 	}
-	
+
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response){
 		long iSBN = Long.parseLong(request.getParameter("iSBN"));
 		UserLogic.deleteBook(iSBN);

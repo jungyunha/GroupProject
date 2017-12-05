@@ -20,7 +20,8 @@ import javafx.util.Pair;
 public class UserPersist {
 	
 
-	private static Connection conn = null;
+	private static Connection conn = null;	
+		
 	public static void updateUser(User user){
 		String insertSql = "UPDATE bookstore.users SET firstname = ?, lastname = ?, phonenumber = ?, email = ?, shippingaddress = ?, billingaddress = ? WHERE userid = ?";
 		PreparedStatement stmt1;
